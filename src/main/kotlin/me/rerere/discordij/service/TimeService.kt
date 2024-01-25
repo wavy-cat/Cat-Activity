@@ -100,8 +100,8 @@ class TimeService : Disposable {
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
                 }
-                val branchName = repo?.currentBranch?.name ?: "--"
-                val repoName = repo?.presentableUrl ?: "--"
+                val branchName = repo?.currentBranch?.name ?: "no branch"
+                val repoName = repo?.presentableUrl ?: "unknown repo"
 
                 if (editingFile != null && configState.displayMode == DisplayMode.FILE) {
                     val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0

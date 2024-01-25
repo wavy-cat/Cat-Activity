@@ -6,8 +6,8 @@ data class SettingState(
     var projectStateFormat: String = "Working on Project: %projectName%",
     var projectDetailFormat: String = "%projectProblems% Problems in Project",
 
-    var fileStateFormat: String = "Editing file: %fileName%",
-    var fileDetailFormat: String = "%projectName%[%branch%] - %fileProblems% Problems",
+    var fileStateFormat: String = "Editing %fileName%",
+    var fileDetailFormat: String = "%projectName% (%branch%)",
 )
 
 enum class DisplayMode {
