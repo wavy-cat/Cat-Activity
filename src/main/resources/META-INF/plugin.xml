@@ -5,27 +5,23 @@
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>DiscordIJ</name>
+    <name>Wave Discord</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="re_dev@qq.com" url="https://github.com/re-ovo">RE-OVO</vendor>
+    <vendor email="unknown@wavycat.ru" url="https://github.com/wavy-cat">WavyCat</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        A plugin for the IntelliJ IDEA IDE that adds Discord Rich Presence support.
+        Plugin for Jetbrains IDE to show your activity in your Discord profile.
         <br/>
         <b>
-            Settings can be found in <i>Settings > Tools > DiscordIJ</i>
+            The settings are in <i>Settings > Tools > Wave Discord</i>
         </b>
   ]]></description>
 
-    <change-notes><![CDATA[
-        <ul>
-          <li>Add %branch% and %repository% placeholders</li>
-        </ul>
-    ]]>
+    <change-notes>Added Catppuccin icons.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
@@ -42,7 +38,7 @@
 
         <projectConfigurable
                 id="me.rerere.discordij.setting.DiscordIJConfigurableProject"
-                displayName="Discord-IJ"
+                displayName="Wave Discord"
                 instance="me.rerere.discordij.setting.DiscordIJConfigurable"
                 parentId="tools"
         />

@@ -1,1 +1,1 @@
-rootProject.name = "discord-ij"
+rootProject.name = "wave-discord"

@@ -1,43 +1,35 @@
-<img src="src/main/resources/META-INF/pluginIcon.svg" width="64" height="64" alt="logo"/>
+# Wave Discord
 
-# DiscordIJ
-![Stars](https://img.shields.io/github/stars/re-ovo/discord-ij?style=flat-square)
-![License](https://img.shields.io/github/license/re-ovo/discord-ij?style=flat-square)
-![Issues](https://img.shields.io/github/issues/re-ovo/discord-ij?style=flat-square)
-![Contributors](https://img.shields.io/github/contributors/re-ovo/discord-ij?style=flat-square)
-![Commits](https://img.shields.io/github/commit-activity/m/re-ovo/discord-ij?style=flat-square)   
-A plugin for the IntelliJ IDEA IDE that adds Discord Rich Presence support.
+Plugin for Jetbrains IDE to show your activity in your Discord profile.
+
+> [!NOTE]
+> This is a fork of [re-ovo/discord-ij](https://github.com/re-ovo/discord-ij) repository with added icons from [Catppuccin icons](https://github.com/catppuccin/vscode-icons).
 
 ## Installation
-You can install the plugin from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/21240-discordij).
+Coming soon.
 
 ## Report a bug
-If you find a bug, please report it to the issue tracker.
+Send any bugs you find to the [Issue](https://github.com/wavy-cat/wave-discord/issues) page.
 
-## IDE ICONS
+## Supported IDE
 * IntelliJ IDEA (Ultimate, Community)
 * PyCharm (Professional, Community)
 * WebStorm
-* CLION
-* GOLAND
-* RIDER
-* PHPSTORM
-* ANDROID STUDIO
+* CLion
+* GoLand
+* Rider
+* PhpStorm
+* Android Studio by Google
+
 > If the IDE is not listed above, the fallback icon will be used.
 
-## File ICONS
-* Java
-* Kotlin
-* Rust
-* Python
-* JavaScript
-* TypeScript
-> If the file type is not listed above, the fallback icon will be used.
+It is planned to support:
 
-## Add icons support for an IDE/File?
-If you want to add icons support for an IDE/File, please submit a pull request.
-You need to provide a png file with 512x512 resolution and the name of the IDE/File.
-Also, for the file icon, unless it is a source file of a popular language, there is no need to add an icon separately, and it is enough to use the fallback icon
+* RubyMine
+* RustRover
+* CLion Nova
 
-## License
-This project is licensed under the MIT License
+## How to request adding an icon?
+Create an Issue and write in it the name of the language, framework or technology you want to see, specify its name in the [Catppuccin icons](https://github.com/catppuccin/vscode-icons), and list any file extensions that are used.
+
+Images from another icon set are reject yet.
