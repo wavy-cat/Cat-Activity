@@ -6,7 +6,7 @@ enum class FileType(
     val typeName: String, // can be got from VirtualFile.getFileType().getName()
     val icon: String
 ) {
-    JAVA("JAVA", "java"),
+    JAVA("Java", "java"),
     KOTLIN("Kotlin", "kotlin"),
     RUST("Rust", "rust"),
     PYTHON("Python", "python"),
@@ -18,6 +18,16 @@ enum class FileType(
     VUE("Vue", "vue"),
     PHP("PHP", "php"),
     GOLANG("Go", "golang"),
+    RUBY("Ruby", "ruby"),
+    SWIFT("Swift", "swift"),
+    HTML("HTML", "html"),
+    CSS("CSS", "css"),
+    JSON("JSON", "json"),
+    XML("XML", "xml"),
+    YAML("YAML", "yaml"),
+    MARKDOWN("Markdown", "markdown"),
+    GIT("Git", "git"),
+    SVELTE("Svelte", "svelte"),
     FILE("*", "file"), // FALLBACK
 }
 
@@ -30,11 +40,21 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
     "TypeScript" -> FileType.TYPESCRIPT
     else -> when (extension) {
         "c", "h" -> FileType.C
-        "cpp", "hpp" -> FileType.CPP
+        "cpp", "hpp", "cxx", "hxx", "cc", "hh" -> FileType.CPP
         "vue" -> FileType.VUE
         "cs" -> FileType.CSHARP
-        "php" -> FileType.PHP
+        "php", "phtml", "php3", "php4", "php5", "phps" -> FileType.PHP
         "go" -> FileType.GOLANG
+        "swift" -> FileType.SWIFT
+        "html", "htm" -> FileType.HTML
+        "css", "sass", "scss" -> FileType.CSS
+        "json" -> FileType.JSON
+        "xml", "xsd", "xsl", "xslt" -> FileType.XML
+        "yaml", "yml" -> FileType.YAML
+        "md", "markdown" -> FileType.MARKDOWN
+        "gitignore", "gitconfig" -> FileType.GIT
+        "svelte" -> FileType.SVELTE
+        "rb" -> FileType.RUBY
         else -> FileType.FILE.also {
             DiscordIJ.logger.warn("Unknown file type: $name ($extension)")
         }

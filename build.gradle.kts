@@ -40,15 +40,15 @@ tasks {
         untilBuild.set("233.*")
     }
 
-    signPlugin {
-        certificateChain.set(file("token/chain.crt").readText())
-        privateKey.set(file("token/private.pem").readText())
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-    }
-
-    publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
-    }
+//    signPlugin {
+//        certificateChain.set(file("token/chain.crt").readText())
+//        privateKey.set(file("token/private.pem").readText())
+//        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+//    }
+//
+//    publishPlugin {
+//        token.set(System.getenv("PUBLISH_TOKEN"))
+//    }
 
     runIde {
 //        ideDir.set(file(
