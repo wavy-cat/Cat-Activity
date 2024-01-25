@@ -16,18 +16,15 @@ Send any bugs you find to the [Issue](https://github.com/wavy-cat/wave-discord/i
 * PyCharm (Professional, Community)
 * WebStorm
 * CLion
+* CLion Nova
 * GoLand
 * Rider
 * PhpStorm
+* RubyMine
+* RustRover
 * Android Studio by Google
 
 > If the IDE is not listed above, the fallback icon will be used.
-
-It is planned to support:
-
-* RubyMine
-* RustRover
-* CLion Nova
 
 ## How to request adding an icon?
 Create an Issue and write in it the name of the language, framework or technology you want to see, specify its name in the [Catppuccin icons](https://github.com/catppuccin/vscode-icons), and list any file extensions that are used.

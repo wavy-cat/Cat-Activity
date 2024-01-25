@@ -12,11 +12,13 @@ enum class IDEType(
     WEBSTORM("WebStorm", "webstorm"),
     PYCHARM("PyCharm", "pycharm"),
     CLION("CLion", "clion"),
+    CLION_NOVA("CLion Nova", "clion"),
     GOLAND("GoLand", "goland"),
     RIDER("Rider", "rider"),
     PHPSTORM("PhpStorm", "phpstorm"),
     ANDROID_STUDIO("Android Studio", "android_studio"),
     RUSTROVER("RustRover", "rustrover"),
+    RUBYMINE("RubyMine", "rubymine"),
     JETBRAINS("JetBrains", "jetbrains"), // FALLBACK
 }
 
@@ -34,10 +36,13 @@ enum class IDEType(
  * RM - RubyMine
  * OC - AppCode
  * CL - CLion
+ * CN - CLion Nova
  * GO - GoLand
  * DB - DataGrip
  * RD - Rider
  * AI - Android Studio
+ * RR - RustRover
+ * RM - RubyMine
  */
 val currentIDEType by lazy {
     val info = ApplicationInfoEx.getInstanceEx()
@@ -47,11 +52,13 @@ val currentIDEType by lazy {
         "WS" -> IDEType.WEBSTORM
         "PC", "PY" -> IDEType.PYCHARM
         "CL" -> IDEType.CLION
+        "CN" -> IDEType.CLION_NOVA
         "GO" -> IDEType.GOLAND
         "RD" -> IDEType.RIDER
         "PS" -> IDEType.PHPSTORM
         "AI" -> IDEType.ANDROID_STUDIO
         "RR" -> IDEType.RUSTROVER
+        "RM" -> IDEType.RUBYMINE
         else -> IDEType.JETBRAINS.also {
             DiscordIJ.logger.warn("Unknown IDE type: ${info.build.productCode}")
         }
