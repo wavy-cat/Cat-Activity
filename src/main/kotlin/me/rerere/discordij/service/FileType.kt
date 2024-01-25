@@ -28,7 +28,7 @@ enum class FileType(
     MARKDOWN("Markdown", "markdown"),
     GIT("Git", "git"),
     SVELTE("Svelte", "svelte"),
-    FILE("*", "file"), // FALLBACK
+    FILE("File", "file"), // FALLBACK
 }
 
 fun getFileTypeByName(name: String, extension: String?) = when (name) {

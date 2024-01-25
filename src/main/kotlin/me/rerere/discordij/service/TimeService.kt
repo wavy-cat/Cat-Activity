@@ -162,7 +162,7 @@ class TimeService : Disposable {
     private fun ActivityWrapper.applyIDEInfo(): ActivityWrapper {
         val ideType = currentIDEType
         largeImageKey = ideType.icon
-        largeImageText = ideType.name
+        largeImageText = ideType.title
         return this
     }
 
@@ -172,7 +172,7 @@ class TimeService : Disposable {
             smallImageKey = largeImageKey // swap
             smallImageText = largeImageText // swap
             largeImageKey = type.icon
-            largeImageText = type.name
+            largeImageText = type.typeName
         }
         return this
     }
