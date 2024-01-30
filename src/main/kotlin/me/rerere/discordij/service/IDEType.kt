@@ -7,8 +7,7 @@ enum class IDEType(
     val title: String,
     val icon: String
 ) {
-    IDEA_ULTIMATE("IntelliJ IDEA Ultimate", "idea"),
-    IDEA_COMMUNITY("IntelliJ IDEA Community", "idea"),
+    IDEA("IntelliJ IDEA Community", "idea"),
     WEBSTORM("WebStorm", "webstorm"),
     PYCHARM("PyCharm", "pycharm"),
     CLION("CLion", "clion"),
@@ -47,10 +46,9 @@ enum class IDEType(
 val currentIDEType by lazy {
     val info = ApplicationInfoEx.getInstanceEx()
     when(info.build.productCode) {
-        "IC" -> IDEType.IDEA_COMMUNITY
-        "IU" -> IDEType.IDEA_ULTIMATE
-        "WS" -> IDEType.WEBSTORM
+        "IC", "IU" -> IDEType.IDEA
         "PC", "PY" -> IDEType.PYCHARM
+        "WS" -> IDEType.WEBSTORM
         "CL" -> IDEType.CLION
         "CN" -> IDEType.CLION_NOVA
         "GO" -> IDEType.GOLAND
