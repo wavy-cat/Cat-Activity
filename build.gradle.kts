@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.rerere"
-version = "1.0.11"
+version = "0.9.1"
 
 repositories {
     mavenCentral()
@@ -19,7 +19,7 @@ dependencies {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2023.3.2")
+    version.set("2023.1")
     type.set("IC") // Target IDE Platform
 
     plugins.set(listOf("Git4Idea"))
@@ -37,7 +37,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("231")
-        untilBuild.set("233.*")
+        untilBuild.set("241.*")
     }
 
 //    signPlugin {

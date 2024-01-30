@@ -11,7 +11,6 @@ enum class IDEType(
     WEBSTORM("WebStorm", "webstorm"),
     PYCHARM("PyCharm", "pycharm"),
     CLION("CLion", "clion"),
-    CLION_NOVA("CLion Nova", "clion"),
     GOLAND("GoLand", "goland"),
     RIDER("Rider", "rider"),
     PHPSTORM("PhpStorm", "phpstorm"),
@@ -34,8 +33,7 @@ enum class IDEType(
  * PE - PyCharm Educational
  * RM - RubyMine
  * OC - AppCode
- * CL - CLion
- * CN - CLion Nova
+ * CL - CLion / CLion Nova
  * GO - GoLand
  * DB - DataGrip
  * RD - Rider
@@ -50,7 +48,6 @@ val currentIDEType by lazy {
         "PC", "PY" -> IDEType.PYCHARM
         "WS" -> IDEType.WEBSTORM
         "CL" -> IDEType.CLION
-        "CN" -> IDEType.CLION_NOVA
         "GO" -> IDEType.GOLAND
         "RD" -> IDEType.RIDER
         "PS" -> IDEType.PHPSTORM
