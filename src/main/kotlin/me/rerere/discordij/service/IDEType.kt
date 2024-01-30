@@ -7,7 +7,7 @@ enum class IDEType(
     val title: String,
     val icon: String
 ) {
-    IDEA("IntelliJ IDEA Community", "idea"),
+    IDEA("IntelliJ IDEA", "idea"),
     WEBSTORM("WebStorm", "webstorm"),
     PYCHARM("PyCharm", "pycharm"),
     CLION("CLion", "clion"),
