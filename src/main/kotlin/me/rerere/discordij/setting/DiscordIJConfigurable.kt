@@ -34,6 +34,12 @@ class DiscordIJConfigurable(
                 """.trimIndent()
                 )
             }
+
+            row("Theme") {
+                comboBox(
+                    items = ThemeList.values().toList(),
+                ).bindItem(state::usingTheme.toNullableProperty())
+            }
         }
 
         var projectStateField: JBTextField? = null

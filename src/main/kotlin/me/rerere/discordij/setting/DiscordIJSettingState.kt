@@ -8,7 +8,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(
     name = "DiscordIJSettingProjectState",
-    storages = [Storage("discord-ij.xml")]
+    storages = [Storage("wave-discord.xml")]
 )
 class DiscordIJSettingProjectState : PersistentStateComponent<SettingState> {
     private val state = SettingState()

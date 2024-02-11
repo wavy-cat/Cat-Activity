@@ -122,7 +122,7 @@ class TimeService : Disposable {
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo().applyFileInfo()
+                        ).applyIDEInfo().applyFileInfo(project)
                     )
 
                     DiscordIJ.logger.warn("rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
@@ -166,12 +166,13 @@ class TimeService : Disposable {
         return this
     }
 
-    private fun ActivityWrapper.applyFileInfo(): ActivityWrapper {
+    private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
+        val configState = project.service<DiscordIJSettingProjectState>().state
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.extension)
             smallImageKey = largeImageKey // swap
             smallImageText = largeImageText // swap
-            largeImageKey = type.icon
+            largeImageKey = configState.usingTheme.name.lowercase() + '_' + type.icon
             largeImageText = type.typeName
         }
         return this

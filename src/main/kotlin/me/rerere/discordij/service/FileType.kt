@@ -44,7 +44,7 @@ enum class FileType(
     PROPERTIES("Properties", "properties"),
     R("R", "r_lang"),
     SCALA("Scala", "scala"),
-    TERRAFORM("Terraform CLI Config", "terraform"),
+    TERRAFORM("Terraform", "terraform"),
     TOML("TOML", "toml"),
     TXT("TXT", "txt"),
     FILE("File", "file"), // FALLBACK
