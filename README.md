@@ -8,7 +8,7 @@ Plugin for Jetbrains IDE to show your activity in your Discord profile.
 > Also, WavyCat is not a Kotlin developer, so the code may use primitive and not the best solutions.
 
 ## Installation
-Download the archive with the plugin from the latest version in [Releases](https://github.com/wavy-cat/wave-discord/releases). In IDE go to Plugins (in settings), click on the gear, select "Install Plugin from Disk..." and specify the path to the downloaded archive.
+Download the archive with the plugin from the latest version in [Releases](https://github.com/wavy-cat/wave-discord/releases) or last [Action](https://github.com/wavy-cat/wave-discord/actions). In IDE go to Plugins (in settings), click on the gear, select "Install Plugin from Disk..." and specify the path to the downloaded archive.
 
 ## Report a bug
 Send any bugs you find to the [Issue](https://github.com/wavy-cat/wave-discord/issues) page. However, if you can fix it, it would be better to send a [Pull request](https://github.com/wavy-cat/wave-discord/pulls).
