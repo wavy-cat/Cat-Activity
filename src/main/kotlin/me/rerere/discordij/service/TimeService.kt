@@ -4,7 +4,6 @@ import com.google.common.cache.CacheBuilder
 import com.intellij.analysis.problemsView.ProblemsCollector
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ex.ApplicationInfoEx
-import com.intellij.openapi.application.ex.ApplicationUtil
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Editor
@@ -103,7 +102,7 @@ class TimeService : Disposable {
                 val branchName = repo?.currentBranch?.name ?: "no branch"
                 val repoName = repo?.presentableUrl ?: "unknown repo"
 
-                if (editingFile != null && configState.displayMode == DisplayMode.FILE) {
+                if (editingFile != null && configState.displayMode == DisplayMode.File) {
                     val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0
 
                     val variables = mapOf(
@@ -126,7 +125,7 @@ class TimeService : Disposable {
                     )
 
                     DiscordIJ.logger.warn("rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
-                } else if (editingProject != null && configState.displayMode >= DisplayMode.PROJECT) {
+                } else if (editingProject != null && configState.displayMode >= DisplayMode.Project) {
                     val variables = mapOf(
                         "%projectName%" to (editingProject?.projectName ?: "--"),
                         "%projectPath%" to (editingProject?.projectPath ?: "--"),
@@ -141,7 +140,7 @@ class TimeService : Disposable {
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo()
                     )
-                } else {
+                } else if (editingProject != null && configState.displayMode >= DisplayMode.IDE) {
                     service<DiscordRPRender>().updateActivity(
                         ActivityWrapper(
                             state = if (configState.displayMode == DisplayMode.IDE)
@@ -151,6 +150,8 @@ class TimeService : Disposable {
                             startTimestamp = startTime,
                         ).applyIDEInfo()
                     )
+                } else {
+                    service<DiscordRPRender>().clearActivity()
                 }
             }.onFailure {
                 it.printStackTrace()

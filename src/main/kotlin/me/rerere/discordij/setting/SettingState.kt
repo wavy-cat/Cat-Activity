@@ -1,7 +1,7 @@
 package me.rerere.discordij.setting
 
 data class SettingState(
-    var displayMode: DisplayMode = DisplayMode.FILE,
+    var displayMode: DisplayMode = DisplayMode.File,
     var usingTheme: ThemeList = ThemeList.Macchiato,
 
     var projectStateFormat: String = "Working on Project: %projectName%",
@@ -12,9 +12,10 @@ data class SettingState(
 )
 
 enum class DisplayMode {
+    Disable,
     IDE,
-    PROJECT,
-    FILE
+    Project,
+    File
 }
 
 enum class ThemeList {

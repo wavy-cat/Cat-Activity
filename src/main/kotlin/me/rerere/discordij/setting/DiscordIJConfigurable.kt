@@ -27,7 +27,8 @@ class DiscordIJConfigurable(
                     """
                     Display mode:
                     <ul>
-                         <li><b>IDE</b>: Display the IDE information</li>
+                        <li><b>Disable</b>: Turns off activity display completely</li>
+                        <li><b>IDE</b>: Display the IDE information</li>
                         <li><b>Project</b>: Display project information only</li>
                         <li><b>File</b>: Display project and file information</li>
                     </ul>

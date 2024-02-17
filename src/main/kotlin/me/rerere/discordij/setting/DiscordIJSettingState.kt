@@ -1,7 +1,6 @@
 package me.rerere.discordij.setting
 
 import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -18,6 +17,6 @@ class DiscordIJSettingProjectState : PersistentStateComponent<SettingState> {
     }
 
     override fun loadState(state: SettingState) {
-        XmlSerializerUtil.copyBean(state, this.state);
+        XmlSerializerUtil.copyBean(state, this.state)
     }
 }
