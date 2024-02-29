@@ -19,6 +19,7 @@ import me.rerere.discordij.render.ActivityWrapper
 import me.rerere.discordij.render.DiscordRPRender
 import me.rerere.discordij.setting.DiscordIJSettingProjectState
 import me.rerere.discordij.setting.DisplayMode
+import me.rerere.discordij.setting.ThemeList
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 
@@ -173,7 +174,7 @@ class TimeService : Disposable {
             val type = getFileTypeByName(it.type, it.extension)
             smallImageKey = largeImageKey // swap
             smallImageText = largeImageText // swap
-            largeImageKey = configState.usingTheme.name.lowercase() + '_' + type.icon
+            largeImageKey = "https://assets-8nt.pages.dev/${configState.usingTheme.name}/${type.icon}.png"
             largeImageText = type.typeName
         }
         return this
