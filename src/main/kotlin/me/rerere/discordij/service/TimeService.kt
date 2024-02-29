@@ -122,7 +122,7 @@ class TimeService : Disposable {
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo().applyFileInfo(project)
+                        ).applyIDEInfo(project).applyFileInfo(project)
                     )
 
                     DiscordIJ.logger.warn("rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
@@ -139,7 +139,7 @@ class TimeService : Disposable {
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo()
+                        ).applyIDEInfo(project)
                     )
                 } else if (editingProject != null && configState.displayMode >= DisplayMode.IDE) {
                     service<DiscordRPRender>().updateActivity(
@@ -149,7 +149,7 @@ class TimeService : Disposable {
                             else
                                 "Idle",
                             startTimestamp = startTime,
-                        ).applyIDEInfo()
+                        ).applyIDEInfo(project)
                     )
                 } else {
                     service<DiscordRPRender>().clearActivity()
@@ -161,20 +161,40 @@ class TimeService : Disposable {
         }
     }
 
-    private fun ActivityWrapper.applyIDEInfo(): ActivityWrapper {
+    private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
+        val usingTheme = project.service<DiscordIJSettingProjectState>().state.usingTheme
         val ideType = currentIDEType
-        largeImageKey = ideType.icon
+        val (_, ideUrl) = getImagesURL(usingTheme, null, ideType.icon)
+        largeImageKey = ideUrl
         largeImageText = ideType.title
         return this
+    }
+
+    private fun getImagesURL(theme: ThemeList, icon: String?, ide: String?): Pair<String?, String?> {
+        // The first line returns a URL with an image of the language/technology, the second – with the IDE.
+        val iconURL = if (icon != null) {
+            "https://cat-activity.wavycat.ru/${theme.name}/$icon.png"
+        } else {
+            null
+        }
+
+        val ideURL = if (ide != null) {
+            "https://cat-activity.wavycat.ru/IDE/${theme.name}/$ide.png"
+        } else {
+            null
+        }
+
+        return Pair(iconURL, ideURL)
     }
 
     private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
         val configState = project.service<DiscordIJSettingProjectState>().state
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.extension)
-            smallImageKey = largeImageKey // swap
+            val (iconUrl, ideUrl) = getImagesURL(configState.usingTheme, type.icon, currentIDEType.icon)
+            smallImageKey = ideUrl
             smallImageText = largeImageText // swap
-            largeImageKey = "https://assets-8nt.pages.dev/${configState.usingTheme.name}/${type.icon}.png"
+            largeImageKey = iconUrl
             largeImageText = type.typeName
         }
         return this

@@ -7,7 +7,7 @@ enum class IDEType(
     val title: String,
     val icon: String
 ) {
-    IDEA("IntelliJ IDEA", "idea"),
+    IDEA("IntelliJ IDEA", "intellij_idea"),
     WEBSTORM("WebStorm", "webstorm"),
     PYCHARM("PyCharm", "pycharm"),
     CLION("CLion", "clion"),
@@ -17,6 +17,7 @@ enum class IDEType(
     ANDROID_STUDIO("Android Studio", "android_studio"),
     RUSTROVER("RustRover", "rustrover"),
     RUBYMINE("RubyMine", "rubymine"),
+    WRITERSIDE("Writerside", "writerside"),
     JETBRAINS("JetBrains", "jetbrains"), // FALLBACK
 }
 
@@ -54,6 +55,7 @@ val currentIDEType by lazy {
         "AI" -> IDEType.ANDROID_STUDIO
         "RR" -> IDEType.RUSTROVER
         "RM" -> IDEType.RUBYMINE
+        "WRS" -> IDEType.WRITERSIDE
         else -> IDEType.JETBRAINS.also {
             DiscordIJ.logger.warn("Unknown IDE type: ${info.build.productCode}")
         }
