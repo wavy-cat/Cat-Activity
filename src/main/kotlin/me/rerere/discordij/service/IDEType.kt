@@ -21,27 +21,6 @@ enum class IDEType(
     JETBRAINS("JetBrains", "jetbrains"), // FALLBACK
 }
 
-/**
- * Get current IDE type
- *
- * IU - IntelliJ IDEA Ultimate
- * IC - IntelliJ IDEA Community
- * IE - IntelliJ IDEA Educational
- * PS - PhpStorm
- * WS - WebStorm
- * PY - PyCharm Professional
- * PC - PyCharm Community
- * PE - PyCharm Educational
- * RM - RubyMine
- * OC - AppCode
- * CL - CLion / CLion Nova
- * GO - GoLand
- * DB - DataGrip
- * RD - Rider
- * AI - Android Studio
- * RR - RustRover
- * RM - RubyMine
- */
 val currentIDEType by lazy {
     val info = ApplicationInfoEx.getInstanceEx()
     when(info.build.productCode) {
