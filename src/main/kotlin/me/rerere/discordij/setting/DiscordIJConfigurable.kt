@@ -15,10 +15,9 @@ class DiscordIJConfigurable(
 ) : Configurable {
     private val panel = panel {
         val state = project.service<DiscordIJSettingProjectState>().state
-        group(
-            "Display"
-        ) {
-            row("Display Mode") {
+
+        group("Display") {
+            row("Display mode") {
                 comboBox(
                     items = DisplayMode.values().toList(),
                 ).bindItem(state::displayMode.toNullableProperty())
@@ -48,6 +47,12 @@ class DiscordIJConfigurable(
 
         group("Format") {
             group("Project") {
+                row("Details Line") {
+                    textField()
+                        .columns(COLUMNS_LARGE)
+                        .bindText(state::projectDetailFormat)
+                }
+
                 row("State Line") {
                     textField()
                         .columns(COLUMNS_LARGE)
@@ -64,15 +69,15 @@ class DiscordIJConfigurable(
                         }
                         .visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
                 }
-
-                row("Details Line") {
-                    textField()
-                        .columns(COLUMNS_LARGE)
-                        .bindText(state::projectDetailFormat)
-                }
             }
 
             group("File") {
+                row("Details Line") {
+                    textField()
+                        .columns(COLUMNS_LARGE)
+                        .bindText(state::fileDetailFormat)
+                }
+
                 row("State Line") {
                     textField()
                         .columns(COLUMNS_LARGE)
@@ -88,12 +93,6 @@ class DiscordIJConfigurable(
                             foreground = JBColor.RED
                         }
                         .visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
-                }
-
-                row("Details Line") {
-                    textField()
-                        .columns(COLUMNS_LARGE)
-                        .bindText(state::fileDetailFormat)
                 }
             }
 
