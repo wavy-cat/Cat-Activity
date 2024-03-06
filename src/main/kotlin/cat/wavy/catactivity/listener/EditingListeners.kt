@@ -1,4 +1,4 @@
-package me.rerere.discordij.listener
+package cat.wavy.catactivity.listener
 
 import com.intellij.analysis.problemsView.Problem
 import com.intellij.analysis.problemsView.ProblemsListener
@@ -11,7 +11,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
 import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.vfs.VirtualFile
-import me.rerere.discordij.service.TimeService
+import cat.wavy.catactivity.service.TimeService
 
 class PostStartListener: ProjectActivity {
     override suspend fun execute(project: Project) {

@@ -1,4 +1,4 @@
-package me.rerere.discordij.setting
+package cat.wavy.catactivity.setting
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.options.Configurable
@@ -7,14 +7,14 @@ import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
-import me.rerere.discordij.service.TimeService
+import cat.wavy.catactivity.service.TimeService
 import javax.swing.JComponent
 
-class DiscordIJConfigurable(
+class CatConfigurable(
     private val project: Project
 ) : Configurable {
     private val panel = panel {
-        val state = project.service<DiscordIJSettingProjectState>().state
+        val state = project.service<CatActivitySettingProjectState>().state
 
         group("Display") {
             row("Display mode") {
@@ -126,5 +126,5 @@ class DiscordIJConfigurable(
 
     override fun reset() = panel.reset()
 
-    override fun getDisplayName(): String = "DiscordIJ"
+    override fun getDisplayName(): String = "Cat Activity"
 }

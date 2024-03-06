@@ -1,4 +1,4 @@
-package me.rerere.discordij.service
+package cat.wavy.catactivity.service
 
 import com.google.common.cache.CacheBuilder
 import com.intellij.analysis.problemsView.ProblemsCollector
@@ -14,20 +14,15 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
-import me.rerere.discordij.DiscordIJ
-import me.rerere.discordij.render.ActivityWrapper
-import me.rerere.discordij.render.DiscordRPRender
-import me.rerere.discordij.setting.DiscordIJSettingProjectState
-import me.rerere.discordij.setting.DisplayMode
-import me.rerere.discordij.setting.ThemeList
+import cat.wavy.catactivity.CatActivity
+import cat.wavy.catactivity.render.ActivityWrapper
+import cat.wavy.catactivity.render.ActivityRender
+import cat.wavy.catactivity.setting.CatActivitySettingProjectState
+import cat.wavy.catactivity.setting.DisplayMode
+import cat.wavy.catactivity.setting.ThemeList
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 
-/**
- * TODO: Implement a better tracker?
- *
- * The current tracker seems to incorrectly set the user's status in some cases
- */
 @Service
 class TimeService : Disposable {
     private val startTime = System.currentTimeMillis()
@@ -95,7 +90,7 @@ class TimeService : Disposable {
     fun render(project: Project) {
         runAsync {
             runCatching {
-                val configState = project.service<DiscordIJSettingProjectState>().state
+                val configState = project.service<CatActivitySettingProjectState>().state
                 val problemsCollector = ProblemsCollector.getInstance(project)
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
@@ -117,7 +112,7 @@ class TimeService : Disposable {
                         "%repository%" to repoName,
                     )
 
-                    service<DiscordRPRender>().updateActivity(
+                    service<ActivityRender>().updateActivity(
                         ActivityWrapper(
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
@@ -125,7 +120,7 @@ class TimeService : Disposable {
                         ).applyIDEInfo(project).applyFileInfo(project)
                     )
 
-                    DiscordIJ.logger.warn("rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
+                    CatActivity.logger.warn("Rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
                 } else if (editingProject != null && configState.displayMode >= DisplayMode.Project) {
                     val variables = mapOf(
                         "%projectName%" to (editingProject?.projectName ?: "--"),
@@ -134,7 +129,7 @@ class TimeService : Disposable {
                         "%branch%" to branchName,
                         "%repository%" to repoName,
                     )
-                    service<DiscordRPRender>().updateActivity(
+                    service<ActivityRender>().updateActivity(
                         ActivityWrapper(
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
@@ -142,7 +137,7 @@ class TimeService : Disposable {
                         ).applyIDEInfo(project)
                     )
                 } else if (editingProject != null && configState.displayMode >= DisplayMode.IDE) {
-                    service<DiscordRPRender>().updateActivity(
+                    service<ActivityRender>().updateActivity(
                         ActivityWrapper(
                             state = if (configState.displayMode == DisplayMode.IDE)
                                 ApplicationInfoEx.getInstanceEx().fullApplicationName
@@ -152,7 +147,7 @@ class TimeService : Disposable {
                         ).applyIDEInfo(project)
                     )
                 } else {
-                    service<DiscordRPRender>().clearActivity()
+                    service<ActivityRender>().clearActivity()
                 }
             }.onFailure {
                 it.printStackTrace()
@@ -162,7 +157,7 @@ class TimeService : Disposable {
     }
 
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
-        val usingTheme = project.service<DiscordIJSettingProjectState>().state.usingTheme
+        val usingTheme = project.service<CatActivitySettingProjectState>().state.usingTheme
         val ideType = currentIDEType
         val (_, ideUrl) = getImagesURL(usingTheme, null, ideType.icon)
         largeImageKey = ideUrl
@@ -188,7 +183,7 @@ class TimeService : Disposable {
     }
 
     private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
-        val configState = project.service<DiscordIJSettingProjectState>().state
+        val configState = project.service<CatActivitySettingProjectState>().state
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.extension)
             val (iconUrl, ideUrl) = getImagesURL(configState.usingTheme, type.icon, currentIDEType.icon)

@@ -1,4 +1,4 @@
-package me.rerere.discordij.render
+package cat.wavy.catactivity.render
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
@@ -7,12 +7,12 @@ import de.jcm.discordgamesdk.Core
 import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
-import me.rerere.discordij.APPLICATION_ID
-import me.rerere.discordij.DiscordIJ
+import cat.wavy.catactivity.APPLICATION_ID
+import cat.wavy.catactivity.CatActivity
 import java.util.*
 
 @Service
-class DiscordRPRender : Disposable {
+class ActivityRender : Disposable {
     private lateinit var activityManager: ActivityManager
     private val scope = CoroutineScope(
         Dispatchers.Default + SupervisorJob()
@@ -36,7 +36,7 @@ class DiscordRPRender : Disposable {
         }
         activityManager = core.activityManager()
     }.also {
-        DiscordIJ.logger.info("DiscordRP init result: ${it.isSuccess}")
+        CatActivity.logger.info("ActivityRender init result: ${it.isSuccess}")
     }
 
     init {
@@ -62,7 +62,7 @@ class DiscordRPRender : Disposable {
                 activityManager.updateActivity(activityNative)
             }
                 .onFailure {
-                    DiscordIJ.logger.warn("Failed to update activity: " + it.message)
+                    CatActivity.logger.warn("Failed to update activity: " + it.message)
                 }
         }
     }

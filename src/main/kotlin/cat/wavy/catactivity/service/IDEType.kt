@@ -1,7 +1,7 @@
-package me.rerere.discordij.service
+package cat.wavy.catactivity.service
 
 import com.intellij.openapi.application.ex.ApplicationInfoEx
-import me.rerere.discordij.DiscordIJ
+import cat.wavy.catactivity.CatActivity
 
 enum class IDEType(
     val title: String,
@@ -36,7 +36,7 @@ val currentIDEType by lazy {
         "RM" -> IDEType.RUBYMINE
         "WRS" -> IDEType.WRITERSIDE
         else -> IDEType.JETBRAINS.also {
-            DiscordIJ.logger.warn("Unknown IDE type: ${info.build.productCode}")
+            CatActivity.logger.warn("Unknown IDE type: ${info.build.productCode}")
         }
     }
 }

@@ -1,6 +1,6 @@
-package me.rerere.discordij.service
+package cat.wavy.catactivity.service
 
-import me.rerere.discordij.DiscordIJ
+import cat.wavy.catactivity.CatActivity
 
 enum class FileType(
     val typeName: String, // can be got from VirtualFile.getFileType().getName()
@@ -52,9 +52,6 @@ enum class FileType(
 
 fun getFileTypeByName(name: String, extension: String?) = when (name) {
     "JAVA" -> FileType.JAVA
-//    else -> FileType.FILE.also {
-//        DiscordIJ.logger.warn("Unknown file type: $name ($extension)")
-//    }
     "Kotlin" -> FileType.KOTLIN
     "Rust" -> FileType.RUST
     "Python" -> FileType.PYTHON
@@ -97,7 +94,7 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
         "toml" -> FileType.TOML
         "txt" -> FileType.TXT
         else -> FileType.FILE.also {
-            DiscordIJ.logger.warn("Unknown file type: $name ($extension)")
+            CatActivity.logger.warn("Unknown file type: $name ($extension)")
         }
     }
 }

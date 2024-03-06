@@ -1,4 +1,4 @@
-package me.rerere.discordij.setting
+package cat.wavy.catactivity.setting
 
 data class SettingState(
     var displayMode: DisplayMode = DisplayMode.File,

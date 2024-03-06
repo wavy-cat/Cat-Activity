@@ -1,1 +1,1 @@
-rootProject.name = "wave-discord"
+rootProject.name = "cat-activity"

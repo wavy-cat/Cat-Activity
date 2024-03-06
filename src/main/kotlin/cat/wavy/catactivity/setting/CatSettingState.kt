@@ -1,15 +1,17 @@
-package me.rerere.discordij.setting
+package cat.wavy.catactivity.setting
 
 import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(
-    name = "DiscordIJSettingProjectState",
-    storages = [Storage("wave-discord.xml")]
+    name = "CatActivitySettingProjectState",
+    storages = [Storage("cat-activity.xml")]
 )
-class DiscordIJSettingProjectState : PersistentStateComponent<SettingState> {
+@Service(Service.Level.PROJECT)
+class CatActivitySettingProjectState : PersistentStateComponent<SettingState> {
     private val state = SettingState()
 
     override fun getState(): SettingState {

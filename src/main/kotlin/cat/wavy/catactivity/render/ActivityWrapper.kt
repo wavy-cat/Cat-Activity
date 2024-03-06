@@ -1,4 +1,4 @@
-package me.rerere.discordij.render
+package cat.wavy.catactivity.render
 
 /**
  * An activity wrapper

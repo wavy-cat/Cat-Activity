@@ -1,11 +1,11 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>cat.wavy.wave-discord</id>
+    <id>cat.wavy.catactivity</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Wave Discord</name>
+    <name>Cat Activity</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="unknown@wavycat.ru" url="https://github.com/wavy-cat">WavyCat</vendor>
@@ -17,7 +17,7 @@
         Plugin for Jetbrains IDE to show your activity in your Discord profile.
         <br/>
         <b>
-            The settings are in <i>Settings > Tools > Wave Discord</i>
+            The settings are in <i>Settings > Tools > Cat Activity</i>
         </b>
   ]]></description>
 
@@ -32,31 +32,29 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="me.rerere.discordij.listener.PostStartListener"/>
-
-        <projectService serviceImplementation="me.rerere.discordij.setting.DiscordIJSettingProjectState"/>
+        <postStartupActivity implementation="cat.wavy.catactivity.listener.PostStartListener"/>
 
         <projectConfigurable
-                id="me.rerere.discordij.setting.DiscordIJConfigurableProject"
-                displayName="Wave Discord"
-                instance="me.rerere.discordij.setting.DiscordIJConfigurable"
+                id="cat.wavy.catactivity.setting.CatConfigurableProject"
+                displayName="Cat Activity"
+                instance="cat.wavy.catactivity.setting.CatConfigurable"
                 parentId="tools"
         />
     </extensions>
 
     <applicationListeners>
         <listener
-                class="me.rerere.discordij.listener.FileListener"
+                class="cat.wavy.catactivity.listener.FileListener"
                 topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
         />
 
-        <listener class="me.rerere.discordij.listener.ProjectListener"
+        <listener class="cat.wavy.catactivity.listener.ProjectListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
     <projectListeners>
         <listener
-                class="me.rerere.discordij.listener.FileProblemListener"
+                class="cat.wavy.catactivity.listener.FileProblemListener"
                 topic="com.intellij.analysis.problemsView.ProblemsListener"
         />
     </projectListeners>

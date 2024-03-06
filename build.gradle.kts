@@ -4,8 +4,8 @@ plugins {
     id("org.jetbrains.intellij") version "1.16.0"
 }
 
-group = "me.rerere"
-version = "0.12.0"
+group = "cat.wavy"
+version = "0.13.0"
 
 repositories {
     mavenCentral()
