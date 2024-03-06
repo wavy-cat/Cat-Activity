@@ -7,7 +7,7 @@ Plugin for Jetbrains IDE to show your activity in your Discord profile.
 > [!NOTE]
 > This is a fork of [re-ovo/discord-ij](https://github.com/re-ovo/discord-ij) repository with added icons from [Catppuccin icons](https://github.com/catppuccin/vscode-icons).
 
-> [!WARING]
+> [!WARNING]
 > WavyCat is not a Kotlin developer, so the code may use primitive and not the best solutions.
 
 > Icon and header artist: [Wasksim](https://t.me/sirwasksim)
