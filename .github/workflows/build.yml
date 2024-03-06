@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Plugin
-          path: build/distributions/wave-*.zip
+          path: build/distributions/cat-activity-*.zip
