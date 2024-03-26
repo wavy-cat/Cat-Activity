@@ -13,7 +13,7 @@ Plugin for Jetbrains IDE to show your activity in your Discord profile.
 > Icon and header artist: [Wasksim](https://t.me/sirwasksim)
 
 ## Installation
-Download the archive with the plugin from the latest version in [Releases](https://github.com/wavy-cat/cat-activity/releases) or last [Action](https://github.com/wavy-cat/cat-activity/actions). In IDE go to Plugins (in settings), click on the gear, select "Install Plugin from Disk..." and specify the path to the downloaded archive.
+Download the archive with the plugin from the latest version in [Releases](https://github.com/wavy-cat/cat-activity/releases) or last [Action](https://github.com/wavy-cat/cat-activity/actions). In IDE go to Plugins (in settings), click on the gear, select "Install Plugin from Disk..." and specify the path to the downloaded ZIP archive.
 
 ## Report a bug
 Send any bugs you find to the [Issue](https://github.com/wavy-cat/cat-activity/issues) page. However, if you can fix it, it would be better to send a [Pull request](https://github.com/wavy-cat/cat-activity/pulls).
