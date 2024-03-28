@@ -14,6 +14,7 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
+import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.CatActivity
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
@@ -156,40 +157,29 @@ class TimeService : Disposable {
         }
     }
 
+    private fun getLangIconUrl(theme: ThemeList, icon: String): String {
+        return ICONS_URL + "/${theme.name}/$icon.png"
+    }
+
+    private fun getIDEIconUrl(theme: ThemeList, ide: String): String {
+        return ICONS_URL + "/IDE/${theme.name}/$ide.png"
+    }
+
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
         val usingTheme = project.service<CatActivitySettingProjectState>().state.usingTheme
         val ideType = currentIDEType
-        val (_, ideUrl) = getImagesURL(usingTheme, null, ideType.icon)
-        largeImageKey = ideUrl
+        largeImageKey = getIDEIconUrl(usingTheme, ideType.icon)
         largeImageText = ideType.title
         return this
-    }
-
-    private fun getImagesURL(theme: ThemeList, icon: String?, ide: String?): Pair<String?, String?> {
-        // The first line returns a URL with an image of the language/technology, the second – with the IDE.
-        val iconURL = if (icon != null) {
-            "https://cat-activity.wavycat.ru/${theme.name}/$icon.png"
-        } else {
-            null
-        }
-
-        val ideURL = if (ide != null) {
-            "https://cat-activity.wavycat.ru/IDE/${theme.name}/$ide.png"
-        } else {
-            null
-        }
-
-        return Pair(iconURL, ideURL)
     }
 
     private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
         val configState = project.service<CatActivitySettingProjectState>().state
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.extension)
-            val (iconUrl, ideUrl) = getImagesURL(configState.usingTheme, type.icon, currentIDEType.icon)
-            smallImageKey = ideUrl
+            smallImageKey = getIDEIconUrl(configState.usingTheme, currentIDEType.icon)
             smallImageText = largeImageText // swap
-            largeImageKey = iconUrl
+            largeImageKey = getLangIconUrl(configState.usingTheme, type.icon)
             largeImageText = type.typeName
         }
         return this
