@@ -34,3 +34,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 /images/
+/generate/web/
+/poetry.lock

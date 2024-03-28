@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "cat-activity"
+version = "0.1.0"
+description = "Python is used to generate icons"
+authors = ["wavy-cat <52543076+wavy-cat@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pillow = "^10.2.0"
+tqdm = "^4.66.2"
+cairosvg = "^2.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
