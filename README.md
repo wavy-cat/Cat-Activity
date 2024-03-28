@@ -30,6 +30,9 @@ Send any bugs you find to the [Issue](https://github.com/wavy-cat/cat-activity/i
 * RubyMine
 * RustRover
 * Writerside
+* Aqua
+* DataSpell
+* DataGrip
 * Android Studio by Google
 
 > If the IDE is not listed above, the fallback icon will be used.

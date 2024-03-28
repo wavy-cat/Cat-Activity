@@ -18,6 +18,9 @@ enum class IDEType(
     RUSTROVER("RustRover", "rustrover"),
     RUBYMINE("RubyMine", "rubymine"),
     WRITERSIDE("Writerside", "writerside"),
+    AQUA("Aqua", "aqua"),
+    DATASPELL("DataSpell", "dataspell"),
+    DATAGRIP("DataGrip", "datagrip"),
     JETBRAINS("JetBrains", "jetbrains"), // FALLBACK
 }
 
@@ -35,6 +38,9 @@ val currentIDEType by lazy {
         "RR" -> IDEType.RUSTROVER
         "RM" -> IDEType.RUBYMINE
         "WRS" -> IDEType.WRITERSIDE
+        "DS" -> IDEType.DATASPELL
+        "DB" -> IDEType.DATAGRIP
+        "QA" -> IDEType.AQUA
         else -> IDEType.JETBRAINS.also {
             CatActivity.logger.warn("Unknown IDE type: ${info.build.productCode}")
         }
