@@ -35,6 +35,6 @@ Send any bugs you find to the [Issue](https://github.com/wavy-cat/cat-activity/i
 > If the IDE is not listed above, the fallback icon will be used.
 
 ## How to request adding an icon?
-Create an Issue and write in it the name of the language, framework or technology you want to see, specify its name in the [Catppuccin icons](https://github.com/catppuccin/vscode-icons), and list any file extensions that are used.
+Create an Issue and write in it the name of the language, framework or technology you want to see specified in the [Catppuccin icons](https://github.com/catppuccin/vscode-icons).
 
 Images from another icon set are reject yet.
