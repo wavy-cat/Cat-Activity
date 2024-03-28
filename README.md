@@ -1,6 +1,6 @@
 # Cat Activity
 
-<img src="https://cat-activity.wavycat.ru/cat-header.png"  alt="Header"/>
+<img src="assets/header.png"  alt="Header"/>
 
 Plugin for Jetbrains IDE to show your activity in your Discord profile.
 
