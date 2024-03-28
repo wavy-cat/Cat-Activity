@@ -47,6 +47,16 @@ enum class FileType(
     TERRAFORM("Terraform", "terraform"),
     TOML("TOML", "toml"),
     TXT("TXT", "txt"),
+    CSV("CSV", "csv"),
+    LUA("Lua", "lua"),
+    GROOVY("Groovy", "groovy"),
+    ERLANG("Erlang", "erlang"),
+    FSHARP("F#", "fsharp"),
+    ASSEMBLY("Assembly", "assembly"),
+    DART("Dart", "dart"),
+    JSX("JSX", "react"),
+    TSX("TSX", "react"),
+    ENV(".env", "env"),
     FILE("File", "file"), // FALLBACK
 }
 
@@ -60,39 +70,49 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
     "Dockerfile" -> FileType.DOCKER
     "DockerIgnore file" -> FileType.DOCKER_IGNORE
     "Properties" -> FileType.PROPERTIES
-    else -> when (extension) {
+    "CSV" -> FileType.CSV
+    "lua" -> FileType.LUA
+    "Groovy" -> FileType.GROOVY
+    "Erlang" -> FileType.ERLANG
+    "Dart" -> FileType.DART
+    else -> when (extension?.lowercase()) {
         "c", "h" -> FileType.C
-        "cpp", "hpp", "cxx", "hxx", "cc", "hh" -> FileType.CPP
+        "cpp", "hpp", "cxx", "hxx", "cc", "hh", "ipp" -> FileType.CPP
         "vue" -> FileType.VUE
-        "cs" -> FileType.CSHARP
-        "php", "phtml", "php3", "php4", "php5", "phps" -> FileType.PHP
-        "go" -> FileType.GOLANG
-        "swift" -> FileType.SWIFT
+        "cs", "csx" -> FileType.CSHARP
+        "fs", "fsi", "fsx", "fsscript" -> FileType.FSHARP
+        "php", "phtml", "php3", "php4", "php5", "php7", "php8", "phps" -> FileType.PHP
+        "go", "gox" -> FileType.GOLANG
+        "swift", "swiftui" -> FileType.SWIFT
         "html", "htm" -> FileType.HTML
         "css" -> FileType.CSS
         "sass", "scss" -> FileType.SASS
         "json" -> FileType.JSON
         "xml", "xsd", "xsl", "xslt" -> FileType.XML
-        "yaml", "yml" -> FileType.YAML
+        "eyaml", "yaml", "yml" -> FileType.YAML
         "md", "markdown" -> FileType.MARKDOWN
-        "gitignore", "gitconfig" -> FileType.GIT
+        "gitignore", "gitconfig", "gitmodules" -> FileType.GIT
         "svelte" -> FileType.SVELTE
-        "rb" -> FileType.RUBY
-        "sh" -> FileType.BASH
+        "rb", "rbw" -> FileType.RUBY
+        "sh", "bashrc", "bash_profile", "zshrc", "shrc" -> FileType.BASH
         "bat" -> FileType.BAT
         "sqlite", "sqlite3", "db", "database", "sql" -> FileType.DATABASE
         "mod" -> FileType.GO_MOD
         "hs", "lhs" -> FileType.HASKELL
         "http" -> FileType.HTTP
-        "png", "jpeg", "jpg", "bmp", "webp", "eps", "gif" -> FileType.IMAGE
+        "png", "jpeg", "jpg", "bmp", "webp", "eps", "gif", "ico", "tiff" -> FileType.IMAGE
         "svg" -> FileType.SVG
-        "pl" -> FileType.PERL
+        "pl", "pm", "pod" -> FileType.PERL
         "prisma" -> FileType.PRISMA
         "r" -> FileType.R
         "scala", "sc" -> FileType.SCALA
         "terraformrc" -> FileType.TERRAFORM
         "toml" -> FileType.TOML
         "txt" -> FileType.TXT
+        "asm", "s" -> FileType.ASSEMBLY
+        "jsx" -> FileType.JSX
+        "tsx" -> FileType.TSX
+        "env" -> FileType.ENV
         else -> FileType.FILE.also {
             CatActivity.logger.warn("Unknown file type: $name ($extension)")
         }
