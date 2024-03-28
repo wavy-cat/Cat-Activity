@@ -1,3 +1,4 @@
+import json
 from time import time
 from io import BytesIO
 from os import listdir, path, makedirs
@@ -17,14 +18,8 @@ colors = {
 }
 
 # An original name – Server name
-icons = {'bash': 'bash', 'batch': 'bat', 'c': 'c', 'cpp': 'cpp', 'csharp': 'csharp', 'database': 'database',
-         'docker-ignore': 'docker-ignore', 'docker': 'docker', '_file': 'file', 'git': 'git', 'go-mod': 'go-mod',
-         'go': 'goland', 'haskell': 'haskell', 'html': 'html', 'http': 'http', 'image': 'image', 'java': 'java',
-         'javascript': 'javascript', 'json': 'json', 'kotlin': 'kotlin', 'markdown': 'markdown', 'perl': 'perl',
-         'php': 'php', 'prisma': 'prisma', 'properties': 'properties', 'python': 'python', 'r': 'r_lang',
-         'ruby': 'ruby', 'rust': 'rust', 'sass': 'sass', 'scala': 'scala', 'svelte': 'svelte', 'svg': 'svg',
-         'swift': 'swift', 'terraform': 'terraform', 'toml': 'toml', 'text': 'txt', 'typescript': 'typescript',
-         'vue': 'vue', 'xml': 'xml', 'yaml': 'yaml'}
+with open('icons.json', 'r') as file:
+    icons = json.load(file)
 
 # Creating the required folder structure
 for color in colors.keys():
