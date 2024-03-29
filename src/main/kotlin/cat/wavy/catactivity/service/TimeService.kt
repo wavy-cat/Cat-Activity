@@ -21,6 +21,8 @@ import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.DisplayMode
 import cat.wavy.catactivity.setting.ThemeList
+import cat.wavy.catactivity.types.currentIDEType
+import cat.wavy.catactivity.types.getFileTypeByName
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 

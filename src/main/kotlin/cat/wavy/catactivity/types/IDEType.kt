@@ -1,4 +1,4 @@
-package cat.wavy.catactivity.service
+package cat.wavy.catactivity.types
 
 import com.intellij.openapi.application.ex.ApplicationInfoEx
 import cat.wavy.catactivity.CatActivity

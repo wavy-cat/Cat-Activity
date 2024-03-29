@@ -1,4 +1,4 @@
-package cat.wavy.catactivity.service
+package cat.wavy.catactivity.types
 
 import cat.wavy.catactivity.CatActivity
 
