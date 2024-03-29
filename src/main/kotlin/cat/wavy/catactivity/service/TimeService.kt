@@ -15,12 +15,13 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
 import cat.wavy.catactivity.ICONS_URL
-import cat.wavy.catactivity.CatActivity
+import cat.wavy.catactivity.CatActivity.logger
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.DisplayMode
 import cat.wavy.catactivity.setting.ThemeList
+import cat.wavy.catactivity.types.DefaultVars
 import cat.wavy.catactivity.types.currentIDEType
 import cat.wavy.catactivity.types.getFileTypeByName
 import org.jetbrains.concurrency.runAsync
@@ -60,9 +61,8 @@ class TimeService : Disposable {
     fun onProjectClosed(project: Project) {
         timeTracker.invalidate("project:${project.name}")
         editingProject = null
-        render(
-            project = project
-        )
+        val activityRender = service<ActivityRender>()
+        activityRender.clearActivity()
     }
 
     fun onFileOpened(project: Project, file: VirtualFile) {
@@ -98,60 +98,73 @@ class TimeService : Disposable {
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
                 }
-                val branchName = repo?.currentBranch?.name ?: "no branch"
-                val repoName = repo?.presentableUrl ?: "unknown repo"
 
-                if (editingFile != null && configState.displayMode == DisplayMode.File) {
-                    val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0
+                if (editingFile == null) {
+                    return@runAsync
+                }
 
-                    val variables = mapOf(
-                        "%projectName%" to (editingProject?.projectName ?: "--"),
-                        "%projectPath%" to (editingProject?.projectPath ?: "--"),
-                        "%projectProblems%" to problemsCollector.getProblemCount().toString(),
-                        "%fileName%" to (editingFile?.fileName ?: "--"),
-                        "%filePath%" to (editingFile?.filePath ?: "--"),
-                        "%fileProblems%" to problems.toString(),
-                        "%branch%" to branchName,
-                        "%repository%" to repoName,
-                    )
+                val activityRender = service<ActivityRender>()
+                val activityWrapper: ActivityWrapper
 
-                    service<ActivityRender>().updateActivity(
-                        ActivityWrapper(
+                when (configState.displayMode) {
+                    DisplayMode.File -> {
+                        val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
+                        val repoName = repo?.presentableUrl ?: DefaultVars.REPO.default
+                        val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0
+
+                        val variables = mutableMapOf(
+                            "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
+                            "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
+                            "%projectProblems%" to problemsCollector.getProblemCount().toString(),
+                            "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
+                            "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
+                            "%fileProblems%" to problems.toString(),
+                            "%branch%" to branchName,
+                            "%repository%" to repoName,
+                        )
+
+                        activityWrapper = ActivityWrapper(
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project).applyFileInfo(project)
-                    )
 
-                    CatActivity.logger.warn("Rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
-                } else if (editingProject != null && configState.displayMode >= DisplayMode.Project) {
-                    val variables = mapOf(
-                        "%projectName%" to (editingProject?.projectName ?: "--"),
-                        "%projectPath%" to (editingProject?.projectPath ?: "--"),
-                        "%projectProblems%" to problemsCollector.getProblemCount().toString(),
-                        "%branch%" to branchName,
-                        "%repository%" to repoName,
-                    )
-                    service<ActivityRender>().updateActivity(
-                        ActivityWrapper(
+                        logger.warn("Rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
+                    }
+
+                    DisplayMode.Project -> {
+                        val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
+                        val repoName = repo?.presentableUrl ?: DefaultVars.REPO.default
+
+                        val variables = mutableMapOf(
+                            "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
+                            "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
+                            "%projectProblems%" to problemsCollector.getProblemCount().toString(),
+                            "%branch%" to branchName,
+                            "%repository%" to repoName,
+                        )
+
+                        activityWrapper = ActivityWrapper(
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project)
-                    )
-                } else if (editingProject != null && configState.displayMode >= DisplayMode.IDE) {
-                    service<ActivityRender>().updateActivity(
-                        ActivityWrapper(
-                            state = if (configState.displayMode == DisplayMode.IDE)
-                                ApplicationInfoEx.getInstanceEx().fullApplicationName
-                            else
-                                "Idle",
+                    }
+
+                    DisplayMode.IDE -> {
+                        activityWrapper = ActivityWrapper(
+                            state = ApplicationInfoEx.getInstanceEx().fullApplicationName,
                             startTimestamp = startTime,
                         ).applyIDEInfo(project)
-                    )
-                } else {
-                    service<ActivityRender>().clearActivity()
+                    }
+
+                    else -> {
+                        activityRender.clearActivity()
+                        return@runAsync
+                    }
                 }
+
+                activityWrapper.let { activityRender.updateActivity(it) }
             }.onFailure {
                 it.printStackTrace()
                 println("Failed to render activity: ${it.message}")
