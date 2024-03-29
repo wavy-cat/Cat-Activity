@@ -10,7 +10,7 @@
   "_file": "file",
   "git": "git",
   "go-mod": "go-mod",
-  "go": "goland",
+  "go": "golang",
   "haskell": "haskell",
   "html": "html",
   "http": "http",

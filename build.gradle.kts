@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "cat.wavy"
-version = "1.1.0"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation("com.github.JnCrMx:discord-game-sdk4j:java-impl-SNAPSHOT")
+    implementation("org.jetbrains:marketplace-zip-signer:0.1.8")
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -40,24 +41,13 @@ tasks {
         untilBuild.set("241.*")
     }
 
-//    signPlugin {
-//        certificateChain.set(file("token/chain.crt").readText())
-//        privateKey.set(file("token/private.pem").readText())
-//        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-//    }
-//
-//    publishPlugin {
-//        token.set(System.getenv("PUBLISH_TOKEN"))
-//    }
+    signPlugin {
+        certificateChain.set(file("token/chain.crt").readText())
+        privateKey.set(file("token/private.pem").readText())
+        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+    }
 
-    runIde {
-//        ideDir.set(file(
-//            "/Users/re/Library/Application Support/JetBrains/Toolbox/apps/Gateway/ch-0/231.9011.34/JetBrains Gateway.app/Contents"
-//        ))
-//        ideDir.set(
-//            file(
-//                "/Users/re/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/223.8836.50/WebStorm.app/Contents"
-//            )
-//        )
+    publishPlugin {
+        token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
