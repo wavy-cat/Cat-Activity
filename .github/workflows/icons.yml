@@ -42,8 +42,11 @@ jobs:
       - name: Update dependencies
         run: poetry update
 
+      - name: Change working directory
+        run: cd generate
+
       - name: Run generate.py
-        run: poetry run python generate/generate.py
+        run: poetry run python generate.py
 
       - name: Archive web directory
         run: tar -czvf web.tar.gz web
