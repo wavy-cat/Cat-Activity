@@ -6,6 +6,7 @@ on:
       - master
     paths-ignore:
       - 'generate/**'
+      - 'pyproject.toml'
 
 jobs:
   build:

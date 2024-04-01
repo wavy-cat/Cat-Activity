@@ -41,7 +41,7 @@ jobs:
         run: poetry update
 
       - name: Run generate.py
-        run: poetry run python /generate/generate.py
+        run: poetry run python generate/generate.py
 
       - name: Archive web directory
         run: tar -czvf web.tar.gz web
