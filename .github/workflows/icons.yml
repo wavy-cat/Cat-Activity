@@ -1,14 +1,16 @@
-name: Python CI
+name: Python Icons CI/CD
 
 on:
   push:
     branches: [ master ]
     paths:
       - 'generate/**'
+      - '.github/workflows/icons.yml'
   pull_request:
     branches: [ master ]
     paths:
       - 'generate/**'
+      - '.github/workflows/icons.yml'
 
 jobs:
   build:
