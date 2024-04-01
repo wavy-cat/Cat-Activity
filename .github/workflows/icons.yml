@@ -42,18 +42,13 @@ jobs:
       - name: Update dependencies
         run: poetry update
 
-      - name: Change working directory
-        run: cd generate
-
       - name: Run generate.py
+        working-directory: ./generate
         run: poetry run python generate.py
-
-      - name: Archive web directory
-        run: tar -czvf web.tar.gz web
 
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy --project-name=assets
+          command: pages deploy ./generate/web --project-name=assets
