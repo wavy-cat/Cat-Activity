@@ -43,15 +43,12 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Update dependencies
-        run: poetry update
-
       - name: Run generate.py
         working-directory: ./generate
         run: poetry run python generate.py
 
       - name: Build & Deploy Worker
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v3.4.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
