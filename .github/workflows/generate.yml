@@ -1,0 +1,54 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'generate/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'generate/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Restore Poetry cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            poetry-
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Update dependencies
+        run: poetry update
+
+      - name: Run generate.py
+        run: poetry run python /generate/generate.py
+
+      - name: Archive web directory
+        run: tar -czvf web.tar.gz web
+
+      - name: Build & Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy --project-name=assets

@@ -1,4 +1,5 @@
 import json
+from shutil import copy
 from time import time
 from io import BytesIO
 from os import listdir, path, makedirs
@@ -28,6 +29,9 @@ for color in colors.keys():
 
     if not path.exists('web/IDE/' + color):
         makedirs('web/IDE/' + color)
+
+    if not path.exists('web/index.html'):
+        copy('index.html', 'web/index.html')
 
 for theme, background in colors.items():
     print('* Generating icons ' + theme)
