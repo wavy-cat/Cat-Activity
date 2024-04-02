@@ -35,11 +35,19 @@ jobs:
         working-directory: ./generate
         run: poetry run python generate.py
 
-      - name: Build & Deploy Worker
-        uses: cloudflare/wrangler-action@v3.4.1
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./generate/web --project-name=assets
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          name: web
+          path: ./generate/web
+#
+#      - name: Build & Deploy Worker
+#        uses: cloudflare/wrangler-action@v3.4.1
+#        with:
+#          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+#          command: pages deploy ./generate/web --project-name=assets
+#        env:
+#          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#
+#       https://github.com/cloudflare/wrangler-action/issues/246
