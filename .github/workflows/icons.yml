@@ -36,9 +36,8 @@ jobs:
         run: poetry run python generate.py
 
       - name: Build & Deploy Worker
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v3.4.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages publish ./generate/web --project-name=assets
-          wranglerVersion: "2.20.0"
+          command: pages deploy ./generate/web --project-name=assets
