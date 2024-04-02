@@ -25,8 +25,19 @@ jobs:
       - name: Grant execute permission for gradlew
         run: sudo chmod +x gradlew
 
+      - name: Create token directory
+        run: mkdir -p ./token
+
+      - name: Create and write to chain.crt file
+        run: echo "${{ secrets.CHAIN_CRT_CONTENTS }}" | base64 --decode > ./token/chain.crt
+
+      - name: Create and write to private.pem file
+        run: echo "${{ secrets.PRIVATE_PEM_CONTENTS }}" | base64 --decode > ./token/private.pem
+
       - name: Build with Gradle
         run: ./gradlew build
+        env:
+          PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
