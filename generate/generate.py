@@ -51,6 +51,6 @@ for theme, background in colors.items():
         image_full = Image.new('RGBA', (1536, 1536), background)
 
         image_full.paste(image_icon, (256, 256), image_icon)
-        image_full.save(f'web/IDE/{theme}/{file.lower().removesuffix('_icon.svg')}.png')
+        image_full.save(f'web/IDE/{theme}/{file.lower().removesuffix("_icon.svg")}.png')
 
 print('[✔] Done. Total time spent:', time() - time_start)
