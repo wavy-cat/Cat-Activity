@@ -23,32 +23,20 @@ jobs:
         with:
           submodules: true
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v2
+      - name: Install poetry
+        run: pipx install poetry
+      - uses: actions/setup-python@v5
         with:
-          python-version: 3.12
-
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-
-      - name: Restore Poetry cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pypoetry
-          key: poetry-${{ hashFiles('poetry.lock') }}
-          restore-keys: |
-            poetry-
-
-      - name: Install dependencies
-        run: poetry install
+          python-version: '3.12'
+          cache: 'poetry'
+      - run: poetry install
 
       - name: Run generate.py
         working-directory: ./generate
         run: poetry run python generate.py
 
       - name: Build & Deploy Worker
-        uses: cloudflare/wrangler-action@v3.4.1
+        uses: cloudflare/wrangler-action@v3.2.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
