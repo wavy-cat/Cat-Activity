@@ -40,5 +40,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./generate/web --project-name=assets
+          command: pages publish ./generate/web --project-name=assets
           wranglerVersion: "2.20.0"
