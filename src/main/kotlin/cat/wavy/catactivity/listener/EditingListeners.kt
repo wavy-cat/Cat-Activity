@@ -13,7 +13,7 @@ import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.openapi.vfs.VirtualFile
 import cat.wavy.catactivity.service.TimeService
 
-class PostStartListener: ProjectActivity {
+class PostStartListener : ProjectActivity {
     override suspend fun execute(project: Project) {
         service<TimeService>().onProjectOpened(project)
     }
@@ -25,7 +25,7 @@ class ProjectListener : ProjectManagerListener {
     }
 }
 
-class FileListener: FileEditorManagerListener {
+class FileListener : FileEditorManagerListener {
     override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
         val service = service<TimeService>()
         service.onFileOpened(source.project, file)
@@ -44,7 +44,7 @@ class FileListener: FileEditorManagerListener {
     }
 }
 
-class FileProblemListener: ProblemsListener {
+class FileProblemListener : ProblemsListener {
     override fun problemAppeared(problem: Problem) {
         ApplicationManager.getApplication().invokeLater {
             val service = service<TimeService>()

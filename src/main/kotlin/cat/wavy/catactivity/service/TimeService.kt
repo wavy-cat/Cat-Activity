@@ -53,6 +53,7 @@ class TimeService : Disposable {
     fun onProjectOpened(project: Project) {
         timeTracker.put("project:${project.name}", System.currentTimeMillis())
         editingProject = ProjectItem.from(project)
+        WelcomeService.welcomeAlert(project)
         render(
             project = project
         )
