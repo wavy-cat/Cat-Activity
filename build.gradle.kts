@@ -1,11 +1,11 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
+    id("org.jetbrains.kotlin.jvm") version "1.9.23"
     id("org.jetbrains.intellij") version "1.16.0"
 }
 
 group = "cat.wavy"
-version = "1.1.1"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -14,13 +14,13 @@ repositories {
 
 dependencies {
     implementation("com.github.JnCrMx:discord-game-sdk4j:java-impl-SNAPSHOT")
-    implementation("org.jetbrains:marketplace-zip-signer:0.1.8")
+    implementation("org.jetbrains:marketplace-zip-signer:0.1.24")
 }
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("2023.1")
+    version.set("2023.1.6")
     type.set("IC") // Target IDE Platform
 
     plugins.set(listOf("Git4Idea"))
