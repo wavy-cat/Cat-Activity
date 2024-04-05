@@ -53,9 +53,10 @@ class TimeService : Disposable {
     fun onProjectOpened(project: Project) {
         timeTracker.put("project:${project.name}", System.currentTimeMillis())
         editingProject = ProjectItem.from(project)
-        render(
-            project = project
-        )
+        val firstInit = WelcomeService.welcomeAlert(project, this)
+        if (!firstInit) {
+            render(project)
+        }
     }
 
     fun onProjectClosed(project: Project) {
@@ -69,25 +70,19 @@ class TimeService : Disposable {
         timeTracker.put("file:${file.name}", System.currentTimeMillis())
         editingProject = ProjectItem.from(project)
         editingFile = FileItem.from(file)
-        render(
-            project = project,
-        )
+        render(project)
     }
 
     fun onFileClosed(project: Project, file: VirtualFile) {
         timeTracker.invalidate("file:${file.name}")
         editingFile = null
-        render(
-            project = project,
-        )
+        render(project)
     }
 
     fun onFileChanged(project: Project, file: VirtualFile) {
         editingFile = FileItem.from(file)
         editingProject = ProjectItem.from(project)
-        render(
-            project = project,
-        )
+        render(project)
     }
 
     fun render(project: Project) {
@@ -97,10 +92,6 @@ class TimeService : Disposable {
                 val problemsCollector = ProblemsCollector.getInstance(project)
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
-                }
-
-                if (editingFile == null) {
-                    return@runAsync
                 }
 
                 val activityRender = service<ActivityRender>()
