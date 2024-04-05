@@ -13,10 +13,11 @@ import com.intellij.openapi.project.Project
 private const val groupId = "Cat Activity Notifications"
 
 class WelcomeService {
-    private class ShowAction(private val notification: Notification,
-                             private val timeService: TimeService?,
-                             private val mode: DisplayMode,
-                             title: String
+    private class ShowAction(
+        private val notification: Notification,
+        private val timeService: TimeService?,
+        private val mode: DisplayMode,
+        title: String
     ) : AnAction(title) {
         override fun actionPerformed(e: AnActionEvent) {
             val configState = e.project?.service<CatActivitySettingProjectState>()?.state
