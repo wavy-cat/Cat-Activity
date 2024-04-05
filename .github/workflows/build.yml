@@ -34,7 +34,12 @@ jobs:
       - name: Create and write to private.pem file
         run: echo "${{ secrets.PRIVATE_PEM_CONTENTS }}" | base64 --decode > ./token/private.pem
 
-      - name: Build with Gradle
+      - name: Build plugin
+        run: ./gradlew build
+        env:
+          PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
+
+      - name: Sign plugin
         run: ./gradlew build
         env:
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
