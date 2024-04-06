@@ -6,11 +6,15 @@ on:
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
+      - 'poetry.lock'
+      - 'pyproject.toml'
   pull_request:
     branches: [ master ]
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
+      - 'poetry.lock'
+      - 'pyproject.toml'
 
 jobs:
   build:
