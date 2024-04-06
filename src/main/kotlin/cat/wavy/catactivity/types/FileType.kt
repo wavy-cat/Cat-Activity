@@ -13,6 +13,8 @@ enum class FileType(
     JAVASCRIPT("JavaScript", "javascript"),
     TYPESCRIPT("TypeScript", "typescript"),
     C("C", "c"),
+    C_HEADER("Header file", "c_header"),
+    CPP_HEADER("Header file", "cpp_header"),
     CPP("C++", "cpp"),
     CSHARP("C#", "csharp"),
     VUE("Vue", "vue"),
@@ -57,6 +59,23 @@ enum class FileType(
     JSX("JSX", "react"),
     TSX("TSX", "react"),
     ENV(".env", "env"),
+    JUPYTER("Jupyter", "jupyter"),
+    AUDIO("Audio", "audio"),
+    BINARY("Binary", "binary"),
+    CERTIFICATE("Certificate", "certificate"),
+    CLOJURE("Clojure", "clojure"),
+    CMAKE("CMake", "cmake"),
+    COBOL("Cobol", "cobol"),
+    COFFEESCRIPT("CoffeeScript", "coffeescript"),
+    CUDA("CUDA", "cuda"),
+    DIFF("Diff", "diff"),
+    DJANGO("Django", "django"),
+    EJS("EJS", "ejs"),
+    ELIXIR("Elixir", "elixir"),
+    ELM("Elm", "elm"),
+    FIREBASE("Firebase", "firebase"),
+    FONT("Font", "font"),
+    FORTRAN("Fortran", "fortran"),
     FILE("File", "file"), // FALLBACK
 }
 
@@ -75,12 +94,16 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
     "Groovy" -> FileType.GROOVY
     "Erlang" -> FileType.ERLANG
     "Dart" -> FileType.DART
+    "Jupyter" -> FileType.JUPYTER
+    "DIFF" -> FileType.DIFF
     else -> when (extension?.lowercase()) {
-        "c", "h" -> FileType.C
-        "cpp", "hpp", "cxx", "hxx", "cc", "hh", "ipp" -> FileType.CPP
+        "c", "i", "mi" -> FileType.C
+        "h" -> FileType.C_HEADER
+        "cpp", "c++", "cp", "cc", "cxx", "mii", "ii" -> FileType.CPP
+        "hh", "hpp", "hxx", "h++", "hp", "tcc", "inl" -> FileType.CPP_HEADER
         "vue" -> FileType.VUE
-        "cs", "csx" -> FileType.CSHARP
-        "fs", "fsi", "fsx", "fsscript" -> FileType.FSHARP
+        "cs", "csx", "csharp" -> FileType.CSHARP
+        "fs", "fsi", "fsx", "fsscript", "fsproj" -> FileType.FSHARP
         "php", "phtml", "php3", "php4", "php5", "php7", "php8", "phps" -> FileType.PHP
         "go", "gox" -> FileType.GOLANG
         "swift", "swiftui" -> FileType.SWIFT
@@ -91,12 +114,12 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
         "xml", "xsd", "xsl", "xslt" -> FileType.XML
         "eyaml", "yaml", "yml" -> FileType.YAML
         "md", "markdown" -> FileType.MARKDOWN
-        "gitignore", "gitconfig", "gitmodules" -> FileType.GIT
+        "gitignore", "gitconfig", "gitmodules", "gitattributes", "gitkeep", "gitinclude" -> FileType.GIT
         "svelte" -> FileType.SVELTE
         "rb", "rbw" -> FileType.RUBY
-        "sh", "bashrc", "bash_profile", "zshrc", "shrc" -> FileType.BASH
-        "bat" -> FileType.BAT
-        "sqlite", "sqlite3", "db", "database", "sql" -> FileType.DATABASE
+        "bash", "sh", "bashrc", "bash_profile", "zshrc", "shrc", "ksh", "awk", "csh", "tcsh", "fish", "zsh" -> FileType.BASH
+        "bat", "cmd" -> FileType.BAT
+        "sqlite", "sqlite3", "db", "database", "sql", "pdb", "db3", "pks", "pkb", "accdb", "mdb", "pgsql", "postgres", "plpgsql", "psql" -> FileType.DATABASE
         "mod" -> FileType.GO_MOD
         "hs", "lhs" -> FileType.HASKELL
         "http" -> FileType.HTTP
@@ -109,10 +132,25 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
         "terraformrc" -> FileType.TERRAFORM
         "toml" -> FileType.TOML
         "txt" -> FileType.TXT
-        "asm", "s" -> FileType.ASSEMBLY
+        "asm", "s", "a51", "incc", "nasm", "ms", "agc", "ags", "aea", "argus", "mitigus", "binsource" -> FileType.ASSEMBLY
         "jsx" -> FileType.JSX
         "tsx" -> FileType.TSX
         "env" -> FileType.ENV
+        "aac", "aiff", "alac", "flac", "m4a", "m4p", "mogg", "mp3", "oga", "opus", "wav", "wma", "wv" -> FileType.AUDIO
+        "bin" -> FileType.BINARY
+        "cer", "cert", "crt", "pfx" -> FileType.CERTIFICATE
+        "clj", "cljs", "cljc" -> FileType.CLOJURE
+        "cmake" -> FileType.CMAKE
+        "cob", "cbl" -> FileType.COBOL
+        "coffee", "cson", "iced" -> FileType.COFFEESCRIPT
+        "cu", "cuh" -> FileType.CUDA
+        "djt" -> FileType.DJANGO
+        "ejs" -> FileType.EJS
+        "ex", "exs", "eex", "leex", "heex" -> FileType.ELIXIR
+        "elm" -> FileType.ELM
+        "firebaserc" -> FileType.FIREBASE
+        "woff", "woff2", "ttf", "eot", "suit", "otf", "bmap", "fnt", "odttf", "ttc", "font", "fonts", "sui", "ntf", "mrf" -> FileType.FONT
+        "f", "f77", "f90", "f95", "f03", "f08" -> FileType.FORTRAN
         else -> FileType.FILE.also {
             CatActivity.logger.warn("Unknown file type: $name ($extension)")
         }

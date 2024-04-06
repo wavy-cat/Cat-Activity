@@ -49,5 +49,22 @@
   "assembly": "assembly",
   "dart": "dart",
   "javascript-react": "react",
-  "env": "env"
+  "env": "env",
+  "jupyter": "jupyter",
+  "audio": "audio",
+  "binary": "binary",
+  "c-header": "c_header",
+  "cpp-header": "cpp_header",
+  "certificate": "certificate",
+  "clojure": "clojure",
+  "cmake": "cmake",
+  "cobol": "cobol",
+  "coffeescript": "coffeescript",
+  "cuda": "cuda",
+  "diff": "diff",
+  "ejs": "ejs",
+  "elixir": "elixir",
+  "elm": "elm",
+  "firebase": "firebase",
+  "font": "font"
 }
