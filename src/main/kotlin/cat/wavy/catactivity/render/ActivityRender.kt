@@ -7,8 +7,8 @@ import de.jcm.discordgamesdk.Core
 import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
-import cat.wavy.catactivity.APPLICATION_ID
 import cat.wavy.catactivity.CatActivity
+import cat.wavy.catactivity.types.applicationId
 import java.util.*
 
 @Service
@@ -22,7 +22,7 @@ class ActivityRender : Disposable {
     private fun init() = kotlin.runCatching {
         val core = Core(
             CreateParams().apply {
-                clientID = APPLICATION_ID
+                clientID = applicationId
                 flags = CreateParams.getDefaultFlags()
             }
         )
