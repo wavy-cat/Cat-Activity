@@ -1,5 +1,6 @@
-package cat.wavy.catactivity.service
+package cat.wavy.catactivity.actions
 
+import cat.wavy.catactivity.service.TimeService
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.DisplayMode
 import com.intellij.notification.Notification
@@ -12,23 +13,23 @@ import com.intellij.openapi.project.Project
 
 private const val groupId = "Cat Activity Notifications"
 
-class WelcomeService {
-    private class ShowAction(
-        private val notification: Notification,
-        private val timeService: TimeService?,
-        private val mode: DisplayMode,
-        title: String
-    ) : AnAction(title) {
-        override fun actionPerformed(e: AnActionEvent) {
-            val configState = e.project?.service<CatActivitySettingProjectState>()?.state
-            if (configState != null) {
-                configState.displayMode = mode
-                notification.expire()
-                timeService?.render(e.project!!)
-            }
+private class ShowAction(
+    private val notification: Notification,
+    private val timeService: TimeService?,
+    private val mode: DisplayMode,
+    title: String
+) : AnAction(title) {
+    override fun actionPerformed(e: AnActionEvent) {
+        val configState = e.project?.service<CatActivitySettingProjectState>()?.state
+        if (configState != null) {
+            configState.displayMode = mode
+            notification.expire()
+            timeService?.render(e.project!!)
         }
     }
+}
 
+class WelcomeAction {
     companion object {
         /**
          * Displays a welcome notification and returns true if it is the first initialization.
@@ -39,7 +40,7 @@ class WelcomeService {
             val configState = project.service<CatActivitySettingProjectState>().state
 
             if (configState.firstInit) {
-                val title = "Welcome to Cat Activity!"
+                val title = "Let's set up your activity display!"
                 val content = "What details would you like to showcase in your profile?"
                 val notification = Notification(groupId, title, content, NotificationType.INFORMATION)
 

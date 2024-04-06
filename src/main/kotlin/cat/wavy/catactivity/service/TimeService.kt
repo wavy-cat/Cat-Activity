@@ -16,6 +16,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
 import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.CatActivity.logger
+import cat.wavy.catactivity.actions.WelcomeAction
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
@@ -53,7 +54,7 @@ class TimeService : Disposable {
     fun onProjectOpened(project: Project) {
         timeTracker.put("project:${project.name}", System.currentTimeMillis())
         editingProject = ProjectItem.from(project)
-        val firstInit = WelcomeService.welcomeAlert(project, this)
+        val firstInit = WelcomeAction.welcomeAlert(project, this)
         if (!firstInit) {
             render(project)
         }
