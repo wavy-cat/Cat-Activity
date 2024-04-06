@@ -40,7 +40,7 @@ class WelcomeAction {
             val configState = project.service<CatActivitySettingProjectState>().state
 
             if (configState.firstInit) {
-                val title = "Hello! This is a quick display setting."
+                val title = "Let's set up your activity display!"
                 val content = "What details would you like to showcase in your profile?"
                 val notification = Notification(groupId, title, content, NotificationType.INFORMATION)
 
