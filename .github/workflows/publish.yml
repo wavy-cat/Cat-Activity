@@ -1,13 +1,8 @@
 name: Build Plugin
 
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - '.github/workflows/icons.yml'
-      - 'generate/**'
-      - 'pyproject.toml'
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -44,8 +39,8 @@ jobs:
         env:
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Plugin
-          path: build/distributions/cat-activity-*.zip
+      - name: Publish plugin
+        run: ./gradlew publishPlugin
+        env:
+          PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
