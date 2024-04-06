@@ -62,6 +62,7 @@
   "coffeescript": "coffeescript",
   "cuda": "cuda",
   "diff": "diff",
+  "django": "django",
   "ejs": "ejs",
   "elixir": "elixir",
   "elm": "elm",
