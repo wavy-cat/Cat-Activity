@@ -19,7 +19,6 @@ colors = {
 }
 
 # An original name – Server name
-# Nothing
 with open('icons.json', 'r') as file:
     icons = json.load(file)
 
