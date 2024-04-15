@@ -2,7 +2,7 @@ package cat.wavy.catactivity.actions
 
 import cat.wavy.catactivity.service.TimeService
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
-import cat.wavy.catactivity.setting.DisplayMode
+import cat.wavy.catactivity.setting.Details
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
@@ -16,15 +16,19 @@ private const val groupId = "Cat Activity Notifications"
 private class ShowAction(
     private val notification: Notification,
     private val timeService: TimeService?,
-    private val mode: DisplayMode,
+    private val details: Details?,
     title: String
 ) : AnAction(title) {
     override fun actionPerformed(e: AnActionEvent) {
         val configState = e.project?.service<CatActivitySettingProjectState>()?.state
-        if (configState != null) {
-            configState.displayMode = mode
+        if (configState != null && details != null) {
+            configState.details = details
+            configState.isEnabled = true
             notification.expire()
             timeService?.render(e.project!!)
+        } else if (details == null) {
+            configState?.isEnabled = false
+            notification.expire()
         }
     }
 }
@@ -44,10 +48,10 @@ class WelcomeAction {
                 val content = "What details would you like to showcase in your profile?"
                 val notification = Notification(groupId, title, content, NotificationType.INFORMATION)
 
-                notification.addAction(ShowAction(notification, timeService, DisplayMode.IDE, "Only IDE"))
-                notification.addAction(ShowAction(notification, timeService, DisplayMode.Project, "Project"))
-                notification.addAction(ShowAction(notification, timeService, DisplayMode.File, "Project and File"))
-                notification.addAction(ShowAction(notification, null, DisplayMode.Disable, "Disable"))
+                notification.addAction(ShowAction(notification, timeService, Details.IDE, "Only IDE"))
+                notification.addAction(ShowAction(notification, timeService, Details.Project, "Project"))
+                notification.addAction(ShowAction(notification, timeService, Details.File, "Project and File"))
+                notification.addAction(ShowAction(notification, null, null, "Disable"))
 
                 Notifications.Bus.notify(notification, project)
 

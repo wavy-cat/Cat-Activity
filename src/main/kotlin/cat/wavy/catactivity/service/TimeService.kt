@@ -20,7 +20,7 @@ import cat.wavy.catactivity.actions.WelcomeAction
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
-import cat.wavy.catactivity.setting.DisplayMode
+import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.ThemeList
 import cat.wavy.catactivity.types.DefaultVars
 import cat.wavy.catactivity.types.currentIDEType
@@ -98,8 +98,13 @@ class TimeService : Disposable {
                 val activityRender = service<ActivityRender>()
                 val activityWrapper: ActivityWrapper
 
-                when (configState.displayMode) {
-                    DisplayMode.File -> {
+                if (!configState.isEnabled) {
+                    activityRender.clearActivity()
+                    return@runAsync
+                }
+
+                when (configState.details) {
+                    Details.File -> {
                         val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
                         val repoName = repo?.presentableUrl ?: DefaultVars.REPO.default
                         val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0
@@ -124,7 +129,7 @@ class TimeService : Disposable {
                         logger.warn("Rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
                     }
 
-                    DisplayMode.Project -> {
+                    Details.Project -> {
                         val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
                         val repoName = repo?.presentableUrl ?: DefaultVars.REPO.default
 
@@ -143,16 +148,11 @@ class TimeService : Disposable {
                         ).applyIDEInfo(project)
                     }
 
-                    DisplayMode.IDE -> {
+                    Details.IDE -> {
                         activityWrapper = ActivityWrapper(
                             state = ApplicationInfoEx.getInstanceEx().fullApplicationName,
                             startTimestamp = startTime,
                         ).applyIDEInfo(project)
-                    }
-
-                    else -> {
-                        activityRender.clearActivity()
-                        return@runAsync
                     }
                 }
 

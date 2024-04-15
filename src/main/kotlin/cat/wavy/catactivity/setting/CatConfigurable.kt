@@ -8,6 +8,10 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
 import cat.wavy.catactivity.service.TimeService
+import com.intellij.openapi.ui.ComboBox
+import com.intellij.ui.components.JBCheckBox
+import com.intellij.ui.layout.selected
+import com.intellij.ui.layout.selectedValueIs
 import javax.swing.JComponent
 
 class CatConfigurable(
@@ -16,17 +20,28 @@ class CatConfigurable(
     private val panel = panel {
         val state = project.service<CatActivitySettingProjectState>().state
 
+        var enableCheck: JBCheckBox? = null
+        var displayCombo: ComboBox<Details>? = null
+        var projectStateField: JBTextField? = null
+        var fileStateField: JBTextField? = null
+
+        row {
+            checkBox("Enable Rich Presence")
+                .bindSelected(state::isEnabled)
+                .applyToComponent { enableCheck = this }
+        }
+
         group("Display") {
-            row("Display mode") {
+            row("Details") {
                 comboBox(
-                    items = DisplayMode.values().toList(),
-                ).bindItem(state::displayMode.toNullableProperty())
+                    items = Details.values().toList(),
+                ).bindItem(state::details.toNullableProperty())
+                    .applyToComponent { displayCombo = this }
 
                 contextHelp(
                     """
                     Display mode:
                     <ul>
-                        <li><b>Disable</b>: Turns off activity display completely</li>
                         <li><b>IDE</b>: Display the IDE information</li>
                         <li><b>Project</b>: Display project information only</li>
                         <li><b>File</b>: Display project and file information</li>
@@ -40,60 +55,70 @@ class CatConfigurable(
                     items = ThemeList.values().toList(),
                 ).bindItem(state::usingTheme.toNullableProperty())
             }
-        }
+        }.enabledIf(enableCheck!!.selected)
 
-        var projectStateField: JBTextField? = null
-        var fileStateField: JBTextField? = null
-
-        group("Format") {
-            group("Project") {
-                row("Details Line") {
-                    textField()
-                        .columns(COLUMNS_LARGE)
-                        .bindText(state::projectDetailFormat)
-                }
-
-                row("State Line") {
-                    textField()
-                        .columns(COLUMNS_LARGE)
-                        .bindText(state::projectStateFormat)
-                        .applyToComponent {
-                            projectStateField = this
-                        }
-                }
-
-                row {
-                    label("State line can't be empty")
-                        .applyToComponent {
-                            foreground = JBColor.RED
-                        }
-                        .visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
-                }
+        group("Format Project") {
+            row("Details Line") {
+                textField()
+                    .columns(COLUMNS_LARGE)
+                    .bindText(state::projectDetailFormat)
             }
 
-            group("File") {
-                row("Details Line") {
-                    textField()
-                        .columns(COLUMNS_LARGE)
-                        .bindText(state::fileDetailFormat)
-                }
+            row("State Line") {
+                textField()
+                    .columns(COLUMNS_LARGE)
+                    .bindText(state::projectStateFormat)
+                    .applyToComponent {
+                        projectStateField = this
+                    }
+            }
 
-                row("State Line") {
-                    textField()
-                        .columns(COLUMNS_LARGE)
-                        .bindText(state::fileStateFormat)
-                        .applyToComponent {
-                            fileStateField = this
-                        }
-                }
+            row {
+                label("State line can't be empty")
+                    .applyToComponent {
+                        foreground = JBColor.RED
+                    }
+                    .visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
+            }
 
-                row {
-                    label("State line can't be empty")
-                        .applyToComponent {
-                            foreground = JBColor.RED
-                        }
-                        .visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
-                }
+            row {
+                contextHelp(
+                    """
+                    Available variables:
+                    <ul>
+                        <li>%projectName%: Project name</li>
+                        <li>%projectPath%: Project path</li>
+                        <li>%projectProblems%: Number of problems in project</li>
+                        <li>%branch%: Current branch name</li>
+                        <li>%repository%: Current repository</li>
+                    </ul>
+                    """.trimIndent(), "Placeholders"
+                )
+            }
+        }.visibleIf(displayCombo!!.selectedValueIs(Details.Project))
+
+        group("Format File") {
+            row("Details Line") {
+                textField()
+                    .columns(COLUMNS_LARGE)
+                    .bindText(state::fileDetailFormat)
+            }
+
+            row("State Line") {
+                textField()
+                    .columns(COLUMNS_LARGE)
+                    .bindText(state::fileStateFormat)
+                    .applyToComponent {
+                        fileStateField = this
+                    }
+            }
+
+            row {
+                label("State line can't be empty")
+                    .applyToComponent {
+                        foreground = JBColor.RED
+                    }
+                    .visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
             }
 
             row {
@@ -113,7 +138,7 @@ class CatConfigurable(
                     """.trimIndent(), "Placeholders"
                 )
             }
-        }
+        }.visibleIf(displayCombo!!.selectedValueIs(Details.File)).enabledIf(enableCheck!!.selected)
     }
 
     override fun createComponent(): JComponent = panel

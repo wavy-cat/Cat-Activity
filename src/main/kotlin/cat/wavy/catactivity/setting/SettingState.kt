@@ -1,7 +1,8 @@
 package cat.wavy.catactivity.setting
 
 data class SettingState(
-    var displayMode: DisplayMode = DisplayMode.Disable,
+    var isEnabled: Boolean = false,
+    var details: Details = Details.IDE,
     var usingTheme: ThemeList = ThemeList.Macchiato,
 
     var projectStateFormat: String = "Working on %projectName%",
@@ -13,8 +14,7 @@ data class SettingState(
     var firstInit: Boolean = true,
 )
 
-enum class DisplayMode {
-    Disable,
+enum class Details {
     IDE,
     Project,
     File
