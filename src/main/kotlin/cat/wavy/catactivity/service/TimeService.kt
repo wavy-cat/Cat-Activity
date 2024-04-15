@@ -106,7 +106,7 @@ class TimeService : Disposable {
                 when (configState.details) {
                     Details.File -> {
                         val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
-                        val repoName = repo?.presentableUrl ?: DefaultVars.REPO.default
+                        val repoName = repo?.project?.name ?: DefaultVars.REPO.default
                         val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0
 
                         val variables = mutableMapOf(
@@ -131,7 +131,7 @@ class TimeService : Disposable {
 
                     Details.Project -> {
                         val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
-                        val repoName = repo?.presentableUrl ?: DefaultVars.REPO.default
+                        val repoName = repo?.project?.name ?: DefaultVars.REPO.default
 
                         val variables = mutableMapOf(
                             "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
