@@ -22,11 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Now the activity name will depend on the IDE you are using.
-        For instance, if you are working in PyCharm, then your Discord status will be “Playing a game PyCharm”, instead
-        of JetBrains IDE (which has not entirely gone, it's now a fallback name).
-
-        New icons have been added, and old ones have been extended.
+        Updated settings menu.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
