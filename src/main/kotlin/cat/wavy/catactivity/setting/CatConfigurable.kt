@@ -8,6 +8,8 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
 import cat.wavy.catactivity.service.TimeService
+import cat.wavy.catactivity.types.IDEType
+import cat.wavy.catactivity.types.currentIDEType
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.layout.selected
@@ -46,15 +48,21 @@ class CatConfigurable(
                         <li><b>Project</b>: Display project information only</li>
                         <li><b>File</b>: Display project and file information</li>
                     </ul>
-                """.trimIndent()
+                    """.trimIndent()
                 )
             }
 
             row("Theme") {
-                comboBox(
-                    items = ThemeList.values().toList(),
-                ).bindItem(state::usingTheme.toNullableProperty())
+                comboBox(items = ThemeList.values().toList())
+                    .bindItem(state::usingTheme.toNullableProperty())
             }
+
+            row {
+                checkBox("Show JetBrains IDE instead of ${currentIDEType.title}")
+                    .bindSelected(state::usingDefaultIDEName)
+
+                contextHelp("Restart required")
+            }.visible(currentIDEType != IDEType.JETBRAINS)
         }.enabledIf(enableCheck!!.selected)
 
         group("Format Project") {

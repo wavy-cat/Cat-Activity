@@ -4,6 +4,7 @@ data class SettingState(
     var isEnabled: Boolean = false,
     var details: Details = Details.IDE,
     var usingTheme: ThemeList = ThemeList.Macchiato,
+    var usingDefaultIDEName: Boolean = false,
 
     var projectStateFormat: String = "Working on %projectName%",
     var projectDetailFormat: String = "%projectProblems% Problems in Project",

@@ -21,10 +21,9 @@ import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
+import cat.wavy.catactivity.setting.SettingState
 import cat.wavy.catactivity.setting.ThemeList
-import cat.wavy.catactivity.types.DefaultVars
-import cat.wavy.catactivity.types.currentIDEType
-import cat.wavy.catactivity.types.getFileTypeByName
+import cat.wavy.catactivity.types.*
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 
@@ -164,29 +163,29 @@ class TimeService : Disposable {
         }
     }
 
-    private fun getLangIconUrl(theme: ThemeList, icon: String): String {
-        return ICONS_URL + "/${theme.name}/$icon.png"
+    private fun getLangIconUrl(state: SettingState, icon: String): String {
+        return ICONS_URL + "/${state.usingTheme.name}/$icon.png"
     }
 
-    private fun getIDEIconUrl(theme: ThemeList, ide: String): String {
-        return ICONS_URL + "/IDE/${theme.name}/$ide.png"
+    private fun getIDEIconUrl(state: SettingState): String {
+        val ide = if (state.usingDefaultIDEName) IDEType.JETBRAINS else currentIDEType
+        return ICONS_URL + "/IDE/${state.usingTheme.name}/${ide.icon}.png"
     }
 
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
-        val usingTheme = project.service<CatActivitySettingProjectState>().state.usingTheme
-        val ideType = currentIDEType
-        largeImageKey = getIDEIconUrl(usingTheme, ideType.icon)
-        largeImageText = ideType.title
+        val state = project.service<CatActivitySettingProjectState>().state
+        largeImageKey = getIDEIconUrl(state)
+        largeImageText = currentIDEType.title
         return this
     }
 
     private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
-        val configState = project.service<CatActivitySettingProjectState>().state
+        val state = project.service<CatActivitySettingProjectState>().state
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.extension)
-            smallImageKey = getIDEIconUrl(configState.usingTheme, currentIDEType.icon)
+            smallImageKey = getIDEIconUrl(state)
             smallImageText = largeImageText // swap
-            largeImageKey = getLangIconUrl(configState.usingTheme, type.icon)
+            largeImageKey = getLangIconUrl(state, type.icon)
             largeImageText = type.typeName
         }
         return this

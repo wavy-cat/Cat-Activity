@@ -8,7 +8,11 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
 import cat.wavy.catactivity.CatActivity
+import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.types.applicationId
+import cat.wavy.catactivity.types.defaultApplicationId
+import com.intellij.openapi.components.service
+import com.intellij.openapi.project.ProjectManager
 import java.util.*
 
 @Service
@@ -20,9 +24,11 @@ class ActivityRender : Disposable {
 
     // TODO: Maybe let use to re-init discord rp if they want
     private fun init() = kotlin.runCatching {
+        val state = ProjectManager.getInstance().openProjects.firstOrNull()
+            ?.getService(CatActivitySettingProjectState::class.java)?.state
         val core = Core(
             CreateParams().apply {
-                clientID = applicationId
+                clientID = if (state?.usingDefaultIDEName == true) defaultApplicationId else applicationId
                 flags = CreateParams.getDefaultFlags()
             }
         )

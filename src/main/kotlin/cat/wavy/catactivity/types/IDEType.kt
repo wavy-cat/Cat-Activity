@@ -2,6 +2,9 @@ package cat.wavy.catactivity.types
 
 import com.intellij.openapi.application.ex.ApplicationInfoEx
 import cat.wavy.catactivity.CatActivity
+import cat.wavy.catactivity.setting.CatConfigurable
+import cat.wavy.catactivity.setting.SettingState
+import com.intellij.openapi.components.ServiceManager
 
 enum class IDEType(
     val title: String,
@@ -47,6 +50,8 @@ val currentIDEType by lazy {
     }
 }
 
+const val defaultApplicationId = 1199736719377965187
+
 val applicationId by lazy {
     when (currentIDEType) {
         IDEType.IDEA -> 1226060730273497098
@@ -63,6 +68,6 @@ val applicationId by lazy {
         IDEType.AQUA -> 1226075813003132949
         IDEType.DATASPELL -> 1226075981727404032
         IDEType.DATAGRIP -> 1226108086985424896
-        else -> 1199736719377965187 // IDEType.JETBRAINS
+        else -> defaultApplicationId // IDEType.JETBRAINS
     }
 }
