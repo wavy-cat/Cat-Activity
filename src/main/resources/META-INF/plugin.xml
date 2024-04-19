@@ -14,7 +14,7 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        Plugin for Jetbrains IDE to show your activity in your Discord profile.
+        Plugin for JetBrains IDE to display Rich Presence on your Discord profile using Catppuccin Icons and Theme.
         <br/>
         <b>
             The settings are in <i>Settings > Tools > Cat Activity</i>
@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Updated settings menu.
+        Added the ability to display “JetBrains IDE” in an activity, instead of the specific name of the current IDE.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
