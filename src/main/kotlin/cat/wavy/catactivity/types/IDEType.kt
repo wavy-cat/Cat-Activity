@@ -2,9 +2,6 @@ package cat.wavy.catactivity.types
 
 import com.intellij.openapi.application.ex.ApplicationInfoEx
 import cat.wavy.catactivity.CatActivity
-import cat.wavy.catactivity.setting.CatConfigurable
-import cat.wavy.catactivity.setting.SettingState
-import com.intellij.openapi.components.ServiceManager
 
 enum class IDEType(
     val title: String,

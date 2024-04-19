@@ -22,7 +22,6 @@ import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.SettingState
-import cat.wavy.catactivity.setting.ThemeList
 import cat.wavy.catactivity.types.*
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference

@@ -11,7 +11,6 @@ import cat.wavy.catactivity.CatActivity
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.types.applicationId
 import cat.wavy.catactivity.types.defaultApplicationId
-import com.intellij.openapi.components.service
 import com.intellij.openapi.project.ProjectManager
 import java.util.*
 
