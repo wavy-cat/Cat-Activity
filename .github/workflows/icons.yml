@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - master
-      - action-test
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
       - 'poetry.lock'
       - 'pyproject.toml'
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
