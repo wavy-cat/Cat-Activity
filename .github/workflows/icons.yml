@@ -2,7 +2,9 @@ name: Python Icons CI/CD
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - action-test
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
