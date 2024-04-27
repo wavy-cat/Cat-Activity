@@ -44,14 +44,10 @@ jobs:
         with:
           name: web
           path: ./generate/web
-#
-#      - name: Build & Deploy Worker
-#        uses: cloudflare/wrangler-action@v3.4.1
-#        with:
-#          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-#          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-#          command: pages deploy ./generate/web --project-name=assets
-#        env:
-#          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-#
-#       https://github.com/cloudflare/wrangler-action/issues/246
+
+      - name: Build & Deploy Worker
+        uses: cloudflare/wrangler-action@v3.4.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./generate/web --project-name=assets
