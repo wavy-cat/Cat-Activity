@@ -34,3 +34,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/cat_icons.json

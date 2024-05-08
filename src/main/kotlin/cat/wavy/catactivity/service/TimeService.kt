@@ -181,7 +181,7 @@ class TimeService : Disposable {
     private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
         val state = project.service<CatActivitySettingProjectState>().state
         editingFile?.let {
-            val type = getFileTypeByName(it.type, it.extension)
+            val type = getFileTypeByName(it.type, it.fileName, it.extension)
             smallImageKey = getIDEIconUrl(state)
             smallImageText = largeImageText // swap
             largeImageKey = getLangIconUrl(state, type.icon)

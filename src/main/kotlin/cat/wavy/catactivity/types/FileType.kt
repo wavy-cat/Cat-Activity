@@ -76,10 +76,46 @@ enum class FileType(
     FIREBASE("Firebase", "firebase"),
     FONT("Font", "font"),
     FORTRAN("Fortran", "fortran"),
+    HEROKU("Heroku procfile", "heroku"),
+    ADONIS("Adonis", "adonis"),
+    ALEX("alex", "alex"),
+    ANDROID_MANIFEST("AndroidManifest.xml", "android"),
+    ANTLR("ANTLR", "antlr"),
+    API_BLUEPRINT("API Blueprint", "api-blueprint"),
+    APOLLO("Apollo GraphQL", "apollo"),
+    ASCIIDOC("AsciiDoc", "asciidoc"),
+    ASTRO("Astro", "astro"),
+    ASTRO_CONFIG("Astro Config", "astro-config"),
+    AZURE_PIPELINES("Azure Pipelines", "azure-pipelines"),
+    BABEL("Babel", "babel"),
+    BIOME("Biome", "biome"),
+    BITBUCKET("Bitbucket Pipelines", "bitbucket"),
+    BLITZ("Blitz", "blitz"),
+    BOWER("Bower", "bower"),
+    BROWSERSLIST("Browserslist", "browserslist"),
+    BUNFIG("Bun Config", "bun"),
+    BUN_LOCK("Bun Lock", "bun-lock"),
+    CADDYFILE("Caddyfile", "caddy"),
+    CAPACITOR("Capacitor", "capacitor"),
+    CARGO("Cargo", "cargo"),
+    CARGO_LOCK("Cargo Lock", "cargo-lock"),
+    CHANGELOG("Changelog", "changelog"),
+    CIRCLECI("CircleCI", "circle-ci"),
+    CODE_CLIMATE("Code Climate", "code-climate"),
+    CODE_OF_CONDUCT("Code of conduct", "code-of-conduct"),
+    CODEOWNERS("CODEOWNERS", "codeowners"),
+    COMMITLINT("commitlint", "commitlint"),
+    CONTRIBUTING("CONTRIBUTING", "contributing"),
+    CYPRESS("Cypress", "cypress"),
+    D("D", "d"),
+    DENO("Deno", "deno"),
+    DENO_LOCK("Deno Lock", "deno_lock"),
+    DEPENDABOT("Dependabot", "dependabot"),
+    DEVCONTAINER("Devcontainer", "devcontainer"),
     FILE("File", "file"), // FALLBACK
 }
 
-fun getFileTypeByName(name: String, extension: String?) = when (name) {
+fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = when (fileType) {
     "JAVA" -> FileType.JAVA
     "Kotlin" -> FileType.KOTLIN
     "Rust" -> FileType.RUST
@@ -122,7 +158,7 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
         "sqlite", "sqlite3", "db", "database", "sql", "pdb", "db3", "pks", "pkb", "accdb", "mdb", "pgsql", "postgres", "plpgsql", "psql" -> FileType.DATABASE
         "mod" -> FileType.GO_MOD
         "hs", "lhs" -> FileType.HASKELL
-        "http" -> FileType.HTTP
+        "http", "rest" -> FileType.HTTP
         "png", "jpeg", "jpg", "bmp", "webp", "eps", "gif", "ico", "tiff" -> FileType.IMAGE
         "svg" -> FileType.SVG
         "pl", "pm", "pod" -> FileType.PERL
@@ -151,8 +187,46 @@ fun getFileTypeByName(name: String, extension: String?) = when (name) {
         "firebaserc" -> FileType.FIREBASE
         "woff", "woff2", "ttf", "eot", "suit", "otf", "bmap", "fnt", "odttf", "ttc", "font", "fonts", "sui", "ntf", "mrf" -> FileType.FONT
         "f", "f77", "f90", "f95", "f03", "f08" -> FileType.FORTRAN
-        else -> FileType.FILE.also {
-            CatActivity.logger.warn("Unknown file type: $name ($extension)")
+        "g4" -> FileType.ANTLR
+        "apib", "apiblueprint" -> FileType.API_BLUEPRINT
+        "adoc", "asciidoc", "asc" -> FileType.ASCIIDOC
+        "astro" -> FileType.ASTRO
+        "d" -> FileType.D
+        else -> when (fileName.lowercase()) {
+            "procfile" -> FileType.HEROKU
+            ".adonisrc.json", "ace" -> FileType.ADONIS
+            ".alexrc", ".alexrc.yaml", ".alexrc.yml", ".alexrc.js" -> FileType.ALEX
+            "androidmanifest.xml" -> FileType.ANDROID_MANIFEST
+            "apollo.config.js", "apollo.config.ts" -> FileType.APOLLO
+            "astro.config.js", "astro.config.mjs", "astro.config.cjs", "astro.config.ts", "astro.config.cts", "astro.config.mts" -> FileType.ASTRO_CONFIG
+            "azure-pipelines.yml", "azure-pipelines.yaml", "azure-pipelines-main.yml", "azure-pipelines-main.yaml" -> FileType.AZURE_PIPELINES
+            ".babelrc", ".babelrc.cjs", ".babelrc.js", ".babelrc.mjs", ".babelrc.json", "babel.config.cjs", "babel.config.js", "babel.config.mjs", "babel.config.json", "babel-transform.js", ".babel-plugin-macrosrc", ".babel-plugin-macrosrc.json", ".babel-plugin-macrosrc.yaml", ".babel-plugin-macrosrc.yml", ".babel-plugin-macrosrc.js", "babel-plugin-macros.config.js" -> FileType.BABEL
+            "biome.json", "biome.jsonc" -> FileType.BIOME
+            "bitbucket-pipelines.yaml", "bitbucket-pipelines.yml" -> FileType.BITBUCKET
+            "blitz.config.js", "blitz.config.ts", ".blitz.config.compiled.js" -> FileType.BLITZ
+            ".bowerrc", "bower.json" -> FileType.BOWER
+            "browserslist", ".browserslistrc" -> FileType.BROWSERSLIST
+            "bunfig.toml" -> FileType.BUNFIG
+            "bun.lockb" -> FileType.BUN_LOCK
+            "caddyfile" -> FileType.CADDYFILE
+            "capacitor.config.json", "capacitor.config.ts" -> FileType.CAPACITOR
+            "cargo.toml" -> FileType.CARGO
+            "cargo.lock" -> FileType.CARGO_LOCK
+            "changelog", "changelog.md", "changelog.rst", "changelog.txt", "changes", "changes.md", "changes.rst", "changes.txt" -> FileType.CHANGELOG
+            "circle.yml" -> FileType.CIRCLECI
+            ".codeclimate.yml" -> FileType.CODE_CLIMATE
+            "code_of_conduct.md", "code_of_conduct.txt", "code_of_conduct" -> FileType.CODE_OF_CONDUCT
+            "codeowners", "owners" -> FileType.CODEOWNERS
+            ".commitlintrc", ".commitlintrc.js", ".commitlintrc.cjs", ".commitlintrc.json", ".commitlintrc.yaml", ".commitlintrc.yml", ".commitlint.yaml", ".commitlint.yml", "commitlint.config.js", "commitlint.config.cjs", "commitlint.config.ts", "commitlint.config.cts" -> FileType.COMMITLINT
+            "contributing", "contributing.md", "contributing.rst", "contributing.txt" -> FileType.CONTRIBUTING
+            "cypress.json", "cypress.env.json", "cypress.config.ts", "cypress.config.js", "cypress.config.cjs", "cypress.config.mjs" -> FileType.CYPRESS
+            "deno.json", "deno.jsonc" -> FileType.DENO
+            "deno.lock" -> FileType.DENO_LOCK
+            "dependabot.yml", "dependabot.yaml" -> FileType.DEPENDABOT
+            "devcontainer.json", ".devcontainer.json" -> FileType.DEVCONTAINER
+            else -> FileType.FILE.also {
+                CatActivity.logger.warn("Unknown file type: $fileType ($extension)")
+            }
         }
     }
 }
