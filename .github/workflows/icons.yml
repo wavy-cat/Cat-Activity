@@ -47,7 +47,7 @@ jobs:
           name: web
           path: ./generate/web
 
-      - name: Build & Deploy Worker
+      - name: Deploy Page
         uses: cloudflare/wrangler-action@v3.4.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
