@@ -12,12 +12,9 @@ Plugin for Jetbrains IDE to show your activity in your Discord profile.
   
   <kbd>Settings/Preferences</kbd> → <kbd>Plugins</kbd> → <kbd>Marketplace</kbd> → <kbd>Search for "Cat Activity"</kbd> → <kbd>Install Plugin</kbd>
 
-- From [Releases](https://github.com/wavy-cat/cat-activity/releases) / [Actions](https://github.com/wavy-cat/cat-activity/actions):
+- From [Releases](https://github.com/wavy-cat/cat-activity/releases):
 
-  Download the ZIP file from the [latest release](https://github.com/wavy-cat/cat-activity/releases/latest) or the [last workflow](https://github.com/wavy-cat/cat-activity/actions/workflows/build.yml) and install it manually using <kbd>Settings/Preferences</kbd> → <kbd>Plugins</kbd> → <kbd>⚙️</kbd> → <kbd>Install plugin from disk...</kbd>
-
-> [!IMPORTANT]
-> You don't need to unzip the ZIP archive from the Releases. Only unzip artifacts from the Actions once.
+  Download the ZIP file from the [latest release](https://github.com/wavy-cat/cat-activity/releases/latest) and install it manually using <kbd>Settings/Preferences</kbd> → <kbd>Plugins</kbd> → <kbd>⚙️</kbd> → <kbd>Install plugin from disk...</kbd>
 
 ## Report a bug
 Send any bugs you find to the [Issue](https://github.com/wavy-cat/cat-activity/issues) page. However, if you can fix it, it would be better to send a [Pull request](https://github.com/wavy-cat/cat-activity/pulls).
