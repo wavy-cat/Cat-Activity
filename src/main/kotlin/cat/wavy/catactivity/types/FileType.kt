@@ -295,6 +295,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "dependabot.yml", "dependabot.yaml" -> FileType.DEPENDABOT
     "devcontainer.json", ".devcontainer.json" -> FileType.DEVCONTAINER
     "docker-compose.yml", "docker-compose.yaml", "compose.yaml", "compose.yml" -> FileType.DOCKER_COMPOSE
+    ".dockerignore" -> FileType.DOCKER_IGNORE
     ".editorconfig" -> FileType.EDITORCONFIG
     ".eleventy.js", "eleventy.config.js", "eleventy.config.mjs", "eleventy.config.cjs", ".eleventyignore" -> FileType.ELEVENTY
     ".ember-cli", ".ember-cli.js", "ember-cli-builds.js" -> FileType.EMBER
@@ -433,7 +434,6 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
         "JavaScript" -> FileType.JAVASCRIPT
         "TypeScript" -> FileType.TYPESCRIPT
         "Dockerfile" -> FileType.DOCKER
-        "DockerIgnore file" -> FileType.DOCKER_IGNORE
         "Properties" -> FileType.PROPERTIES
         "CSV" -> FileType.CSV
         "lua" -> FileType.LUA
