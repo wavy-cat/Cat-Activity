@@ -1,4 +1,4 @@
-name: Python Icons CI/CD
+name: Icons CI/CD
 
 on:
   push:
