@@ -1,6 +1,6 @@
 # Cat Activity
 
-Plugin for Jetbrains IDE to show your activity in your Discord profile.
+Plugin for JetBrains IDE to show your activity in your Discord profile.
 
 <img src="assets/header.png" alt="Header"/>
 
