@@ -1,4 +1,4 @@
-package cat.wavy.catactivity.actions
+package cat.wavy.catactivity.action
 
 import cat.wavy.catactivity.service.TimeService
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState

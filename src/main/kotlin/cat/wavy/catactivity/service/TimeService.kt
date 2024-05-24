@@ -16,7 +16,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
 import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.CatActivity.logger
-import cat.wavy.catactivity.actions.WelcomeAction
+import cat.wavy.catactivity.action.WelcomeAction
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
