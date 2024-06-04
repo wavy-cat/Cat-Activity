@@ -21,6 +21,8 @@ enum class IDEType(
     AQUA("Aqua", "aqua"),
     DATASPELL("DataSpell", "dataspell"),
     DATAGRIP("DataGrip", "datagrip"),
+    APPCODE("AppCode", "appcode"),
+    MPS("MPS", "mps"),
     JETBRAINS("JetBrains", "jetbrains"), // FALLBACK
 }
 
@@ -41,6 +43,8 @@ val currentIDEType by lazy {
         "DS" -> IDEType.DATASPELL
         "DB" -> IDEType.DATAGRIP
         "QA" -> IDEType.AQUA
+        "OC" -> IDEType.APPCODE
+        "MPS" -> IDEType.MPS
         else -> IDEType.JETBRAINS.also {
             CatActivity.logger.warn("Unknown IDE type: ${info.build.productCode}")
         }
@@ -65,6 +69,8 @@ val applicationId by lazy {
         IDEType.AQUA -> 1226075813003132949
         IDEType.DATASPELL -> 1226075981727404032
         IDEType.DATAGRIP -> 1226108086985424896
+        IDEType.APPCODE -> 1247235403832885371
+        IDEType.MPS -> 1247234752470188113
         else -> defaultApplicationId // IDEType.JETBRAINS
     }
 }

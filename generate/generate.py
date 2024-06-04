@@ -9,6 +9,8 @@ import cairosvg
 from PIL import Image
 from tqdm import tqdm
 
+# Get JB icons from https://www.jetbrains.com/company/brand/#logos-and-icons-jetbrains-logos
+
 # Color name – background hex
 colors = {
     'Frappe': '#303446',
@@ -39,7 +41,7 @@ def generate_ide_icons(theme: str, background: str, position: int):
         image_full = Image.new('RGBA', (1536, 1536), background)
 
         image_full.paste(image_icon, (256, 256), image_icon)
-        image_full.save(f'web/IDE/{theme}/{file.lower().removesuffix("_icon.svg")}.png')
+        image_full.save(f'web/IDE/{theme}/{file.lower().removesuffix(".svg")}.png')
 
 
 # Creating the required folder structure

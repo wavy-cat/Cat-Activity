@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Over 180 new icons have been added, and some old ones have been extended.
+        Added support for MPS and AppCode.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.

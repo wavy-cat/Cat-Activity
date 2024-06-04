@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "cat.wavy"
-version = "1.4.1"
+version = "1.4.2"
 
 repositories {
     mavenCentral()
@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.JnCrMx:discord-game-sdk4j:java-impl-SNAPSHOT")
+    implementation("com.github.JnCrMx:discord-game-sdk4j:master-SNAPSHOT")
     implementation("org.jetbrains:marketplace-zip-signer:0.1.24")
 }
 
