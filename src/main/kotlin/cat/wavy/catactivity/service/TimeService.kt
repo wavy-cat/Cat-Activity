@@ -103,19 +103,18 @@ class TimeService : Disposable {
 
                 when (configState.details) {
                     Details.File -> {
-                        val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
-                        val repoName = repo?.project?.name ?: DefaultVars.REPO.default
-                        val problems = editingFile?.file?.get()?.let { problemsCollector.getFileProblemCount(it) } ?: 0
-
                         val variables = mutableMapOf(
                             "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
                             "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
                             "%projectProblems%" to problemsCollector.getProblemCount().toString(),
                             "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
                             "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
-                            "%fileProblems%" to problems.toString(),
-                            "%branch%" to branchName,
-                            "%repository%" to repoName,
+                            "%fileProblems%" to (editingFile?.file?.get()
+                                ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
+                            "%branch%" to (repo?.currentBranch?.name ?: DefaultVars.BRANCH.default),
+                            "%repository%" to (repo?.project?.name ?: DefaultVars.REPO.default),
+                            "%totalLines%" to (editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default),
+                            "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default)
                         )
 
                         activityWrapper = ActivityWrapper(
@@ -206,6 +205,16 @@ private fun String.replaceVariables(variables: Map<String, String>): String {
     return result
 }
 
+private fun Long.formatBytes(): String {
+    return when {
+        this < 1024 -> "$this B"
+        this < 1048576 -> "${(this / 1024)} KB"
+        this < 1073741824 -> "${(this / 1048576)} MB"
+        this < 1099511627776 -> "${(this / 1073741824)} GB"
+        else -> "${(this / 1073741824)} TB"
+    }
+}
+
 class ProjectItem(
     key: String,
     val projectName: String,
@@ -228,7 +237,9 @@ class FileItem(
     val fileName: String,
     val type: String,
     val extension: String?,
-    val filePath: String?,
+    val filePath: String,
+    val linesCount: Int?,
+    val fileSize: Long
 ) : TimedItem(key) {
     companion object {
         fun from(file: VirtualFile): FileItem {
@@ -239,6 +250,8 @@ class FileItem(
                 file.fileType.name,
                 file.extension,
                 file.path,
+                FileDocumentManager.getInstance().getDocument(file)?.lineCount,
+                file.length
             )
         }
     }

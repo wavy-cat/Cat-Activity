@@ -3,10 +3,13 @@ package cat.wavy.catactivity.types
 enum class DefaultVars(
     val default: String
 ) {
+    // ¯\_(ツ)_/¯
     BRANCH("no branch"),
     REPO("Unknown repo"),
     PROJECTNAME("No name"),
-    PROJECTPATH("--"),
+    PROJECTPATH("¯\\_(ツ)_/¯"),
     FILENAME("Empty"),
-    FILEPATH("--"),
+    FILEPATH("¯\\_(ツ)_/¯"),
+    LINESCOUNT("¯\\_(ツ)_/¯"),
+    FILESIZE("¯\\_(ツ)_/¯")
 }

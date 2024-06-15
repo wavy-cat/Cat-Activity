@@ -142,6 +142,8 @@ class CatConfigurable(
                         <li>%projectProblems%: Number of problems in project</li>
                         <li>%branch%: Current branch name</li>
                         <li>%repository%: Current repository</li>
+                        <li>%totalLines%: Number of total lines in the file</li>
+                        <li>%fileSize%: Current file size</li>
                     </ul>
                     """.trimIndent(), "Placeholders"
                 )
