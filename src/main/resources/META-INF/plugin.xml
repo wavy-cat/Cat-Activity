@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Added support for MPS and AppCode.
+        New placeholders have been added.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
