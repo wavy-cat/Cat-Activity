@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        New placeholders have been added.
+        Fixed display of C, D, R and V languages.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
