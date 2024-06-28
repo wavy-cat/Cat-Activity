@@ -13,13 +13,14 @@ import cat.wavy.catactivity.types.applicationId
 import cat.wavy.catactivity.types.defaultApplicationId
 import com.intellij.openapi.project.ProjectManager
 import java.util.*
+import kotlin.reflect.KFunction1
 
 @Service
 class ActivityRender : Disposable {
     private lateinit var activityManager: ActivityManager
-    private val scope = CoroutineScope(
-        Dispatchers.Default + SupervisorJob()
-    )
+    private var scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    private lateinit var lastActivity: ActivityWrapper
+    private var errorState = false
 
     // TODO: Maybe let use to re-init discord rp if they want
     private fun init() = kotlin.runCatching {
@@ -48,7 +49,7 @@ class ActivityRender : Disposable {
         init()
     }
 
-    fun updateActivity(activity: ActivityWrapper) = kotlin.runCatching {
+    fun updateActivity(activity: ActivityWrapper, onError: KFunction1<String?, Unit>? = null) = kotlin.runCatching {
         val activityNative = Activity()
         activityNative.state = activity.state
         activityNative.details = activity.details
@@ -62,18 +63,33 @@ class ActivityRender : Disposable {
         activityNative.assets().largeText = activity.largeImageText
         activityNative.assets().smallImage = activity.smallImageKey
         activityNative.assets().smallText = activity.smallImageText
+        lastActivity = activity
         scope.launch(Dispatchers.IO) {
             kotlin.runCatching {
                 activityManager.updateActivity(activityNative)
+                errorState = false
             }
                 .onFailure {
                     CatActivity.logger.warn("Failed to update activity: " + it.message)
+                    if (onError != null && !errorState) {
+                        onError(it.message)
+                    }
+                    errorState = true
                 }
         }
     }
 
     fun clearActivity() = kotlin.runCatching {
         activityManager.clearActivity()
+    }
+
+    fun reload() {
+        dispose()
+        scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+        init()
+        if (this::lastActivity.isInitialized) {
+            updateActivity(lastActivity)
+        }
     }
 
     override fun dispose() {
