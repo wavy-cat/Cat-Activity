@@ -59,4 +59,11 @@
                 topic="com.intellij.analysis.problemsView.ProblemsListener"
         />
     </projectListeners>
+
+    <actions>
+        <group id="CatActivity.Discord" text="Cat Activity">
+            <add-to-group group-id="ToolsMenu" anchor="last" />
+            <action id="CatActivity.ReloadAction" class="cat.wavy.catactivity.action.ReloadAction" />
+        </group>
+    </actions>
 </idea-plugin>

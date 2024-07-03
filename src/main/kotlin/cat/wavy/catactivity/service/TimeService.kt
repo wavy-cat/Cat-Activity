@@ -16,8 +16,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
 import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.CatActivity.logger
-import cat.wavy.catactivity.action.reloadAlert
-import cat.wavy.catactivity.action.welcomeAlert
+import cat.wavy.catactivity.action.alert.welcomeAlert
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
@@ -155,27 +154,12 @@ class TimeService : Disposable {
                 }
 
                 activityWrapper.let {
-                    val handler = ErrorHandler(project, activityRender)
-                    activityRender.updateActivity(it, handler::handle)
+                    activityRender.updateActivity(it)
                 }
             }.onFailure {
                 it.printStackTrace()
                 println("Failed to render activity: ${it.message}")
             }
-        }
-    }
-
-    class ErrorHandler(
-        private val project: Project,
-        private val activityRender: ActivityRender
-    ) {
-        private var used = false
-        fun handle(message: String?) {
-            if (used) {
-                return
-            }
-            used = true
-            reloadAlert(project, activityRender, message)
         }
     }
 

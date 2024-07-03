@@ -8,12 +8,12 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
 import cat.wavy.catactivity.CatActivity
+import cat.wavy.catactivity.action.alert.reloadAlert
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.types.applicationId
 import cat.wavy.catactivity.types.defaultApplicationId
 import com.intellij.openapi.project.ProjectManager
 import java.util.*
-import kotlin.reflect.KFunction1
 
 @Service
 class ActivityRender : Disposable {
@@ -22,7 +22,6 @@ class ActivityRender : Disposable {
     private lateinit var lastActivity: ActivityWrapper
     private var errorState = false
 
-    // TODO: Maybe let use to re-init discord rp if they want
     private fun init() = kotlin.runCatching {
         val state = ProjectManager.getInstance().openProjects.firstOrNull()
             ?.getService(CatActivitySettingProjectState::class.java)?.state
@@ -49,7 +48,7 @@ class ActivityRender : Disposable {
         init()
     }
 
-    fun updateActivity(activity: ActivityWrapper, onError: KFunction1<String?, Unit>? = null) = kotlin.runCatching {
+    fun updateActivity(activity: ActivityWrapper) = kotlin.runCatching {
         val activityNative = Activity()
         activityNative.state = activity.state
         activityNative.details = activity.details
@@ -71,10 +70,11 @@ class ActivityRender : Disposable {
             }
                 .onFailure {
                     CatActivity.logger.warn("Failed to update activity: " + it.message)
-                    if (onError != null && !errorState) {
-                        onError(it.message)
+                    val project = ProjectManager.getInstance().openProjects.firstOrNull()
+                    if (project != null) {
+                        reloadAlert(project, it.message)
+                        errorState = true
                     }
-                    errorState = true
                 }
         }
     }
@@ -83,10 +83,11 @@ class ActivityRender : Disposable {
         activityManager.clearActivity()
     }
 
-    fun reload() {
+    fun reinit() {
         dispose()
         scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
         init()
+        errorState = false
         if (this::lastActivity.isInitialized) {
             updateActivity(lastActivity)
         }

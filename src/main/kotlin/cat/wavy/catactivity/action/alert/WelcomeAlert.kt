@@ -1,4 +1,4 @@
-package cat.wavy.catactivity.action
+package cat.wavy.catactivity.action.alert
 
 import cat.wavy.catactivity.NOTIFICATION_GROUP_ID
 import cat.wavy.catactivity.service.TimeService

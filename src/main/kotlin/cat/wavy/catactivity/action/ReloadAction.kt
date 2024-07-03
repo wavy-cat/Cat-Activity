@@ -1,46 +1,15 @@
 package cat.wavy.catactivity.action
 
-import cat.wavy.catactivity.NOTIFICATION_GROUP_ID
+import cat.wavy.catactivity.CatActivity
 import cat.wavy.catactivity.render.ActivityRender
-import com.intellij.notification.Notification
-import com.intellij.notification.NotificationType
-import com.intellij.notification.Notifications
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.project.Project
+import com.intellij.openapi.components.service
+import com.intellij.openapi.project.DumbAware
 
-private class ReloadAction(
-    private val notification: Notification,
-    private val render: ActivityRender,
-    title: String
-) : AnAction(title) {
-    override fun actionPerformed(p0: AnActionEvent) {
-        render.reload()
-        notification.expire()
-    }
-}
-
-private class DismissAction(
-    private val notification: Notification,
-    title: String
-) : AnAction(title) {
+class ReloadAction : AnAction("Reconnect to Discord"), DumbAware {
     override fun actionPerformed(e: AnActionEvent) {
-        notification.expire()
+        service<ActivityRender>().reinit()
+        CatActivity.logger.info("ActivityRender is forcefully reinitialized")
     }
-}
-
-
-fun reloadAlert(project: Project, render: ActivityRender, message: String?) {
-    val title = "Connection to Discord lost"
-    val content = when (message) {
-        null -> "Do you want to try reconnecting?"
-        else -> "Reason: $message. Do you want to try reconnecting?"
-    }
-
-    val notification = Notification(NOTIFICATION_GROUP_ID, title, content, NotificationType.INFORMATION)
-
-    notification.addAction(ReloadAction(notification, render, "Reconnect"))
-    notification.addAction(DismissAction(notification, "Dismiss"))
-
-    Notifications.Bus.notify(notification, project)
 }
