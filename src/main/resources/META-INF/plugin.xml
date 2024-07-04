@@ -22,7 +22,8 @@
   ]]></description>
 
     <change-notes>
-        Fixed display of C, D, R and V languages.
+        Added an option in the menu (Tools) to reconnect to Discord.
+        Also, notifications are now displayed when connection with Discord is lost.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
