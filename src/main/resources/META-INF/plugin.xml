@@ -22,8 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Added an option in the menu (Tools) to reconnect to Discord.
-        Also, notifications are now displayed when connection with Discord is lost.
+        Added support for IntelliJ IDEA 2024.2
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
