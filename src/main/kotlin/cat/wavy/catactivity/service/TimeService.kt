@@ -21,6 +21,7 @@ import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
+import cat.wavy.catactivity.setting.IconsStyle
 import cat.wavy.catactivity.setting.SettingState
 import cat.wavy.catactivity.types.*
 import org.jetbrains.concurrency.runAsync
@@ -164,12 +165,14 @@ class TimeService : Disposable {
     }
 
     private fun getLangIconUrl(state: SettingState, icon: String): String {
-        return ICONS_URL + "/${state.usingTheme.name}/$icon.png"
+        return "$ICONS_URL/${state.usingTheme.name}/$icon.png"
     }
 
     private fun getIDEIconUrl(state: SettingState): String {
         val ide = if (state.usingDefaultIDEName) IDEType.JETBRAINS else currentIDEType
-        return ICONS_URL + "/IDE/${state.usingTheme.name}/${ide.icon}.png"
+        val style = if (state.iconsStyle == IconsStyle.New) "new/" else ""
+
+        return "$ICONS_URL/IDE/$style${state.usingTheme.name}/${ide.icon}.png"
     }
 
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {

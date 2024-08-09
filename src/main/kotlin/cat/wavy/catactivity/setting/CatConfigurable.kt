@@ -57,6 +57,11 @@ class CatConfigurable(
                     .bindItem(state::usingTheme.toNullableProperty())
             }
 
+            row("IDE icons") {
+                comboBox(items = IconsStyle.values().toList())
+                    .bindItem(state::iconsStyle.toNullableProperty())
+            }.enabledIf(enableCheck!!.selected)
+
             row {
                 checkBox("Show JetBrains IDE instead of ${currentIDEType.title}")
                     .bindSelected(state::usingDefaultIDEName)

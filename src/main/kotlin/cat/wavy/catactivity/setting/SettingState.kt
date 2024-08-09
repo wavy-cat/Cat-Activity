@@ -11,6 +11,7 @@ data class SettingState(
 
     var fileStateFormat: String = "Editing %fileName%",
     var fileDetailFormat: String = "%projectName% (%branch%)",
+    var iconsStyle: IconsStyle = IconsStyle.New,
 
     var firstInit: Boolean = true,
 )
@@ -26,4 +27,9 @@ enum class ThemeList {
     Latte,
     Macchiato,
     Mocha
+}
+
+enum class IconsStyle {
+    New,
+    Old
 }
