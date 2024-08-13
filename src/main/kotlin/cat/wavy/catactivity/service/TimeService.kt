@@ -114,8 +114,9 @@ class TimeService : Disposable {
                                 ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
                             "%branch%" to (repo?.currentBranch?.name ?: DefaultVars.BRANCH.default),
                             "%repository%" to (repo?.project?.name ?: DefaultVars.REPO.default),
-                            "%totalLines%" to (editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default),
-                            "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default)
+                            "%linesCount%" to (editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default),
+                            "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
+                            "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
                         )
 
                         activityWrapper = ActivityWrapper(

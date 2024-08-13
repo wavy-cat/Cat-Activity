@@ -11,5 +11,6 @@ enum class DefaultVars(
     FILENAME("Empty"),
     FILEPATH("¯\\_(ツ)_/¯"),
     LINESCOUNT("¯\\_(ツ)_/¯"),
-    FILESIZE("¯\\_(ツ)_/¯")
+    FILESIZE("¯\\_(ツ)_/¯"),
+    FILEEXTENSION("¯\\_(ツ)_/¯")
 }

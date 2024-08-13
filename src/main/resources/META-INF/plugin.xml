@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Added new JetBrains IDE icons
+        A new placeholder %fileExtension% has been added, and %totalLines% has been renamed to %linesCount%
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
