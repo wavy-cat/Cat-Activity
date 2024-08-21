@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        A new placeholder %fileExtension% has been added, and %totalLines% has been renamed to %linesCount%
+        [Hot Fix] Changed the server URL for icons to use the default Cloudflare Pages URL.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
@@ -35,35 +35,29 @@
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="cat.wavy.catactivity.listener.PostStartListener"/>
 
-        <projectConfigurable
-                id="cat.wavy.catactivity.setting.CatConfigurableProject"
-                displayName="Cat Activity"
-                instance="cat.wavy.catactivity.setting.CatConfigurable"
-                parentId="tools"
-        />
+        <projectConfigurable id="cat.wavy.catactivity.setting.CatConfigurableProject"
+                             displayName="Cat Activity"
+                             instance="cat.wavy.catactivity.setting.CatConfigurable"
+                             parentId="tools"/>
     </extensions>
 
     <applicationListeners>
-        <listener
-                class="cat.wavy.catactivity.listener.FileListener"
-                topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
-        />
+        <listener class="cat.wavy.catactivity.listener.FileListener"
+                  topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
 
         <listener class="cat.wavy.catactivity.listener.ProjectListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
     <projectListeners>
-        <listener
-                class="cat.wavy.catactivity.listener.FileProblemListener"
-                topic="com.intellij.analysis.problemsView.ProblemsListener"
-        />
+        <listener class="cat.wavy.catactivity.listener.FileProblemListener"
+                  topic="com.intellij.analysis.problemsView.ProblemsListener"/>
     </projectListeners>
 
     <actions>
         <group id="CatActivity.Discord" text="Cat Activity">
-            <add-to-group group-id="ToolsMenu" anchor="last" />
-            <action id="CatActivity.ReloadAction" class="cat.wavy.catactivity.action.ReloadAction" />
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="CatActivity.ReloadAction" class="cat.wavy.catactivity.action.ReloadAction"/>
         </group>
     </actions>
 </idea-plugin>
