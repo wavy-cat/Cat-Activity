@@ -259,6 +259,7 @@ enum class FileType(
     YARN("Yarn", "yarn"),
     YARN_LOCK("Yarn Lockfile", "yarn-lock"),
     ZIG("Zig", "zig"),
+    PROTOBUF("Protobuf", "proto"),
     FILE("File", "file"), // FALLBACK
 }
 
@@ -563,6 +564,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "windi" -> FileType.WINDI
             "xaml" -> FileType.XAML
             "zig" -> FileType.ZIG
+            "proto" -> FileType.PROTOBUF
             else -> FileType.FILE.also {
                 CatActivity.logger.warn("Unknown file type: $fileType ($extension)")
             }

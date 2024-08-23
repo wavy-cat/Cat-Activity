@@ -250,5 +250,6 @@
   "xmake": "xmake",
   "yarn": "yarn",
   "yarn-lock": "yarn-lock",
-  "zig": "zig"
+  "zig": "zig",
+  "proto": "proto"
 }
