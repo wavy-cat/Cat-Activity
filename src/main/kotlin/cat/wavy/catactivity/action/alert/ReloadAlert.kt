@@ -25,6 +25,7 @@ private class DismissAction(
     title: String
 ) : AnAction(title) {
     override fun actionPerformed(e: AnActionEvent) {
+        service<ActivityRender>().ignoreFlag = true
         notification.expire()
     }
 }

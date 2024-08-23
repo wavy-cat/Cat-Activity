@@ -20,7 +20,7 @@ class ActivityRender : Disposable {
     private lateinit var activityManager: ActivityManager
     private var scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private lateinit var lastActivity: ActivityWrapper
-    private var errorState = false
+    var ignoreFlag = false
 
     private fun init() = kotlin.runCatching {
         val state = ProjectManager.getInstance().openProjects.firstOrNull()
@@ -66,14 +66,13 @@ class ActivityRender : Disposable {
         scope.launch(Dispatchers.IO) {
             kotlin.runCatching {
                 activityManager.updateActivity(activityNative)
-                errorState = false
             }
                 .onFailure {
                     CatActivity.logger.warn("Failed to update activity: " + it.message)
                     val project = ProjectManager.getInstance().openProjects.firstOrNull()
-                    if (project != null) {
+                    if (project != null && !ignoreFlag) {
                         reloadAlert(project, it.message)
-                        errorState = true
+                        ignoreFlag = true
                     }
                 }
         }
@@ -87,7 +86,7 @@ class ActivityRender : Disposable {
         dispose()
         scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
         init()
-        errorState = false
+        ignoreFlag = false
         if (this::lastActivity.isInitialized) {
             updateActivity(lastActivity)
         }
