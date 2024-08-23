@@ -67,15 +67,15 @@ class TimeService : Disposable {
     }
 
     fun onFileOpened(project: Project, file: VirtualFile) {
-        timeTracker.put("file:${file.name}", System.currentTimeMillis())
+        timeTracker.put("file:${file.path}", System.currentTimeMillis())
         editingProject = ProjectItem.from(project)
         editingFile = FileItem.from(file)
         render(project)
     }
 
     fun onFileClosed(project: Project, file: VirtualFile) {
+        timeTracker.invalidate("file:${file.path}")
         if (FileItem.from(file).filePath == editingFile?.filePath) {
-            timeTracker.invalidate("file:${file.name}")
             editingFile = null
         }
         render(project)
@@ -251,7 +251,7 @@ class FileItem(
     companion object {
         fun from(file: VirtualFile): FileItem {
             return FileItem(
-                "file:${file.name}",
+                "file:${file.path}",
                 WeakReference(file),
                 file.name,
                 file.fileType.name,
