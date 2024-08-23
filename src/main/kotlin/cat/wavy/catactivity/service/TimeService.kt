@@ -254,7 +254,7 @@ class FileItem(
                 WeakReference(file),
                 file.name,
                 file.fileType.name,
-                file.extension,
+                file.extension ?: file.name,
                 file.path,
                 FileDocumentManager.getInstance().getDocument(file)?.lineCount,
                 file.length
