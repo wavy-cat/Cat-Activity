@@ -31,9 +31,10 @@ import java.lang.ref.WeakReference
 class TimeService : Disposable {
     private val startTime = System.currentTimeMillis()
     private var timeTracker = CacheBuilder.newBuilder()
-        .expireAfterAccess(1, java.util.concurrent.TimeUnit.HOURS)
+        .expireAfterAccess(24, java.util.concurrent.TimeUnit.HOURS)
         .maximumSize(128)
         .build<String, Long>()
+    private var startIdleTimestamp: Long = System.currentTimeMillis()
     private var editingFile: FileItem? = null
     private var editingProject: ProjectItem? = null
 
@@ -77,6 +78,7 @@ class TimeService : Disposable {
         timeTracker.invalidate("file:${file.path}")
         if (FileItem.from(file).filePath == editingFile?.filePath) {
             editingFile = null
+            startIdleTimestamp = System.currentTimeMillis()
         }
         render(project)
     }
@@ -104,6 +106,19 @@ class TimeService : Disposable {
                     return@runAsync
                 }
 
+                if (editingFile == null) {
+                    activityWrapper = ActivityWrapper(
+                        state = "Idle \uD83C\uDF19", // TODO: Get from config
+                        details = null, // TODO: Get from config
+                        startTimestamp = startIdleTimestamp
+                    ).applyIDEInfo(project).applyFileInfo(project)
+
+                    activityWrapper.let {
+                        activityRender.updateActivity(it)
+                    }
+                    return@runAsync
+                }
+
                 when (configState.details) {
                     Details.File -> {
                         val variables = mutableMapOf(
@@ -126,8 +141,6 @@ class TimeService : Disposable {
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project).applyFileInfo(project)
-
-                        logger.warn("Rendering file: ${configState.fileStateFormat.replaceVariables(variables)}")
                     }
 
                     Details.Project -> {
@@ -156,6 +169,8 @@ class TimeService : Disposable {
                         ).applyIDEInfo(project)
                     }
                 }
+
+                logger.info("Rendering file: ${activityWrapper.details}")
 
                 activityWrapper.let {
                     activityRender.updateActivity(it)
