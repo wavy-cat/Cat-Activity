@@ -22,7 +22,8 @@
   ]]></description>
 
     <change-notes>
-        [Hot Fix] Changed the server URL for icons to use the default Cloudflare Pages URL.
+        This update includes many improvements.
+        See the list of changes in GitHub Releases: https://github.com/wavy-cat/Cat-Activity/releases/tag/v1.6.0
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.

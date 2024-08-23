@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "cat.wavy"
-version = "1.5.3.1"
+version = "1.6.0"
 
 repositories {
     mavenCentral()
