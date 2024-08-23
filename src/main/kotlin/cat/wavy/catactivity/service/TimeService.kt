@@ -74,8 +74,10 @@ class TimeService : Disposable {
     }
 
     fun onFileClosed(project: Project, file: VirtualFile) {
-        timeTracker.invalidate("file:${file.name}")
-        if (FileItem.from(file) == editingFile) editingFile = null
+        if (FileItem.from(file).filePath == editingFile?.filePath) {
+            timeTracker.invalidate("file:${file.name}")
+            editingFile = null
+        }
         render(project)
     }
 
@@ -195,8 +197,7 @@ class TimeService : Disposable {
         return this
     }
 
-    override fun dispose() {
-    }
+    override fun dispose() {}
 }
 
 sealed class TimedItem(
