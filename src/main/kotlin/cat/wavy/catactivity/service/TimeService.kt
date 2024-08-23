@@ -34,7 +34,7 @@ class TimeService : Disposable {
         .expireAfterAccess(24, java.util.concurrent.TimeUnit.HOURS)
         .maximumSize(128)
         .build<String, Long>()
-    private var startIdleTimestamp: Long = System.currentTimeMillis()
+    private var startIdleTimestamp = System.currentTimeMillis()
     private var editingFile: FileItem? = null
     private var editingProject: ProjectItem? = null
 
@@ -106,35 +106,37 @@ class TimeService : Disposable {
                     return@runAsync
                 }
 
-                if (editingFile == null) {
-                    activityWrapper = ActivityWrapper(
-                        state = "Idle \uD83C\uDF19", // TODO: Get from config
-                        details = null, // TODO: Get from config
-                        startTimestamp = startIdleTimestamp
-                    ).applyIDEInfo(project).applyFileInfo(project)
-
-                    activityWrapper.let {
-                        activityRender.updateActivity(it)
-                    }
-                    return@runAsync
-                }
+                val variables = mutableMapOf(
+                    "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
+                    "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
+                    "%projectProblems%" to problemsCollector.getProblemCount().toString(),
+                    "%branch%" to (repo?.currentBranch?.name ?: DefaultVars.BRANCH.default),
+                    "%repository%" to (repo?.project?.name ?: DefaultVars.REPO.default),
+                )
 
                 when (configState.details) {
                     Details.File -> {
-                        val variables = mutableMapOf(
-                            "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
-                            "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
-                            "%projectProblems%" to problemsCollector.getProblemCount().toString(),
+                        if (editingFile == null) {
+                            activityWrapper = ActivityWrapper(
+                                state = configState.idleStateFormat.replaceVariables(variables),
+                                details = configState.idleDetailFormat.ifBlank { null }?.replaceVariables(variables),
+                                startTimestamp = startIdleTimestamp
+                            ).applyIDEInfo(project).applyFileInfo(project)
+
+                            activityWrapper.let {
+                                activityRender.updateActivity(it)
+                            }
+                            return@runAsync
+                        }
+                        variables.putAll(mutableMapOf(
                             "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
                             "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
                             "%fileProblems%" to (editingFile?.file?.get()
                                 ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
-                            "%branch%" to (repo?.currentBranch?.name ?: DefaultVars.BRANCH.default),
-                            "%repository%" to (repo?.project?.name ?: DefaultVars.REPO.default),
                             "%linesCount%" to (editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default),
                             "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
                             "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
-                        )
+                        ))
 
                         activityWrapper = ActivityWrapper(
                             state = configState.fileStateFormat.replaceVariables(variables),
@@ -144,17 +146,6 @@ class TimeService : Disposable {
                     }
 
                     Details.Project -> {
-                        val branchName = repo?.currentBranch?.name ?: DefaultVars.BRANCH.default
-                        val repoName = repo?.project?.name ?: DefaultVars.REPO.default
-
-                        val variables = mutableMapOf(
-                            "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
-                            "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
-                            "%projectProblems%" to problemsCollector.getProblemCount().toString(),
-                            "%branch%" to branchName,
-                            "%repository%" to repoName,
-                        )
-
                         activityWrapper = ActivityWrapper(
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),

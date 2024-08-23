@@ -26,6 +26,7 @@ class CatConfigurable(
         var displayCombo: ComboBox<Details>? = null
         var projectStateField: JBTextField? = null
         var fileStateField: JBTextField? = null
+        var idleStateField: JBTextField? = null
 
         row {
             checkBox("Enable Rich Presence")
@@ -150,6 +151,46 @@ class CatConfigurable(
                         <li>%linesCount%: Number of total lines in the file</li>
                         <li>%fileSize%: Current file size</li>
                         <li>%fileExtension%: Current file extension</li>
+                    </ul>
+                    """.trimIndent(), "Placeholders"
+                )
+            }
+        }.visibleIf(displayCombo!!.selectedValueIs(Details.File)).enabledIf(enableCheck!!.selected)
+
+        group("Format Idle") {
+            row("Details Line") {
+                textField()
+                    .columns(COLUMNS_LARGE)
+                    .bindText(state::idleDetailFormat)
+            }
+
+            row("State Line") {
+                textField()
+                    .columns(COLUMNS_LARGE)
+                    .bindText(state::idleStateFormat)
+                    .applyToComponent {
+                        idleStateField = this
+                    }
+            }
+
+            row {
+                label("State line can't be empty")
+                    .applyToComponent {
+                        foreground = JBColor.RED
+                    }
+                    .visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
+            }
+
+            row {
+                contextHelp(
+                    """
+                    Available variables:
+                    <ul>
+                        <li>%projectName%: Project name</li>
+                        <li>%projectPath%: Project path</li>
+                        <li>%projectProblems%: Number of problems in project</li>
+                        <li>%branch%: Current branch name</li>
+                        <li>%repository%: Current repository</li>
                     </ul>
                     """.trimIndent(), "Placeholders"
                 )

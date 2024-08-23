@@ -13,6 +13,9 @@ data class SettingState(
     var fileDetailFormat: String = "%projectName% (%branch%)",
     var iconsStyle: IconsStyle = IconsStyle.New,
 
+    var idleStateFormat: String = "Idle",
+    var idleDetailFormat: String = "%projectName% (%branch%)",
+
     var firstInit: Boolean = true,
 )
 
