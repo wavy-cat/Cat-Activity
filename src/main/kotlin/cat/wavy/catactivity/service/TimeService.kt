@@ -75,8 +75,6 @@ class TimeService : Disposable {
 
     fun onFileClosed(project: Project, file: VirtualFile) {
         timeTracker.invalidate("file:${file.name}")
-        println(file.name)
-        println(editingFile?.fileName)
         if (FileItem.from(file) == editingFile) editingFile = null
         render(project)
     }
