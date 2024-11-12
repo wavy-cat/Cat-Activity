@@ -106,6 +106,13 @@ class TimeService : Disposable {
                     return@runAsync
                 }
 
+                editingFile?.let {
+                    if (getIgnoreByName(it.type, it.fileName)) {
+                        logger.info("Ignoring the main.go file")
+                        return@runAsync
+                    }
+                }
+
                 val variables = mutableMapOf(
                     "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
                     "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
