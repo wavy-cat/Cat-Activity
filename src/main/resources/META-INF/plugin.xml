@@ -22,8 +22,7 @@
   ]]></description>
 
     <change-notes>
-        This update includes many improvements.
-        See the list of changes in GitHub Releases: https://github.com/wavy-cat/Cat-Activity/releases/tag/v1.6.0
+        This small update fixes bugs and improves the plugin performance.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
