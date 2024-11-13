@@ -14,7 +14,6 @@ repositories {
 
 dependencies {
     implementation("com.github.JnCrMx:discord-game-sdk4j:master-SNAPSHOT")
-    implementation("org.jetbrains:marketplace-zip-signer:0.1.24")
 }
 
 // Configure Gradle IntelliJ Plugin
