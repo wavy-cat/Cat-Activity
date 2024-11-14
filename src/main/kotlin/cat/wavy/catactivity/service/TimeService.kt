@@ -108,7 +108,7 @@ class TimeService : Disposable {
 
                 editingFile?.let {
                     if (getIgnoreByName(it.type, it.fileName)) {
-                        logger.info("Ignoring the main.go file")
+                        logger.info("Ignoring a ${it.type} (${it.fileName}) file")
                         return@runAsync
                     }
                 }
