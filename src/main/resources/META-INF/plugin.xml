@@ -8,7 +8,7 @@
     <name>Cat Activity</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="unknown@wavycat.ru" url="https://wavycat.ru">WavyCat</vendor>
+    <vendor email="wavycatter@proton.me" url="https://wavycat.ru">WavyCat</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
