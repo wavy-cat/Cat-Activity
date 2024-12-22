@@ -1,0 +1,40 @@
+{
+	"renderSettings": {
+		"canvasSize": 768,
+		"iconSize": 512
+	},
+	"fileIcons": {
+		"r": {
+			"title": "R lang",
+			"altName": "r_lang"
+		},
+		"python": {
+			"title": "Python",
+			"fileTypes": [
+				"Python"
+			],
+			"fileNames": null,
+			"extensions": null
+		},
+		"_file": {
+			"title": "File",
+			"altName": "file"
+		}
+	},
+	"ideIcons": {
+		"intellij_idea": {
+			"title": "IntelliJ IDEA",
+			"enumName": "IDEA",
+			"productCodes": [
+				"IC",
+				"IU"
+			],
+			"applicationId": "1226060730273497098"
+		},
+		"jetbrains": {
+			"title": "JetBrains",
+			"productCodes": null,
+			"applicationId": "1199736719377965187"
+		}
+	}
+}

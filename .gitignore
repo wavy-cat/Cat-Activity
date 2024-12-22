@@ -5,7 +5,6 @@ build/
 !**/src/test/**/build/
 
 /token
-/generate/web/
 
 ### IntelliJ IDEA ###
 .idea
@@ -34,4 +33,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/cat_icons.json
+
+node_modules

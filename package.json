@@ -1,0 +1,23 @@
+{
+  "name": "assets-builder",
+  "version": "2.0.0",
+  "description": "A smart tool for building assets and code generation",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wavy-cat/Cat-Activity.git"
+  },
+  "author": "WavyCat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wavy-cat/Cat-Activity/issues"
+  },
+  "homepage": "https://github.com/wavy-cat/Cat-Activity#readme",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
