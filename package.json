@@ -2,9 +2,11 @@
   "name": "assets-builder",
   "version": "2.0.0",
   "description": "A smart tool for building assets and code generation",
-  "main": "src/index.ts",
+  "main": "generate/index.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node generate/index.ts"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,10 @@
   "homepage": "https://github.com/wavy-cat/Cat-Activity#readme",
   "devDependencies": {
     "@types/node": "^22.10.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "winston": "^3.17.0"
   }
 }
