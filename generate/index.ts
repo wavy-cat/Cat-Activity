@@ -1,22 +1,29 @@
-import {loadAndProcessConfig, type ProcessedConfig} from "./config"
-import * as winston from "winston"
+import {Config, loadConfig} from "./config"
+import {createLogger, format, transports} from "winston"
 
-const logger = winston.createLogger({
+const logger = createLogger({
     level: 'info',
-    format: winston.format.combine(winston.format.cli()),
+    format: format.combine(
+        format.cli()
+    ),
     transports: [
-        new winston.transports.Console(),
+        new transports.Console(),
     ],
 })
 
 async function main() {
+    logger.info("Загрузка конфигурации сборщика...")
+    let config: Config
+
     try {
-        const processedConfig: ProcessedConfig = loadAndProcessConfig('assets_config.json')
-        // console.log('Processed Config:', processedConfig);
+        config = await loadConfig('assets_config.json')
     } catch (error) {
-        const e = error as Error
-        logger.crit(`Error when loading config: ${e.message}`)
+        logger.error(`Ошибка при загрузке конфигурации: ${error}`)
+        process.exit(1)
     }
+    logger.info("Конфигурация успешно загружена")
+
+    logger.info("[Этап 1/4] Проверка соответствия конфига") // TODO: Сделать отключаемым
 }
 
 main().then()

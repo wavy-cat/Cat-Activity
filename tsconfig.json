@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "skipLibCheck": true,
     "target": "ES2024",
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
     "rootDir": "generate",
     "outDir": "dist"
   },

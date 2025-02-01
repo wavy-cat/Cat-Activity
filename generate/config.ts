@@ -1,81 +1,44 @@
-import * as fs from 'fs'
+const fs = require('fs').promises
+import {z} from "zod"
 
-export interface RenderSettings {
-    canvasSize: number
-    iconSize: number
-}
+const RenderSettingsSchema = z.object({
+    canvasSize: z.number(),
+    iconSize: z.number(),
+})
 
-export interface FileIcon {
-    title: string
-    altName?: string
-    fileTypes?: string[]
-    fileNames?: string[] | null
-    extensions?: string[] | null
-}
+const FileIconSchema = z.object({
+    title: z.string(),
+    altName: z.string().optional(),
+    fileTypes: z.array(z.string()).optional(),
+    fileNames: z.array(z.string()).nullable().optional(),
+    extensions: z.array(z.string()).nullable().optional(),
+})
 
-export interface IDEIcon {
-    title: string
-    enumName?: string
-    productCodes?: string[] | null
-    applicationId: string
-}
+const IDEIconSchema = z.object({
+    title: z.string(),
+    enumName: z.string().optional(),
+    productCodes: z.array(z.string()).nullable().optional(),
+    applicationId: z.string(),
+})
 
-export interface Config {
-    renderSettings: RenderSettings
-    fileIcons: Record<string, FileIcon>
-    ideIcons: Record<string, IDEIcon>
-}
+const ConfigSchema = z.object({
+    renderSettings: RenderSettingsSchema,
+    fileIcons: z.record(FileIconSchema),
+    ideIcons: z.record(IDEIconSchema),
+})
 
-export interface ProcessedConfig {
-    renderSettings: RenderSettings
-    fileIcons: Record<string, FileIcon> & { fallback: FileIcon }
-    ideIcons: Record<string, IDEIcon> & { fallback: IDEIcon }
-}
+export type Config = z.infer<typeof ConfigSchema>
 
-// Validate and process the configuration file
-export function loadAndProcessConfig(filePath: string): ProcessedConfig {
-    const rawData = fs.readFileSync(filePath, 'utf-8')
-    const config: Config = JSON.parse(rawData)
+export async function loadConfig(filepath: string): Promise<Config> {
+    const data = await fs.readFile(filepath, 'utf-8')
+    const parsed = JSON.parse(data)
 
-    // Process fileIcons
-    let fallbackFileIcon: FileIcon | undefined
-    for (const [key, icon] of Object.entries(config.fileIcons)) {
-        if (!icon.title) {
-            throw new Error(`File icon ${key} is missing a title.`)
-        }
-        if (!icon.fileTypes && !icon.fileNames && !icon.extensions) {
-            fallbackFileIcon = icon
-        }
-    }
-    if (!fallbackFileIcon) {
-        throw new Error('No fallback file icon found.')
+    const result = await ConfigSchema.safeParseAsync(parsed)
+    if (!result.success) {
+        throw result.error.errors
+            .map(err => `${err.path.join('.')} - ${err.message}`)
+            .join('; ')
     }
 
-    // Process ideIcons
-    let fallbackIDEIcon: IDEIcon | undefined
-    const usedProductCodes = new Set<string>()
-    for (const [key, icon] of Object.entries(config.ideIcons)) {
-        if (!icon.title || !icon.applicationId) {
-            throw new Error(`IDE icon ${key} is missing a title or applicationId.`)
-        }
-        if (icon.productCodes) {
-            icon.productCodes.forEach(code => {
-                if (usedProductCodes.has(code)) {
-                    throw new Error(`Duplicate product code detected: ${code}`)
-                }
-                usedProductCodes.add(code)
-            })
-        } else {
-            fallbackIDEIcon = icon
-        }
-    }
-    if (!fallbackIDEIcon) {
-        throw new Error('No fallback IDE icon found.')
-    }
-
-    return {
-        renderSettings: config.renderSettings,
-        fileIcons: {...config.fileIcons, fallback: fallbackFileIcon},
-        ideIcons: {...config.ideIcons, fallback: fallbackIDEIcon},
-    }
+    return result.data
 }
