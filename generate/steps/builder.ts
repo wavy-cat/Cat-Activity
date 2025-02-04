@@ -34,8 +34,27 @@ async function processImage(file: string, backgroundColor: string, canvasSize: n
 
 // Собирает ассеты иконок файлов.
 // Возвращает кол-во обработанных ассетов
-async function buildFiles(config: Config, color: string): Promise<number> {
-    return 0
+async function buildFiles(config: Config, color: string, sourcePath: string, destPath: string): Promise<number> {
+    const icons = Object.entries(config.fileIcons)
+
+    for (let [iconName, iconProperties] of icons) {
+        const image = await processImage(
+            path.join(sourcePath, `${iconName}.svg`),
+            Palette[color],
+            config.renderSettings.canvasSize,
+            config.renderSettings.iconSize
+        )
+
+        const filename = iconName.toLowerCase()
+        const outputPath = path.join(destPath, `${filename}.png`)
+        await writeFile(outputPath, image)
+
+        if (iconProperties.altName !== undefined) {
+            await writeFile(path.join(destPath, `${iconProperties.altName}.png`), image)
+        }
+    }
+
+    return icons.length
 }
 
 // Собирает ассеты иконок IDE.
@@ -69,7 +88,7 @@ export async function builder(config: Config, logger: Logger): Promise<number> {
         await mkdir(path.join(".builder-tmp", "IDE", "new", color), {recursive: true})
 
         funcs.push(
-            buildFiles(config, color),
+            buildFiles(config, color, path.join("generate", "vscode-icons", "icons", color.toLocaleLowerCase()), path.join(".builder-tmp", color)),
             buildIde(config, color, path.join("generate", "ide-icons", "old"), path.join(".builder-tmp", "IDE", color)),
             buildIde(config, color, path.join("generate", "ide-icons", "new"), path.join(".builder-tmp", "IDE", "new", color))
         )
