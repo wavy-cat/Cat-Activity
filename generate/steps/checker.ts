@@ -1,7 +1,7 @@
 import {Config} from "../config";
 import {fileIcons} from "../vscode-icons/src/defaults/fileIcons";
 
-export async function checkConfig(config: Config) {
+export async function checker(config: Config) {
     for (let icon in config.fileIcons) {
         if (!(icon in fileIcons)) {
             throw `${icon} отсутствует в исходных иконках Catppuccin`
