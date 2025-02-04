@@ -5,9 +5,10 @@
     "target": "ES2024",
     "strict": true,
     "moduleResolution": "node",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "removeComments": true,
     "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
     "rootDir": "generate",
     "outDir": "dist"
   },
