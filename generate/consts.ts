@@ -1,4 +1,4 @@
-const palette = {
+export const Palette = {
     'Frappe': '#303446',
     'Latte': '#eff1f5',
     'Macchiato': '#24273a',

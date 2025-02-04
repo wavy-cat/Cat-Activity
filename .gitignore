@@ -35,3 +35,5 @@ bin/
 .DS_Store
 
 node_modules
+
+.builder-tmp
