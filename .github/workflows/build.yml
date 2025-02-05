@@ -6,6 +6,7 @@ on:
       - master
     paths-ignore:
       - '.github/workflows/icons.yml'
+      - '.github/workflows/publish.yml'
       - 'generate/**'
       - 'pyproject.toml'
 
