@@ -30,7 +30,12 @@
       "title": "Docker Compose"
     },
     "docker": {
-      "title": "Docker"
+      "title": "Dockerfile",
+      "fileTypes": [
+        "Dockerfile"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "git": {
       "title": "Git"
@@ -55,16 +60,40 @@
       "title": "Image"
     },
     "java": {
-      "title": "Java"
+      "title": "Java",
+      "fileTypes": [
+        "JAVA"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "javascript": {
-      "title": "JavaScript"
+      "title": "JavaScript",
+      "fileTypes": [
+        "JavaScript"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "json": {
-      "title": "JSON"
+      "title": "JSON",
+      "fileNames": [
+        ".jscsrc",
+        ".jshintrc",
+        "composer.lock",
+        ".jsbeautifyrc",
+        ".esformatter",
+        "cdp.pid",
+        ".whitesource"
+      ]
     },
     "kotlin": {
-      "title": "Kotlin"
+      "title": "Kotlin",
+      "fileTypes": [
+        "Kotlin"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "markdown": {
       "title": "Markdown"
@@ -79,7 +108,12 @@
       "title": "Prisma"
     },
     "properties": {
-      "title": "Properties"
+      "title": "Properties",
+      "fileTypes": [
+        "Properties"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "r": {
       "title": "R lang",
@@ -97,7 +131,12 @@
       "title": "Ruby"
     },
     "rust": {
-      "title": "Rust"
+      "title": "Rust",
+      "fileTypes": [
+        "Rust"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "css": {
       "title": "CSS"
@@ -128,7 +167,12 @@
       "altName": "txt"
     },
     "typescript": {
-      "title": "TypeScript"
+      "title": "TypeScript",
+      "fileTypes": [
+        "TypeScript"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "vue": {
       "title": "Vue"
@@ -140,16 +184,36 @@
       "title": "YAML"
     },
     "csv": {
-      "title": "CSV"
+      "title": "CSV",
+      "fileTypes": [
+        "CSV"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "lua": {
-      "title": "Lua"
+      "title": "Lua",
+      "fileTypes": [
+        "lua"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "groovy": {
-      "title": "Groovy"
+      "title": "Groovy",
+      "fileTypes": [
+        "Groovy"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "erlang": {
-      "title": "Erlang"
+      "title": "Erlang",
+      "fileTypes": [
+        "Erlang"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "fsharp": {
       "title": "F#"
@@ -158,7 +222,12 @@
       "title": "Assembly"
     },
     "dart": {
-      "title": "Dart"
+      "title": "Dart",
+      "fileTypes": [
+        "Dart"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "javascript-react": {
       "title": "React",
@@ -168,7 +237,12 @@
       "title": ".env"
     },
     "jupyter": {
-      "title": "Jupyter"
+      "title": "Jupyter",
+      "fileTypes": [
+        "Jupyter"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "audio": {
       "title": "Audio"
@@ -203,7 +277,12 @@
       "title": "CUDA"
     },
     "diff": {
-      "title": "Diff"
+      "title": "Diff",
+      "fileTypes": [
+        "DIFF"
+      ],
+      "fileNames": null,
+      "extensions": null
     },
     "django": {
       "title": "Django"
@@ -242,7 +321,8 @@
       "title": "Apollo GraphQL"
     },
     "asciidoc": {
-      "title": "AsciiDoc"
+      "title": "AsciiDoc",
+      "extensions": ["adoc", "asciidoc"]
     },
     "astro": {
       "title": "Astro"
@@ -765,17 +845,14 @@
     },
     "proto": {
       "title": "Protocol Buffers"
-    }
-  },
-  "ideIcons": {
-    "intellij_idea": {
-      "title": "IntelliJ IDEA",
-      "enumName": "IDEA",
-      "productCodes": [
-        "IC",
-        "IU"
-      ],
-      "applicationId": "1226060730273497098"
+    },
+    "_file": {
+      "title": "File",
+      "altName": "file",
+      "enumName": "FILE",
+      "fileTypes": null,
+      "fileNames": null,
+      "extensions": null
     }
   },
   "ignoreIcons": [
@@ -784,18 +861,5 @@
     "adobe-id",
     "adobe-ps",
     "adobe-xd"
-  ],
-  "fallbacks": {
-    "file": {
-      "title": "File",
-      "icon": "_file",
-      "name": "file"
-    },
-    "ide": {
-      "title": "JetBrains",
-      "applicationId": "1199736719377965187",
-      "enumName": "JETBRAINS",
-      "icon": "jetbrains"
-    }
-  }
+  ]
 }

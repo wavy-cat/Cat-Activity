@@ -5,20 +5,9 @@ import {Logger} from "winston";
 export async function checker(config: Config, logger: Logger) {
     for (let icon in config.fileIcons) {
         // Проверка на существование иконки в конфиге Catppuccin
-        if (!(icon in fileIcons)) {
+        if (!(icon.startsWith("_")) && !(icon in fileIcons)) {
             throw `Иконка ${icon} отсутствует в исходных иконках Catppuccin`
         }
-
-        if (config.fileIcons[icon].extensions === null &&
-            config.fileIcons[icon].fileNames === null &&
-            config.fileIcons[icon].fileTypes === null) {
-            throw `Для ${icon} не указан ни extensions, ни fileNames, ни fileTypes`
-        }
-    }
-
-    // Проверка на существование иконки (fallback) в конфиге Catppuccin
-    if (!(config.fallbacks.file.icon.startsWith("_")) && !(config.fallbacks.file.icon in fileIcons)) {
-        throw `Fallback иконка ${config.fallbacks.file.icon} отсутствует в исходных иконках Catppuccin`
     }
 
     // Проверяем какие иконки из списка Catppuccin отсутствуют

@@ -1,5 +1,4 @@
 import {Config} from "../config";
-import {Logger} from "winston";
 import {mkdir, readdir, writeFile} from 'fs/promises'
 import * as path from "node:path"
 const sharp = require('sharp');
@@ -79,7 +78,7 @@ async function buildIde(config: Config, color: string, sourcePath: string, destP
 }
 
 // Возвращает кол-во сгенерированных изображений
-export async function builder(config: Config, logger: Logger): Promise<number> {
+export async function builder(config: Config): Promise<number> {
     let funcs: any[] = []
 
     for (let color in Palette) {
