@@ -19,7 +19,7 @@ async function main() {
     let config: Config
 
     try {
-        config = await loadConfig('assets_config.json')
+        config = await loadConfig('builder_config.json')
     } catch (e) {
         logger.error(`Ошибка при загрузке конфигурации: ${e}`)
         process.exit(1)
@@ -29,7 +29,7 @@ async function main() {
     logger.info("[Этап 1/4] Проверка соответствия конфига") // TODO: Сделать отключаемым
 
     try {
-        await checker(config)
+        await checker(config, logger)
     } catch (e) {
         logger.error(`Проверка завершилась неуспешно: ${e}`)
         process.exit(1)

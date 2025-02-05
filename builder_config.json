@@ -1,0 +1,801 @@
+{
+  "renderSettings": {
+    "canvasSize": 768,
+    "iconSize": 512
+  },
+  "fileIcons": {
+    "bash": {
+      "title": "Bash"
+    },
+    "batch": {
+      "title": "Bat",
+      "altName": "bat"
+    },
+    "c": {
+      "title": "C"
+    },
+    "cpp": {
+      "title": "C++"
+    },
+    "csharp": {
+      "title": "C#"
+    },
+    "database": {
+      "title": "Database"
+    },
+    "docker-ignore": {
+      "title": "Docker Ignore"
+    },
+    "docker-compose": {
+      "title": "Docker Compose"
+    },
+    "docker": {
+      "title": "Docker"
+    },
+    "git": {
+      "title": "Git"
+    },
+    "go-mod": {
+      "title": "Go.mod"
+    },
+    "go": {
+      "title": "Go",
+      "altName": "golang"
+    },
+    "haskell": {
+      "title": "Haskell"
+    },
+    "html": {
+      "title": "HTML"
+    },
+    "http": {
+      "title": "HTTP"
+    },
+    "image": {
+      "title": "Image"
+    },
+    "java": {
+      "title": "Java"
+    },
+    "javascript": {
+      "title": "JavaScript"
+    },
+    "json": {
+      "title": "JSON"
+    },
+    "kotlin": {
+      "title": "Kotlin"
+    },
+    "markdown": {
+      "title": "Markdown"
+    },
+    "perl": {
+      "title": "Perl"
+    },
+    "php": {
+      "title": "php"
+    },
+    "prisma": {
+      "title": "Prisma"
+    },
+    "properties": {
+      "title": "Properties"
+    },
+    "r": {
+      "title": "R lang",
+      "altName": "r_lang"
+    },
+    "python": {
+      "title": "Python",
+      "fileTypes": [
+        "Python"
+      ],
+      "fileNames": null,
+      "extensions": null
+    },
+    "ruby": {
+      "title": "Ruby"
+    },
+    "rust": {
+      "title": "Rust"
+    },
+    "css": {
+      "title": "CSS"
+    },
+    "sass": {
+      "title": "Sass"
+    },
+    "scala": {
+      "title": "Scala"
+    },
+    "svelte": {
+      "title": "Svelte"
+    },
+    "svg": {
+      "title": "SVG"
+    },
+    "swift": {
+      "title": "Swift"
+    },
+    "terraform": {
+      "title": "Terraform"
+    },
+    "toml": {
+      "title": "TOML"
+    },
+    "text": {
+      "title": "TXT",
+      "altName": "txt"
+    },
+    "typescript": {
+      "title": "TypeScript"
+    },
+    "vue": {
+      "title": "Vue"
+    },
+    "xml": {
+      "title": "XML"
+    },
+    "yaml": {
+      "title": "YAML"
+    },
+    "csv": {
+      "title": "CSV"
+    },
+    "lua": {
+      "title": "Lua"
+    },
+    "groovy": {
+      "title": "Groovy"
+    },
+    "erlang": {
+      "title": "Erlang"
+    },
+    "fsharp": {
+      "title": "F#"
+    },
+    "assembly": {
+      "title": "Assembly"
+    },
+    "dart": {
+      "title": "Dart"
+    },
+    "javascript-react": {
+      "title": "React",
+      "altName": "react"
+    },
+    "env": {
+      "title": ".env"
+    },
+    "jupyter": {
+      "title": "Jupyter"
+    },
+    "audio": {
+      "title": "Audio"
+    },
+    "binary": {
+      "title": "Binary"
+    },
+    "c-header": {
+      "title": "C Header file",
+      "altName": "c_header"
+    },
+    "cpp-header": {
+      "title": "C++ Header file",
+      "altName": "cpp_header"
+    },
+    "certificate": {
+      "title": "Certificate"
+    },
+    "clojure": {
+      "title": "Clojure"
+    },
+    "cmake": {
+      "title": "CMake"
+    },
+    "cobol": {
+      "title": "Cobol"
+    },
+    "coffeescript": {
+      "title": "CoffeeScript"
+    },
+    "cuda": {
+      "title": "CUDA"
+    },
+    "diff": {
+      "title": "Diff"
+    },
+    "django": {
+      "title": "Django"
+    },
+    "ejs": {
+      "title": "EJS"
+    },
+    "elixir": {
+      "title": "Elixir"
+    },
+    "elm": {
+      "title": "Elm"
+    },
+    "firebase": {
+      "title": "Firebase"
+    },
+    "font": {
+      "title": "Font"
+    },
+    "heroku": {
+      "title": "Heroku Procfile"
+    },
+    "adonis": {
+      "title": "Adonis"
+    },
+    "alex": {
+      "title": "Alex"
+    },
+    "android": {
+      "title": "Android"
+    },
+    "api-blueprint": {
+      "title": "API Blueprint"
+    },
+    "apollo": {
+      "title": "Apollo GraphQL"
+    },
+    "asciidoc": {
+      "title": "AsciiDoc"
+    },
+    "astro": {
+      "title": "Astro"
+    },
+    "astro-config": {
+      "title": "Astro Config"
+    },
+    "azure-pipelines": {
+      "title": "Azure Pipelines"
+    },
+    "babel": {
+      "title": "Babel"
+    },
+    "biome": {
+      "title": "Biome"
+    },
+    "bitbucket": {
+      "title": "Bitbucket Pipelines"
+    },
+    "blitz": {
+      "title": "Blitz"
+    },
+    "bower": {
+      "title": "Bower"
+    },
+    "browserslist": {
+      "title": "Browserslist"
+    },
+    "bun": {
+      "title": "Bun Config"
+    },
+    "bun-lock": {
+      "title": "Bun Lockfile"
+    },
+    "caddy": {
+      "title": "Caddyfile"
+    },
+    "capacitor": {
+      "title": "Capacitor"
+    },
+    "cargo": {
+      "title": "Cargo"
+    },
+    "cargo-lock": {
+      "title": "Cargo Lockfile"
+    },
+    "changelog": {
+      "title": "Changelog"
+    },
+    "circle-ci": {
+      "title": "CircleCI"
+    },
+    "code-climate": {
+      "title": "Code Climate"
+    },
+    "code-of-conduct": {
+      "title": "Code of conduct"
+    },
+    "codeowners": {
+      "title": "Codeowners file"
+    },
+    "commitlint": {
+      "title": "commitlint"
+    },
+    "contributing": {
+      "title": "Contributing file"
+    },
+    "cypress": {
+      "title": "Cypress"
+    },
+    "d": {
+      "title": "D lang"
+    },
+    "deno": {
+      "title": "Deno"
+    },
+    "deno_lock": {
+      "title": "Deno Lockfile"
+    },
+    "dependabot": {
+      "title": "Dependabot"
+    },
+    "devcontainer": {
+      "title": "Devcontainer"
+    },
+    "dhall": {
+      "title": "Dhall"
+    },
+    "markdown-mdx": {
+      "title": "MDX"
+    },
+    "svelte-config": {
+      "title": "Svelte Config"
+    },
+    "drawio": {
+      "title": "Diagram"
+    },
+    "editorconfig": {
+      "title": "EditorConfig"
+    },
+    "eleventy": {
+      "title": "Eleventy"
+    },
+    "ember": {
+      "title": "Ember.js"
+    },
+    "esbuild": {
+      "title": "esbuild"
+    },
+    "eslint": {
+      "title": "ESLint"
+    },
+    "eslint-ignore": {
+      "title": "ESLint Ignorefile"
+    },
+    "fastlane": {
+      "title": "fastlane"
+    },
+    "gatsby": {
+      "title": "Gatsby"
+    },
+    "gcp": {
+      "title": "GCP"
+    },
+    "gitpod": {
+      "title": "Gitpod"
+    },
+    "godot": {
+      "title": "GodotScript"
+    },
+    "godot-assets": {
+      "title": "Godot Assets"
+    },
+    "gradle": {
+      "title": "Gradle"
+    },
+    "graphql": {
+      "title": "GraphQL"
+    },
+    "gulp": {
+      "title": "Gulp"
+    },
+    "haml": {
+      "title": "Haml"
+    },
+    "handlebars": {
+      "title": "Handlebars"
+    },
+    "haxe": {
+      "title": "Haxe"
+    },
+    "histoire": {
+      "title": "Histoire"
+    },
+    "husky": {
+      "title": "Husky"
+    },
+    "ionic": {
+      "title": "Ionic"
+    },
+    "javascript-config": {
+      "title": "JavaScript Config"
+    },
+    "jest": {
+      "title": "Jest"
+    },
+    "jinja": {
+      "title": "Jinja"
+    },
+    "julia": {
+      "title": "Julia"
+    },
+    "key": {
+      "title": "Keystore"
+    },
+    "latex": {
+      "title": "LaTeX"
+    },
+    "lerna": {
+      "title": "Lerna"
+    },
+    "less": {
+      "title": "Less"
+    },
+    "lib": {
+      "title": "Lib"
+    },
+    "license": {
+      "title": "License"
+    },
+    "lint-staged": {
+      "title": "lint-staged"
+    },
+    "liquid": {
+      "title": "LiquidJS"
+    },
+    "lisp": {
+      "title": "Lisp"
+    },
+    "log": {
+      "title": "Log file"
+    },
+    "makefile": {
+      "title": "Makefile"
+    },
+    "marko": {
+      "title": "Marko"
+    },
+    "mermaid": {
+      "title": "Mermaid"
+    },
+    "meson": {
+      "title": "Meson"
+    },
+    "mjml": {
+      "title": "MJML"
+    },
+    "modernizr": {
+      "title": "Modernizr"
+    },
+    "ms-excel": {
+      "title": "Excel"
+    },
+    "nativescript": {
+      "title": "NativeScript"
+    },
+    "nest": {
+      "title": "Nest"
+    },
+    "netlify": {
+      "title": "Netlify"
+    },
+    "next": {
+      "title": "Next"
+    },
+    "nextflow": {
+      "title": "Nextflow"
+    },
+    "nginx": {
+      "title": "Nginx"
+    },
+    "nim": {
+      "title": "Nim"
+    },
+    "ninja": {
+      "title": "Ninja"
+    },
+    "nix": {
+      "title": "Nix"
+    },
+    "nix-lock": {
+      "title": "Nix Lockfile"
+    },
+    "nodemon": {
+      "title": "Nodemon"
+    },
+    "npm": {
+      "title": "npm rcfile"
+    },
+    "npm-ignore": {
+      "title": "npm ignorefile"
+    },
+    "npm-lock": {
+      "title": "npm lockfile"
+    },
+    "nuget": {
+      "title": "NuGet"
+    },
+    "nunjucks": {
+      "title": "Nunjucks"
+    },
+    "nuxt": {
+      "title": "Nuxt"
+    },
+    "nuxt-ignore": {
+      "title": "Nuxt Ignorefile"
+    },
+    "ocaml": {
+      "title": "OCaml"
+    },
+    "package-json": {
+      "title": "package.json"
+    },
+    "panda-css": {
+      "title": "Panda CSS"
+    },
+    "pdf": {
+      "title": "PDF"
+    },
+    "phrase": {
+      "title": "Phrase"
+    },
+    "playwright": {
+      "title": "Playwright"
+    },
+    "plop": {
+      "title": "Plop"
+    },
+    "pnpm": {
+      "title": "pnpm"
+    },
+    "pnpm-lock": {
+      "title": "pnpm Lockfile"
+    },
+    "postcss": {
+      "title": "PostCSS"
+    },
+    "powershell": {
+      "title": "Powershell"
+    },
+    "premake": {
+      "title": "Premake"
+    },
+    "prettier": {
+      "title": "Prettier"
+    },
+    "prettier-ignore": {
+      "title": "Prettier Ignorefile"
+    },
+    "prolog": {
+      "title": "Prolog"
+    },
+    "pug": {
+      "title": "Pug"
+    },
+    "puppeteer": {
+      "title": "Puppeteer"
+    },
+    "python-compiled": {
+      "title": "Python Compiled"
+    },
+    "racket": {
+      "title": "Racket"
+    },
+    "razor": {
+      "title": "Razor"
+    },
+    "readme": {
+      "title": "Readme"
+    },
+    "reason": {
+      "title": "Reason"
+    },
+    "redwood": {
+      "title": "Redwood"
+    },
+    "remix": {
+      "title": "Remix"
+    },
+    "renovate": {
+      "title": "Renovate"
+    },
+    "rescript": {
+      "title": "ReScript"
+    },
+    "robots": {
+      "title": "robots.txt"
+    },
+    "rollup": {
+      "title": "Rollup"
+    },
+    "ruby-gem": {
+      "title": "Ruby Gemfile"
+    },
+    "ruby-gem-lock": {
+      "title": "Ruby Gem Lockfile"
+    },
+    "security": {
+      "title": "SECURITY"
+    },
+    "semantic-release": {
+      "title": "Semantic Release"
+    },
+    "semgrep": {
+      "title": "Semgrep"
+    },
+    "semgrep-ignore": {
+      "title": "Semgrep Ignorefile"
+    },
+    "sentry": {
+      "title": "Sentry"
+    },
+    "serverless": {
+      "title": "Serverless"
+    },
+    "shader": {
+      "title": "Shader"
+    },
+    "sketch": {
+      "title": "Sketch"
+    },
+    "snowpack": {
+      "title": "Snowpack"
+    },
+    "solidity": {
+      "title": "Solidity"
+    },
+    "sonar-cloud": {
+      "title": "SonarCloud"
+    },
+    "stackblitz": {
+      "title": "Stackblitz"
+    },
+    "stencil": {
+      "title": "Stencil"
+    },
+    "stitches": {
+      "title": "Stitches"
+    },
+    "storybook": {
+      "title": "Storybook"
+    },
+    "storybook-svelte": {
+      "title": "Storybook Svelte"
+    },
+    "storybook-vue": {
+      "title": "Storybook Vue"
+    },
+    "stylelint": {
+      "title": "Stylelint"
+    },
+    "stylelint-ignore": {
+      "title": "Stylelint Ignorefile"
+    },
+    "sublime": {
+      "title": "Sublime"
+    },
+    "tailwind": {
+      "title": "Tailwind CSS"
+    },
+    "tauri": {
+      "title": "Tauri"
+    },
+    "tauri-ignore": {
+      "title": "Tauri Ignorefile"
+    },
+    "todo": {
+      "title": "TODO"
+    },
+    "twig": {
+      "title": "Twig"
+    },
+    "twine": {
+      "title": "Twine"
+    },
+    "typescript-config": {
+      "title": "Typescript Config"
+    },
+    "unity": {
+      "title": "Unity"
+    },
+    "unocss": {
+      "title": "UnoCSS"
+    },
+    "url": {
+      "title": "URL"
+    },
+    "v": {
+      "title": "V lang"
+    },
+    "vento": {
+      "title": "Vento"
+    },
+    "vercel": {
+      "title": "Vercel"
+    },
+    "vercel-ignore": {
+      "title": "Vercel Ignorefile"
+    },
+    "verilog": {
+      "title": "Verilog"
+    },
+    "vim": {
+      "title": "Vim file"
+    },
+    "visual-studio": {
+      "title": "Visual Studio file"
+    },
+    "vscode": {
+      "title": "VSCode file"
+    },
+    "vscode-ignore": {
+      "title": "VSCode Ignorefile"
+    },
+    "vite": {
+      "title": "Vite"
+    },
+    "vitest": {
+      "title": "Vitest"
+    },
+    "vue-config": {
+      "title": "Vue Config"
+    },
+    "web-assembly": {
+      "title": "WebAssembly"
+    },
+    "webpack": {
+      "title": "webpack"
+    },
+    "windi": {
+      "title": "Windi CSS"
+    },
+    "wxt": {
+      "title": "WXT"
+    },
+    "xaml": {
+      "title": "XAML"
+    },
+    "xmake": {
+      "title": "Xmake"
+    },
+    "yarn": {
+      "title": "Yarn"
+    },
+    "yarn-lock": {
+      "title": "Yarn Lockfile"
+    },
+    "zig": {
+      "title": "Zig"
+    },
+    "proto": {
+      "title": "Protocol Buffers"
+    }
+  },
+  "ideIcons": {
+    "intellij_idea": {
+      "title": "IntelliJ IDEA",
+      "enumName": "IDEA",
+      "productCodes": [
+        "IC",
+        "IU"
+      ],
+      "applicationId": "1226060730273497098"
+    }
+  },
+  "ignoreIcons": [
+    "adobe-ae",
+    "adobe-ai",
+    "adobe-id",
+    "adobe-ps",
+    "adobe-xd"
+  ],
+  "fallbacks": {
+    "file": {
+      "title": "File",
+      "icon": "_file",
+      "name": "file"
+    },
+    "ide": {
+      "title": "JetBrains",
+      "applicationId": "1199736719377965187",
+      "enumName": "JETBRAINS",
+      "icon": "jetbrains"
+    }
+  }
+}

@@ -45,6 +45,7 @@ const ConfigSchema = z.object({
     renderSettings: RenderSettingsSchema,
     fileIcons: z.record(FileIconSchema),
     ideIcons: z.record(IDEIconSchema),
+    ignoreIcons: z.array(z.string()),
     fallbacks: FallbacksSchema
 })
 
