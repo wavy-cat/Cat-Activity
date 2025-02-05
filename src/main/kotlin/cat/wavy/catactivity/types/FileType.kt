@@ -263,15 +263,6 @@ enum class FileType(
     FILE("File", "file"), // FALLBACK
 }
 
-/** Returns `true` if the file is to be ignored. */
-fun getIgnoreByName(fileType: String, fileName: String) = when (fileType) {
-    "Terminal Prompt" -> true
-    else -> when (fileName.lowercase()) {
-        "dummy.txt" -> true
-        else -> false
-    }
-}
-
 fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = when (fileName.lowercase()) {
     "procfile" -> FileType.HEROKU
     ".adonisrc.json", "ace" -> FileType.ADONIS
