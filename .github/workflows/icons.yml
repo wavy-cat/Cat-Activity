@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: web
-          path: .builder-tmp
+          path: ./.builder-tmp
 
       - name: Deploy Page
         uses: cloudflare/wrangler-action@v3.4.1
