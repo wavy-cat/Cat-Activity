@@ -4,6 +4,207 @@
     "iconSize": 512
   },
   "fileIcons": {
+    "amber": {
+      "title": "Amber"
+    },
+    "angular": {
+      "title": "Angular"
+    },
+    "ansible-lint": {
+      "title": "Ansible Lint"
+    },
+    "antlr": {
+      "title": "ANTLR"
+    },
+    "apache": {
+      "title": "Apache"
+    },
+    "apple": {
+      "title": "A bitten apple"
+    },
+    "autohotkey": {
+      "title": "AutoHotkey"
+    },
+    "bazel": {
+      "title": "Bazel"
+    },
+    "benchmark": {
+      "title": "Benchmark"
+    },
+    "cspell": {
+      "title": "CSpell"
+    },
+    "css-map": {
+      "title": "CSS Source Map"
+    },
+    "cucumber": {
+      "title": "Cucumber"
+    },
+    "dart-generated": {
+      "title": "Dart Generated"
+    },
+    "dub-selections": {
+      "title": "DUB"
+    },
+    "exe": {
+      "title": "EXE"
+    },
+    "favicon": {
+      "title": "Favicon"
+    },
+    "figma": {
+      "title": "Figma"
+    },
+    "flutter": {
+      "title": "Flutter"
+    },
+    "fortran": {
+      "title": "Fortran"
+    },
+    "git-cliff": {
+      "title": "git-cliff"
+    },
+    "gitlab": {
+      "title": "GitLab CI/CD"
+    },
+    "gleam-config": {
+      "title": "Gleam Config file"
+    },
+    "gleam": {
+      "title": "Gleam"
+    },
+    "go-template": {
+      "title": "Go template"
+    },
+    "hardhat": {
+      "title": "Hardhat"
+    },
+    "helm": {
+      "title": "Helm"
+    },
+    "huff": {
+      "title": "Huff"
+    },
+    "humans": {
+      "title": "humans.txt"
+    },
+    "java-class": {
+      "title": "Java Class"
+    },
+    "java-jar": {
+      "title": "JAR file"
+    },
+    "javascript-map": {
+      "title": "JavaScript Source Map"
+    },
+    "javascript-test": {
+      "title": "JavaScript Test"
+    },
+    "json-schema": {
+      "title": "JSON Schema"
+    },
+    "just": {
+      "title": "Justfile"
+    },
+    "laravel": {
+      "title": "Laravel"
+    },
+    "luau": {
+      "title": "Luau"
+    },
+    "mdbook": {
+      "title": "mdBook"
+    },
+    "midi": {
+      "title": "MIDI"
+    },
+    "ms-powerpoint": {
+      "title": "Powerpoint"
+    },
+    "ms-word": {
+      "title": "Word"
+    },
+    "org": {
+      "title": "Org"
+    },
+    "pixi": {
+      "title": "Pixi"
+    },
+    "pixi-lock": {
+      "title": "Pixi Lockfile"
+    },
+    "plantuml": {
+      "title": "PlantUML"
+    },
+    "poetry-lock": {
+      "title": "Poetry Lockfile"
+    },
+    "pre-commit": {
+      "title": "Precommit"
+    },
+    "python-config": {
+      "title": "Python Requirements"
+    },
+    "release": {
+      "title": "Release"
+    },
+    "roblox": {
+      "title": "Roblox"
+    },
+    "ruff": {
+      "title": "Ruff"
+    },
+    "rust-config": {
+      "title": "Rust Toolchain Config"
+    },
+    "salesforce": {
+      "title": "Salesforce"
+    },
+    "spwn": {
+      "title": "SPWN"
+    },
+    "stata": {
+      "title": "Stata"
+    },
+    "taskfile": {
+      "title": "Taskfile",
+      "extensions": [
+        "taskfile.yml",
+        "taskfile.yaml",
+        "taskfile.dist.yml",
+        "taskfile.dist.yaml"
+      ]
+    },
+    "turbo": {
+      "title": "turbo.json"
+    },
+    "typescript-def": {
+      "title": "TypeScript Declaration"
+    },
+    "typescript-react": {
+      "title": "React"
+    },
+    "typescript-test": {
+      "title": "TypeScript Testing"
+    },
+    "typst": {
+      "title": "Typst"
+    },
+    "vanilla-extract": {
+      "title": "vanilla-extract"
+    },
+    "video": {
+      "title": "Video"
+    },
+    "vital": {
+      "title": "Vital"
+    },
+    "zap": {
+      "title": "ZAP"
+    },
+    "dub": {
+      "title": "DUB"
+    },
     "bash": {
       "title": "Bash"
     },
@@ -322,7 +523,10 @@
     },
     "asciidoc": {
       "title": "AsciiDoc",
-      "extensions": ["adoc", "asciidoc"]
+      "extensions": [
+        "adoc",
+        "asciidoc"
+      ]
     },
     "astro": {
       "title": "Astro"
@@ -860,6 +1064,12 @@
     "adobe-ai",
     "adobe-id",
     "adobe-ps",
-    "adobe-xd"
+    "adobe-xd",
+    "search",
+    "vhs",
+    "vs-codium",
+    "workflow",
+    "super-collider",
+    "matlab"
   ]
 }
