@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
+    "module": "commonjs",
     "skipLibCheck": true,
-    "target": "es2023",
-    "moduleDetection": "force",
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
+    "target": "ES2024",
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+    "rootDir": "generate",
     "outDir": "dist"
   },
   "include": ["generate/*.ts", "generate/vscode-icons/src/defaults/fileIcons.ts"],

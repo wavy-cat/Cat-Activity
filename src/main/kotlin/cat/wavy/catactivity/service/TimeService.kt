@@ -135,8 +135,9 @@ class TimeService : Disposable {
                             }
                             return@runAsync
                         }
-                        variables.putAll(mutableMapOf(
-                            "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
+                        variables.putAll(
+                            mutableMapOf(
+                                "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
                             "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
                             "%fileProblems%" to (editingFile?.file?.get()
                                 ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
@@ -177,6 +178,15 @@ class TimeService : Disposable {
                 it.printStackTrace()
                 println("Failed to render activity: ${it.message}")
             }
+        }
+    }
+
+    /** Returns `true` if the file is to be ignored. */
+    private fun getIgnoreByName(fileType: String, fileName: String) = when (fileType) {
+        "Terminal Prompt" -> true
+        else -> when (fileName.lowercase()) {
+            "dummy.txt" -> true
+            else -> false
         }
     }
 
