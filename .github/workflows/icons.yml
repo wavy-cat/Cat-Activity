@@ -1,4 +1,4 @@
-name: Icons CI/CD
+name: Build Assets
 
 on:
   push:
@@ -7,16 +7,20 @@ on:
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - 'builder_config.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
   pull_request:
     branches:
       - master
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - 'builder_config.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
 
 jobs:
   build:
@@ -29,27 +33,30 @@ jobs:
         with:
           submodules: true
 
-      - name: Install poetry
-        run: pipx install poetry
-      - uses: actions/setup-python@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.12'
-          cache: 'poetry'
-      - run: poetry install
+          node-version: 22
+          cache: 'npm'
 
-      - name: Run generate.py
-        working-directory: ./generate
-        run: poetry run python generate.py
+      - name: Install Dependencies
+        run: npm install --save-dev
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Start Builder
+        run: npm run start
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
           name: web
-          path: ./generate/web
+          path: .builder-tmp
 
       - name: Deploy Page
         uses: cloudflare/wrangler-action@v3.4.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ./generate/web --project-name=assets --branch=main --commit-dirty=true
+          command: pages deploy .builder-tmp --project-name=assets --branch=main --commit-dirty=true
