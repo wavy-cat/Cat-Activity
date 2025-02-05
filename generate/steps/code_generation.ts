@@ -97,16 +97,11 @@ export async function code_generation(config: Config) {
         })
     }
 
-    const fileTypes = formatFileTypes(items)
-    const fileNameMatch = formatFileNameMatch(items)
-    const fileTypeMatch = formatFileTypeMatch(items)
-    const fileExtensionMatch = formatFileExtensionMatch(items)
-
     const code = template
-        .replace('%fileTypes%', fileTypes)
-        .replace('%fileNameMatch%', fileNameMatch)
-        .replace('%fileTypeMatch%', fileTypeMatch)
-        .replace('%fileExtensionMatch%', fileExtensionMatch)
+        .replace('%fileTypes%', formatFileTypes(items))
+        .replace('%fileNameMatch%', formatFileNameMatch(items))
+        .replace('%fileTypeMatch%', formatFileTypeMatch(items))
+        .replace('%fileExtensionMatch%', formatFileExtensionMatch(items))
     const outputPath = 'src/main/kotlin/cat/wavy/catactivity/types/FileType.kt'
 
     await writeFile(outputPath, code)

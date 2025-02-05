@@ -5,13 +5,11 @@ const sharp = require('sharp');
 import {Palette} from "../consts";
 
 async function processImage(file: string, backgroundColor: string, canvasSize: number, iconSize: number): Promise<Buffer<ArrayBufferLike>> {
-    // Конвертируем SVG в PNG
     const iconBuffer = await sharp(file)
         .resize(iconSize, iconSize)
         .png()
         .toBuffer()
 
-    // Создаем базовое изображение с нужным фоном
     const baseImage = sharp({
         create: {
             width: canvasSize,
@@ -21,18 +19,14 @@ async function processImage(file: string, backgroundColor: string, canvasSize: n
         },
     })
 
-    // Параметры итогового изображения
     const offset = (canvasSize - iconSize) / 2
 
-    // Компонуем иконку поверх базового изображения
     return await baseImage
         .composite([{input: iconBuffer, left: offset, top: offset}])
         .png()
         .toBuffer()
 }
 
-// Собирает ассеты иконок файлов.
-// Возвращает кол-во обработанных ассетов
 async function buildFiles(config: Config, color: string, sourcePath: string, destPath: string): Promise<number> {
     const icons = Object.entries(config.fileIcons)
 
@@ -56,8 +50,6 @@ async function buildFiles(config: Config, color: string, sourcePath: string, des
     return icons.length
 }
 
-// Собирает ассеты иконок IDE.
-// Возвращает кол-во обработанных ассетов
 async function buildIde(config: Config, color: string, sourcePath: string, destPath: string): Promise<number> {
     const files = await readdir(sourcePath)
 
@@ -77,7 +69,6 @@ async function buildIde(config: Config, color: string, sourcePath: string, destP
     return files.length
 }
 
-// Возвращает кол-во сгенерированных изображений
 export async function builder(config: Config): Promise<number> {
     let funcs: any[] = []
 

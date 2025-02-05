@@ -17,54 +17,54 @@ const logger = createLogger({
 async function main() {
     const start = performance.now()
 
-    logger.info("Загрузка конфигурации сборщика...")
+    logger.info("Loading the builder configuration...")
 
     let config: Config
     try {
         config = await loadConfig('builder_config.json')
     } catch (e) {
-        logger.error(`Ошибка при загрузке конфигурации: ${e}`)
+        logger.error(`Error while loading the configuration: ${e}`)
         process.exit(1)
     }
 
-    logger.info("Конфигурация успешно загружена")
+    logger.info("Configuration successfully loaded!")
 
-    logger.info("[Этап 1/3] Проверка соответствия конфига")
+    logger.info("[Step 1/3] Configure check")
 
     try {
         await checker(config, logger)
     } catch (e) {
-        logger.error(`Проверка завершилась неуспешно: ${e}`)
+        logger.error(`The inspection was unsuccessful: ${e}`)
         process.exit(1)
     }
-    logger.info("Проверка успешно завершена")
+    logger.info("Checking successfully completed!")
 
-    logger.info("[Этап 2/3] Cборка ассетов")
+    logger.info("[Stage 2/3] Asset Building")
 
     let assetsCount: number
     try {
         assetsCount = await builder(config)
     } catch (e) {
-        logger.error(`Сборка завершилась неуспешно: ${e}`)
+        logger.error(`The building ended unsuccessfully: ${e}`)
         process.exit(1)
     }
 
-    logger.info(`Успешно собрано ${assetsCount} ассетов`)
+    logger.info(`Successfully built ${assetsCount} of assets!`)
 
-    logger.info("[Этап 3/3] Генерация кода")
+    logger.info("[Step 3/3] Code Generation")
 
     try {
         await code_generation(config)
     } catch (e) {
-        logger.error(`Генерация завершилась неуспешно: ${e}`)
+        logger.error(`The generation ended unsuccessfully: ${e}`)
         process.exit(1)
     }
 
-    logger.info("Код успешно сгенерирован!")
+    logger.info("Code successfully generated!")
 
     const end = performance.now()
     const seconds = ((end - start) / 1000).toFixed(2)
-    logger.info(`Сборщик завершил работу за ${seconds}с`)
+    logger.info(`Builder finished in ${seconds} sec.`)
 }
 
 main().then()

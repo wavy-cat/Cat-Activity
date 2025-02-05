@@ -4,21 +4,21 @@ import {Logger} from "winston";
 
 export async function checker(config: Config, logger: Logger) {
     for (let icon in config.fileIcons) {
-        // Проверка на существование иконки в конфиге Catppuccin
+        // Checking for the existence of an icon in the Catppuccin config
         if (!(icon.startsWith("_")) && !(icon in fileIcons)) {
-            throw `Иконка ${icon} отсутствует в исходных иконках Catppuccin`
+            throw `The ${icon} icon is missing from the original Catppuccin icons`
         }
     }
 
-    // Проверяем какие иконки из списка Catppuccin отсутствуют
+    // Check which icons are missing from the Catppuccin list
     const fileIconsSet = new Set(Object.keys(config.fileIcons))
     let difference = Object.keys(fileIcons).filter(item => !fileIconsSet.has(item))
 
-    // Убираем игнорируемые иконки
+    // Remove ignored icons
     const ignoreIconsSet = new Set(config.ignoreIcons)
     difference = difference.filter(item => !ignoreIconsSet.has(item))
 
     if (difference.length > 0) {
-        logger.warn(`Конфиг сборщика отличается на ${difference.length} иконок от исходного конфига Catppuccin: ${difference.join(", ")}`)
+        logger.warn(`The builder config differs by ${difference.length} of icons from the original Catppuccin config: ${difference.join(", ")}`)
     }
 }
