@@ -39,7 +39,7 @@ async function main() {
     }
     logger.info("Checking successfully completed!")
 
-    logger.info("[Stage 2/3] Asset Building")
+    logger.info("[Step 2/3] Asset Building")
 
     let assetsCount: number
     try {
