@@ -1,8 +1,8 @@
-import {Config} from "../config";
+import {Config} from "../config"
 import {mkdir, readdir, writeFile} from 'fs/promises'
 import * as path from "node:path"
-const sharp = require('sharp');
-import {Palette} from "../consts";
+import * as sharp from 'sharp'
+import {Palette} from "../consts"
 
 async function processImage(file: string, backgroundColor: string, canvasSize: number, iconSize: number): Promise<Buffer<ArrayBufferLike>> {
     const iconBuffer = await sharp(file)
@@ -70,7 +70,7 @@ async function buildIde(config: Config, color: string, sourcePath: string, destP
 }
 
 export async function builder(config: Config): Promise<number> {
-    let funcs: any[] = []
+    let funcs: Promise<number>[] = []
 
     for (let color in Palette) {
         await mkdir(path.join(".builder-tmp", color), {recursive: true})
