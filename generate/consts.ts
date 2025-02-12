@@ -4,3 +4,5 @@ export const Palette = {
     'Macchiato': '#24273a',
     'Mocha': '#1e1e2e'
 }
+
+export const DistFolder = 'assets-dist'

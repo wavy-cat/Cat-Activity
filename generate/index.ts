@@ -4,6 +4,7 @@ import {checker} from "./steps/checker";
 import {builder} from "./steps/builder";
 import {code_generation} from "./steps/code_generation";
 import {copyFile} from "node:fs/promises";
+import {DistFolder} from "./consts";
 
 const logger = createLogger({
     level: 'info',
@@ -63,7 +64,7 @@ async function main() {
 
     logger.info("Code successfully generated!")
 
-    await copyFile("generate/index.html", ".builder-tmp/index.html")
+    await copyFile("generate/index.html", `${DistFolder}/index.html`)
 
     const end = performance.now()
     const seconds = ((end - start) / 1000).toFixed(2)

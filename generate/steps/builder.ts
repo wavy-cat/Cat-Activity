@@ -2,7 +2,7 @@ import {Config} from "../config"
 import {mkdir, readdir, writeFile} from 'fs/promises'
 import * as path from "node:path"
 import * as sharp from 'sharp'
-import {Palette} from "../consts"
+import {DistFolder, Palette} from "../consts"
 
 async function processImage(file: string, backgroundColor: string, canvasSize: number, iconSize: number): Promise<Buffer<ArrayBufferLike>> {
     const iconBuffer = await sharp(file)
@@ -73,14 +73,14 @@ export async function builder(config: Config): Promise<number> {
     let funcs: Promise<number>[] = []
 
     for (let color in Palette) {
-        await mkdir(path.join(".builder-tmp", color), {recursive: true})
-        await mkdir(path.join(".builder-tmp", "IDE", color), {recursive: true})
-        await mkdir(path.join(".builder-tmp", "IDE", "new", color), {recursive: true})
+        await mkdir(path.join(DistFolder, color), {recursive: true})
+        await mkdir(path.join(DistFolder, "IDE", color), {recursive: true})
+        await mkdir(path.join(DistFolder, "IDE", "new", color), {recursive: true})
 
         funcs.push(
-            buildFiles(config, color, path.join("generate", "vscode-icons", "icons", color.toLocaleLowerCase()), path.join(".builder-tmp", color)),
-            buildIde(config, color, path.join("generate", "ide-icons", "old"), path.join(".builder-tmp", "IDE", color)),
-            buildIde(config, color, path.join("generate", "ide-icons", "new"), path.join(".builder-tmp", "IDE", "new", color))
+            buildFiles(config, color, path.join("generate", "vscode-icons", "icons", color.toLocaleLowerCase()), path.join(DistFolder, color)),
+            buildIde(config, color, path.join("generate", "ide-icons", "old"), path.join(DistFolder, "IDE", color)),
+            buildIde(config, color, path.join("generate", "ide-icons", "new"), path.join(DistFolder, "IDE", "new", color))
         )
     }
 

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - new_workflow
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
@@ -23,8 +24,7 @@ on:
       - 'tsconfig.json'
 
 jobs:
-  build:
-
+  build-builder:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,11 +39,24 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - name: Install Dependencies
+      - name: Install Dev Dependencies
         run: npm install --save-dev
 
       - name: Build Project
         run: npm run build
+
+  build-assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Start Builder
         run: npm run start
@@ -53,10 +66,4 @@ jobs:
         with:
           name: web
           path: ./.builder-tmp
-
-      - name: Deploy Page
-        uses: cloudflare/wrangler-action@v3.4.1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .builder-tmp --project-name=assets --branch=main --commit-dirty=true
+  deploy:
