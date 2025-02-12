@@ -547,7 +547,6 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "cls" -> FileType.SALESFORCE
             "spwn" -> FileType.SPWN
             "ado", "do", "dta" -> FileType.STATA
-            "taskfile.yml", "taskfile.yaml", "taskfile.dist.yml", "taskfile.dist.yaml" -> FileType.TASKFILE
             "d.ts", "d.cts", "d.mts" -> FileType.TYPESCRIPT_DEF
             "tsx" -> FileType.TYPESCRIPT_REACT
             "spec.ts", "spec.cts", "spec.mts", "cy.ts", "e2e-spec.ts", "e2e-spec.cts", "e2e-spec.mts", "test.ts", "test.cts", "test.mts", "ts.snap", "spec-d.ts", "test-d.ts", "spec.tsx", "test.tsx", "tsx.snap", "cy.tsx" -> FileType.TYPESCRIPT_TEST

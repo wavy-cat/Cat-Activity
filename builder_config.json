@@ -168,7 +168,7 @@
     },
     "taskfile": {
       "title": "Taskfile",
-      "extensions": [
+      "fileNames": [
         "taskfile.yml",
         "taskfile.yaml",
         "taskfile.dist.yml",
