@@ -48,37 +48,15 @@ function formatFileTypes(files: Files[]): string {
     return items.join(",\n    ")
 }
 
-function formatFileNameMatch(files: Files[]): string {
+function formatFilesMatch(files: Files[], propertyName: string, tabNum: number): string {
     const items: string[] = []
 
     for (let file of files) {
-        if (!(file.fileNames)) continue
-        items.push(`"${file.fileNames.join('", "')}" -> FileType.${file.enumName}`)
+        if (!(file[propertyName])) continue
+        items.push(`"${file[propertyName].join('", "')}" -> FileType.${file.enumName}`)
     }
 
-    return items.join("\n    ") // 4 spaces
-}
-
-function formatFileTypeMatch(files: Files[]): string {
-    const items: string[] = []
-
-    for (let file of files) {
-        if (!(file.fileTypes)) continue
-        items.push(`"${file.fileTypes.join('", "')}" -> FileType.${file.enumName}`)
-    }
-
-    return items.join("\n        ") // 8 spaces
-}
-
-function formatFileExtensionMatch(files: Files[]): string {
-    const items: string[] = []
-
-    for (let file of files) {
-        if (!(file.fileExtensions)) continue
-        items.push(`"${file.fileExtensions.join('", "')}" -> FileType.${file.enumName}`)
-    }
-
-    return items.join("\n            ") // 12 spaces
+    return items.join('\n' + ' '.repeat(4 * tabNum))
 }
 
 export async function code_generation(config: Config) {
@@ -99,9 +77,9 @@ export async function code_generation(config: Config) {
 
     const code = template
         .replace('%fileTypes%', formatFileTypes(items))
-        .replace('%fileNameMatch%', formatFileNameMatch(items))
-        .replace('%fileTypeMatch%', formatFileTypeMatch(items))
-        .replace('%fileExtensionMatch%', formatFileExtensionMatch(items))
+        .replace('%fileNameMatch%', formatFilesMatch(items, 'fileNames', 1))
+        .replace('%fileTypeMatch%', formatFilesMatch(items, 'fileTypes', 2))
+        .replace('%fileExtensionMatch%', formatFilesMatch(items, 'fileExtensions', 3))
     const outputPath = 'src/main/kotlin/cat/wavy/catactivity/types/FileType.kt'
 
     await writeFile(outputPath, code)
