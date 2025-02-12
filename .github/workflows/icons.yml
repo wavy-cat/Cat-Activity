@@ -76,7 +76,7 @@ jobs:
           path: dist/
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --omit=dev
 
       - name: Start Builder
         run: npm run start
@@ -93,16 +93,19 @@ jobs:
     needs: build-assets
 
     steps:
-      - name: Download assets
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: assets
           path: assets-dist/
 
       - name: Upload files
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws configure set region auto
-          aws s3 sync --endpoint-url ${{ secrets.R2_ENDPOINT }} assets-dist/ s3://cat-activity
+        uses: ryand56/r2-upload-action@latest
+        with:
+          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
+          r2-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          r2-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          r2-bucket: cat-activity
+          source-dir: assets-dist/
+          destination-dir: ./
+          output-file-url: 'false'
