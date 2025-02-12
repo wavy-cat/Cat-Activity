@@ -105,4 +105,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
           aws configure set region auto
-          aws s3 sync --endpoint-url ${{ secrets.R2_ENDPOINT }} --recursive assets-dist/ s3://cat-activity
+          aws s3 sync --endpoint-url ${{ secrets.R2_ENDPOINT }} assets-dist/ s3://cat-activity
