@@ -101,8 +101,8 @@ jobs:
 
       - name: Upload files
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws configure set region auto
           aws s3 sync --endpoint-url ${{ secrets.R2_ENDPOINT }} assets-dist/ s3://cat-activity
