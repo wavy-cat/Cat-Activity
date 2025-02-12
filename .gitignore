@@ -36,4 +36,4 @@ bin/
 
 node_modules
 
-.builder-tmp
+assets-dist

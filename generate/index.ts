@@ -4,6 +4,7 @@ import {checker} from "./steps/checker";
 import {builder} from "./steps/builder";
 import {code_generation} from "./steps/code_generation";
 import {copyFile} from "node:fs/promises";
+import {DistFolder} from "./consts";
 
 const logger = createLogger({
     level: 'info',
@@ -30,7 +31,7 @@ async function main() {
 
     logger.info("Configuration successfully loaded!")
 
-    logger.info("[Step 1/3] Configure check")
+    logger.info("[Step 1/3] Configuration check")
 
     try {
         await checker(config, logger)
@@ -40,7 +41,7 @@ async function main() {
     }
     logger.info("Checking successfully completed!")
 
-    logger.info("[Step 2/3] Asset Building")
+    logger.info("[Step 2/3] Assets Building")
 
     let assetsCount: number
     try {
@@ -63,7 +64,7 @@ async function main() {
 
     logger.info("Code successfully generated!")
 
-    await copyFile("generate/index.html", ".builder-tmp/index.html")
+    await copyFile("generate/index.html", `${DistFolder}/index.html`)
 
     const end = performance.now()
     const seconds = ((end - start) / 1000).toFixed(2)

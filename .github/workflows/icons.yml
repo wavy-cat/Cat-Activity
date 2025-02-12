@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - new_workflow
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
@@ -23,8 +24,8 @@ on:
       - 'tsconfig.json'
 
 jobs:
-  build:
-
+  build-builder:
+    name: Build Assets builder
     runs-on: ubuntu-latest
 
     steps:
@@ -39,11 +40,43 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - name: Install Dependencies
+      - name: Install Dev Dependencies
         run: npm install --save-dev
 
       - name: Build Project
         run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  build-assets:
+    name: Build Assets
+    runs-on: ubuntu-latest
+    needs: build-builder
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Install Dependencies
+        run: npm install --omit=dev
 
       - name: Start Builder
         run: npm run start
@@ -51,12 +84,28 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: web
-          path: ./.builder-tmp
+          name: assets
+          path: assets-dist/
 
-      - name: Deploy Page
-        uses: cloudflare/wrangler-action@v3.4.1
+  deploy:
+    name: Upload to S3
+    runs-on: ubuntu-latest
+    needs: build-assets
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .builder-tmp --project-name=assets --branch=main --commit-dirty=true
+          name: assets
+          path: assets-dist/
+
+      - name: Upload files
+        uses: ryand56/r2-upload-action@latest
+        with:
+          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
+          r2-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          r2-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          r2-bucket: cat-activity
+          source-dir: assets-dist/
+          destination-dir: ./
+          output-file-url: 'false'
