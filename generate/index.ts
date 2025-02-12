@@ -31,7 +31,7 @@ async function main() {
 
     logger.info("Configuration successfully loaded!")
 
-    logger.info("[Step 1/3] Configure check")
+    logger.info("[Step 1/3] Configuration check")
 
     try {
         await checker(config, logger)
@@ -41,7 +41,7 @@ async function main() {
     }
     logger.info("Checking successfully completed!")
 
-    logger.info("[Step 2/3] Asset Building")
+    logger.info("[Step 2/3] Assets Building")
 
     let assetsCount: number
     try {
