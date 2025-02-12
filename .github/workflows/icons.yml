@@ -1,18 +1,7 @@
-name: Build Assets
+name: Deploy Assets
 
 on:
   push:
-    branches:
-      - master
-      - new_workflow
-    paths:
-      - 'generate/**'
-      - '.github/workflows/icons.yml'
-      - 'builder_config.json'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tsconfig.json'
-  pull_request:
     branches:
       - master
     paths:
