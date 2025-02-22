@@ -1050,6 +1050,27 @@
     "proto": {
       "title": "Protocol Buffers"
     },
+    "envrc": {
+      "title": ".envrc"
+    },
+    "hugo": {
+      "title": "Hugo"
+    },
+    "juce": {
+      "title": "JUCE"
+    },
+    "kdl": {
+      "title": "KDL"
+    },
+    "latte": {
+      "title": "latte"
+    },
+    "phtml": {
+      "title": "phtml"
+    },
+    "uv": {
+      "title": "uv lockfile"
+    },
     "_file": {
       "title": "File",
       "altName": "file",

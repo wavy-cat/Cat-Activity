@@ -324,6 +324,13 @@ enum class FileType(
     YARN_LOCK("Yarn Lockfile", "yarn-lock"),
     ZIG("Zig", "zig"),
     PROTO("Protocol Buffers", "proto"),
+    ENVRC(".envrc", "envrc"),
+    HUGO("Hugo", "hugo"),
+    JUCE("JUCE", "juce"),
+    KDL("KDL", "kdl"),
+    LATTE("latte", "latte"),
+    PHTML("phtml", "phtml"),
+    UV("uv lockfile", "uv"),
     FILE("File", "_file")
 }
 
@@ -343,7 +350,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "hardhat.config.js", "hardhat.config.ts" -> FileType.HARDHAT
     ".helmignore", "chart.lock" -> FileType.HELM
     "humans.txt" -> FileType.HUMANS
-    "justfile" -> FileType.JUST
+    "justfile", ".justfile" -> FileType.JUST
     "artisan" -> FileType.LARAVEL
     ".luaurc" -> FileType.LUAU
     "book.toml" -> FileType.MDBOOK
@@ -352,7 +359,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "pixi.lock" -> FileType.PIXI_LOCK
     "poetry.lock" -> FileType.POETRY_LOCK
     ".pre-commit-config.yaml", ".pre-commit-hooks.yaml" -> FileType.PRE_COMMIT
-    "pyproject.toml", "requirements.txt", ".python-version" -> FileType.PYTHON_CONFIG
+    "pyproject.toml", "requirements.txt", "requirements-dev.txt", "requirements-test.txt", ".python-version" -> FileType.PYTHON_CONFIG
     ".goreleaser.yaml" -> FileType.RELEASE
     "ruff.toml", ".ruff.toml" -> FileType.RUFF
     "rustfmt.toml", ".rustfmt.toml", "rust-toolchain.toml", "clippy.toml" -> FileType.RUST_CONFIG
@@ -387,7 +394,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".bowerrc", "bower.json" -> FileType.BOWER
     "browserslist", ".browserslistrc" -> FileType.BROWSERSLIST
     "bunfig.toml" -> FileType.BUN
-    "bun.lockb" -> FileType.BUN_LOCK
+    "bun.lock", "bun.lockb" -> FileType.BUN_LOCK
     "caddyfile" -> FileType.CADDY
     "capacitor.config.json", "capacitor.config.ts" -> FileType.CAPACITOR
     "cargo.toml" -> FileType.CARGO
@@ -499,6 +506,9 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "xmake.lua" -> FileType.XMAKE
     ".yarnrc", ".yarnclean", ".yarn-integrity", "yarn-error.log", ".yarnrc.yml", ".yarnrc.yaml", "yarn.config.cjs" -> FileType.YARN
     "yarn.lock" -> FileType.YARN_LOCK
+    ".envrc" -> FileType.ENVRC
+    "hugo.toml", "hugo.yaml", "hugo.json" -> FileType.HUGO
+    "uv.lock" -> FileType.UV
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -537,6 +547,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "js.map", "mjs.map", "cjs.map" -> FileType.JAVASCRIPT_MAP
             "spec.js", "spec.cjs", "spec.mjs", "e2e-spec.js", "e2e-spec.cjs", "e2e-spec.mjs", "test.js", "test.cjs", "test.mjs", "js.snap", "cy.js", "spec.jsx", "test.jsx", "jsx.snap", "cy.jsx" -> FileType.JAVASCRIPT_TEST
             "schema.json" -> FileType.JSON_SCHEMA
+            "just" -> FileType.JUST
             "blade.php", "inky.php" -> FileType.LARAVEL
             "luau" -> FileType.LUAU
             "pptx", "ppt", "pptm", "potx", "potm", "ppsx", "ppsm", "pps", "ppam", "ppa", "odp" -> FileType.MS_POWERPOINT
@@ -680,9 +691,13 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "vsixmanifest", "vsix", "code-workplace", "code-workspace", "code-profile", "code-snippets" -> FileType.VSCODE
             "wat", "wasm" -> FileType.WEB_ASSEMBLY
             "windi" -> FileType.WINDI
-            "xaml" -> FileType.XAML
+            "xaml", "axaml" -> FileType.XAML
             "zig" -> FileType.ZIG
             "proto" -> FileType.PROTO
+            "jucer" -> FileType.JUCE
+            "kdl" -> FileType.KDL
+            "latte" -> FileType.LATTE
+            "phtml" -> FileType.PHTML
             else -> FileType.FILE.also {
                 CatActivity.logger.warn("Unknown file type: $fileType ($extension)")
             }
