@@ -41,7 +41,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dev Dependencies
-        run: npm install --save-dev
+        run: npm ci --save-dev
 
       - name: Build Project
         run: npm run build
@@ -76,7 +76,7 @@ jobs:
           path: dist/
 
       - name: Install Dependencies
-        run: npm install --omit=dev
+        run: npm ci --omit=dev
 
       - name: Start Builder
         run: npm run start
