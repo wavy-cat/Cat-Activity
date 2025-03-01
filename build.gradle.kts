@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.JnCrMx:discord-game-sdk4j:-SNAPSHOT")
+    implementation("com.github.JnCrMx:discord-game-sdk4j:master-SNAPSHOT")
 }
 
 // Configure Gradle IntelliJ Plugin

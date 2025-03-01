@@ -13,6 +13,8 @@ import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.types.applicationId
 import cat.wavy.catactivity.types.defaultApplicationId
 import com.intellij.openapi.project.ProjectManager
+import de.jcm.discordgamesdk.activity.ActivityButton
+import de.jcm.discordgamesdk.activity.ActivityButtonsMode
 import java.util.*
 
 @Service
@@ -62,6 +64,12 @@ class ActivityRender : Disposable {
         activityNative.assets().largeText = activity.largeImageText
         activityNative.assets().smallImage = activity.smallImageKey
         activityNative.assets().smallText = activity.smallImageText
+
+        if (activity.buttonLabel != null && activity.buttonLink != null) {
+            activityNative.activityButtonsMode = ActivityButtonsMode.BUTTONS
+            activityNative.addButton(ActivityButton(activity.buttonLabel, activity.buttonLink))
+        }
+
         lastActivity = activity
         scope.launch(Dispatchers.IO) {
             kotlin.runCatching {

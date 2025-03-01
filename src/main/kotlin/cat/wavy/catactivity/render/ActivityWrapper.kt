@@ -14,6 +14,8 @@ package cat.wavy.catactivity.render
  * @param largeImageText The large image text of the activity
  * @param smallImageKey The small image key of the activity
  * @param smallImageText The small image text of the activity
+ * @param buttonLabel The text displayed on the button
+ * @param buttonLink Link that is clicked to
  */
 data class ActivityWrapper(
     val state: String?,
@@ -24,4 +26,6 @@ data class ActivityWrapper(
     var largeImageText: String? = null,
     var smallImageKey: String? = null,
     var smallImageText: String? = null,
+    var buttonLabel: String? = null,
+    var buttonLink: String? = null,
 )
