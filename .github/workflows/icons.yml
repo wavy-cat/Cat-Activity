@@ -54,7 +54,7 @@ jobs:
 
   build-assets:
     name: Build Assets
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: build-builder
 
     steps:
@@ -89,7 +89,7 @@ jobs:
 
   deploy:
     name: Upload to S3
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: build-assets
 
     steps:
