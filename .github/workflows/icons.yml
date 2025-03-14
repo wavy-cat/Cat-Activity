@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - new_workflow
+      - arm-workflow
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
@@ -26,7 +26,7 @@ on:
 jobs:
   build-builder:
     name: Build Assets builder
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: Checkout
