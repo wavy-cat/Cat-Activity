@@ -97,6 +97,11 @@ class TimeService : Disposable {
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
                 }
+                val repoUrl = editingFile?.file?.get()?.let {
+                    GitUtil.getRepositoryManager(project).getRepositoryForFile(it)?.remotes?.toList()
+                }
+                // null - нет Git. [] - нет remotes.
+                println(repoUrl?.get(0))
 
                 val activityRender = service<ActivityRender>()
                 val activityWrapper: ActivityWrapper
@@ -138,13 +143,14 @@ class TimeService : Disposable {
                         variables.putAll(
                             mutableMapOf(
                                 "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
-                            "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
-                            "%fileProblems%" to (editingFile?.file?.get()
-                                ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
-                            "%linesCount%" to (editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default),
-                            "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
-                            "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
-                        ))
+                                "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
+                                "%fileProblems%" to (editingFile?.file?.get()
+                                    ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
+                                "%linesCount%" to (editingFile?.linesCount?.toString()
+                                    ?: DefaultVars.LINESCOUNT.default),
+                                "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
+                                "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
+                            ))
 
                         activityWrapper = ActivityWrapper(
                             state = configState.fileStateFormat.replaceVariables(variables),
@@ -180,6 +186,15 @@ class TimeService : Disposable {
             }
         }
     }
+
+    private fun sshToHttp(sshUrl: String): String {
+        return sshUrl.replaceFirst("git@", "https://")
+            .replace(":", "/")
+    }
+
+//    private fun getButtonValueByGit(): Pair<String?, String?> {
+//
+//    }
 
     /** Returns `true` if the file is to be ignored. */
     private fun getIgnoreByName(fileType: String, fileName: String) = when (fileType) {
