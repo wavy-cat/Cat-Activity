@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - new_workflow
     paths:
       - 'generate/**'
       - '.github/workflows/icons.yml'
@@ -26,7 +25,7 @@ on:
 jobs:
   build-builder:
     name: Build Assets builder
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: Checkout
@@ -54,7 +53,7 @@ jobs:
 
   build-assets:
     name: Build Assets
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: build-builder
 
     steps:
@@ -89,7 +88,7 @@ jobs:
 
   deploy:
     name: Upload to S3
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: build-assets
 
     steps:
