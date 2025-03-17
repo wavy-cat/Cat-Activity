@@ -331,6 +331,9 @@ enum class FileType(
     LATTE("latte", "latte"),
     PHTML("phtml", "phtml"),
     UV("uv lockfile", "uv"),
+    CABAL("Cabal", "cabal"),
+    DRIZZLE_ORM("Drizzle ORM", "drizzle-orm"),
+    XCODE("Xcode", "xcode"),
     FILE("File", "_file")
 }
 
@@ -379,7 +382,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".htaccess" -> FileType.XML
     ".env.defaults", ".env.example", ".env.sample", ".env.template", ".env.schema", ".env.local", ".env.dev", ".env.development", ".env.alpha", ".env.e2e", ".env.qa", ".env.dist", ".env.prod", ".env.production", ".env.stage", ".env.staging", ".env.preview", ".env.test", ".env.testing", ".env.development.local", ".env.qa.local", ".env.production.local", ".env.staging.local", ".env.test.local", ".env.uat", ".env.cat" -> FileType.ENV
     "cmakelists.txt", "cmakecache.txt" -> FileType.CMAKE
-    "firebase.json", ".firebaserc", "firestore.rules", "firestore.indexes.json" -> FileType.FIREBASE
+    "firebase.json", ".firebaserc", "firestore.rules", "storage.rules", "firestore.indexes.json" -> FileType.FIREBASE
     "procfile" -> FileType.HEROKU
     ".adonisrc.json", "ace" -> FileType.ADONIS
     ".alexrc", ".alexrc.yaml", ".alexrc.yml", ".alexrc.js" -> FileType.ALEX
@@ -433,7 +436,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "jest.config.js", "jest.config.cjs", "jest.config.mjs", "jest.config.ts", "jest.config.cts", "jest.config.mts", "jest.config.json", "jest.e2e.config.js", "jest.e2e.config.cjs", "jest.e2e.config.mjs", "jest.e2e.config.ts", "jest.e2e.config.cts", "jest.e2e.config.mts", "jest.e2e.config.json", "jest.e2e.json", "jest-unit.config.js", "jest-e2e.config.js", "jest-e2e.config.cjs", "jest-e2e.config.mjs", "jest-e2e.config.ts", "jest-e2e.config.cts", "jest-e2e.config.mts", "jest-e2e.config.json", "jest-e2e.json", "jest-github-actions-reporter.js", "jest.setup.js", "jest.setup.ts", "jest.json", ".jestrc", ".jestrc.js", ".jestrc.json", "jest.teardown.js", "jest-preset.json", "jest-preset.js", "jest-preset.cjs", "jest-preset.mjs", "jest.preset.js", "jest.preset.mjs", "jest.preset.cjs", "jest.preset.json" -> FileType.JEST
     ".htpasswd" -> FileType.KEY
     "lerna.json" -> FileType.LERNA
-    "copying", "copying.md", "copying.rst", "copying.txt", "copyright", "copyright.md", "copyright.rst", "copyright.txt", "license", "license-agpl", "license-apache", "license-bsd", "license-mit", "license-gpl", "license-lgpl", "license.md", "license.rst", "license.txt", "licence", "licence-agpl", "licence-apache", "licence-bsd", "licence-mit", "licence-gpl", "licence-lgpl", "licence.md", "licence.rst", "licence.txt" -> FileType.LICENSE
+    "copying", "copying.md", "copying.rst", "copying.txt", "copyright", "copyright.md", "copyright.rst", "copyright.txt", "license", "license-agpl", "license-apache", "license-bsd", "license-mit", "license-gpl", "license-lgpl", "unlicense", "license.md", "license.rst", "license.txt", "licence", "licence-agpl", "licence-apache", "licence-bsd", "licence-mit", "licence-gpl", "licence-lgpl", "unlicence", "licence.md", "licence.rst", "licence.txt" -> FileType.LICENSE
     ".lintstagedrc", ".lintstagedrc.json", ".lintstagedrc.yaml", ".lintstagedrc.yml", ".lintstagedrc.mjs", ".lintstagedrc.cjs", ".lintstagedrc.js", "lint-staged.config.js", "lint-staged.config.mjs", "lint-staged.config.cjs" -> FileType.LINT_STAGED
     ".liquidrc.json", ".liquidrc" -> FileType.LIQUID
     "makefile", "gnumakefile", "kbuild" -> FileType.MAKEFILE
@@ -509,6 +512,8 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".envrc" -> FileType.ENVRC
     "hugo.toml", "hugo.yaml", "hugo.json" -> FileType.HUGO
     "uv.lock" -> FileType.UV
+    "cabal.project" -> FileType.CABAL
+    "drizzle.config.ts", "drizzle.config.js" -> FileType.DRIZZLE_ORM
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -687,7 +692,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "vto" -> FileType.VENTO
             "vhd", "sv", "svh" -> FileType.VERILOG
             "vimrc", "gvimrc", "exrc", "vim", "viminfo" -> FileType.VIM
-            "csproj", "ruleset", "sln", "suo", "vb", "vbs", "vcxitems", "vcxitems.filters", "vcxproj", "vcxproj.filters" -> FileType.VISUAL_STUDIO
+            "csproj", "ruleset", "sln", "slnx", "suo", "vb", "vbs", "vcxitems", "vcxitems.filters", "vcxproj", "vcxproj.filters" -> FileType.VISUAL_STUDIO
             "vsixmanifest", "vsix", "code-workplace", "code-workspace", "code-profile", "code-snippets" -> FileType.VSCODE
             "wat", "wasm" -> FileType.WEB_ASSEMBLY
             "windi" -> FileType.WINDI
@@ -698,6 +703,8 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "kdl" -> FileType.KDL
             "latte" -> FileType.LATTE
             "phtml" -> FileType.PHTML
+            "cabal" -> FileType.CABAL
+            "xcsettings", "xcworkspacedata" -> FileType.XCODE
             else -> FileType.FILE.also {
                 CatActivity.logger.warn("Unknown file type: $fileType ($extension)")
             }
