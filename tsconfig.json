@@ -8,6 +8,7 @@
     "noImplicitAny": false,
     "removeComments": true,
     "preserveConstEnums": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "rootDir": "generate",
     "outDir": "dist"

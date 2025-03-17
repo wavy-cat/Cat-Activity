@@ -1071,6 +1071,15 @@
     "uv": {
       "title": "uv lockfile"
     },
+    "cabal": {
+      "title": "Cabal"
+    },
+    "drizzle-orm": {
+      "title": "Drizzle ORM"
+    },
+    "xcode": {
+      "title": "Xcode"
+    },
     "_file": {
       "title": "File",
       "altName": "file",

@@ -5,6 +5,7 @@ import {builder} from "./steps/builder";
 import {code_generation} from "./steps/code_generation";
 import {copyFile} from "node:fs/promises";
 import {DistFolder} from "./consts";
+import {Command} from "commander";
 
 const logger = createLogger({
     level: 'info',
@@ -15,6 +16,14 @@ const logger = createLogger({
         new transports.Console(),
     ],
 })
+
+const program = new Command();
+
+program
+    .option('--without-build', 'Do not compile the assemblies', false)
+    .parse()
+
+const options = program.opts()
 
 async function main() {
     const start = performance.now()
@@ -43,15 +52,21 @@ async function main() {
 
     logger.info("[Step 2/3] Assets Building")
 
-    let assetsCount: number
-    try {
-        assetsCount = await builder(config)
-    } catch (e) {
-        logger.error(`The building ended unsuccessfully: ${e}`)
-        process.exit(1)
-    }
+    if (!options.withoutBuild) {
+        let assetsCount: number
+        try {
+            assetsCount = await builder(config)
+        } catch (e) {
+            logger.error(`The building ended unsuccessfully: ${e}`)
+            process.exit(1)
+        }
 
-    logger.info(`Successfully built ${assetsCount} of assets!`)
+        await copyFile("generate/index.html", `${DistFolder}/index.html`)
+
+        logger.info(`Successfully built ${assetsCount} of assets!`)
+    } else {
+        logger.info('The build step was skipped because of the --without-build argument')
+    }
 
     logger.info("[Step 3/3] Code Generation")
 
@@ -63,8 +78,6 @@ async function main() {
     }
 
     logger.info("Code successfully generated!")
-
-    await copyFile("generate/index.html", `${DistFolder}/index.html`)
 
     const end = performance.now()
     const seconds = ((end - start) / 1000).toFixed(2)

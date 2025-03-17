@@ -1,7 +1,7 @@
 import {Config} from "../config"
 import {mkdir, readdir, writeFile} from 'fs/promises'
 import * as path from "node:path"
-import * as sharp from 'sharp'
+import sharp from 'sharp'
 import {DistFolder, Palette} from "../consts"
 
 async function processImage(file: string, backgroundColor: string, canvasSize: number, iconSize: number): Promise<Buffer<ArrayBufferLike>> {
