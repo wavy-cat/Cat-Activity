@@ -334,6 +334,8 @@ enum class FileType(
     CABAL("Cabal", "cabal"),
     DRIZZLE_ORM("Drizzle ORM", "drizzle-orm"),
     XCODE("Xcode", "xcode"),
+    FVM("FVM", "fvm"),
+    ZIP("ZIP", "zip"),
     FILE("File", "_file")
 }
 
@@ -514,6 +516,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "uv.lock" -> FileType.UV
     "cabal.project" -> FileType.CABAL
     "drizzle.config.ts", "drizzle.config.js" -> FileType.DRIZZLE_ORM
+    ".fvmrc", "fvm_config.json" -> FileType.FVM
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -705,6 +708,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "phtml" -> FileType.PHTML
             "cabal" -> FileType.CABAL
             "xcsettings", "xcworkspacedata" -> FileType.XCODE
+            "7z", "arj", "aseprite-extension", "bz", "bz2", "gz", "paq8n", "paq8o", "pkg", "rar", "tar", "tbz", "tbz2", "tgz", "xz", "z", "zip", "zpaq", "zst" -> FileType.ZIP
             else -> FileType.FILE.also {
                 CatActivity.logger.warn("Unknown file type: $fileType ($extension)")
             }
