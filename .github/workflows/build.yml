@@ -36,12 +36,22 @@ jobs:
         with:
           gradle-version: "8.1.1"
 
+      - name: Create token directory
+        run: mkdir -p ./token
+
+      - name: Create and write to chain.crt file
+        run: echo "${{ secrets.CHAIN_CRT_CONTENTS }}" | base64 --decode > ./token/chain.crt
+
+      - name: Create and write to private.pem file
+        run: echo "${{ secrets.PRIVATE_PEM_CONTENTS }}" | base64 --decode > ./token/private.pem
+
       - name: Test plugin
         run: gradle runPluginVerifier
 
   build:
     name: Build plugin
     runs-on: ubuntu-24.04-arm
+    needs: test
 
     steps:
       - name: Checkout
