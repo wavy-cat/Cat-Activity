@@ -35,6 +35,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.1.1"
+          cache-read-only: false
 
       - name: Create token directory
         run: mkdir -p ./token
