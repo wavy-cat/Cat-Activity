@@ -49,4 +49,8 @@ tasks {
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
+
+    runPluginVerifier {
+        ideVersions.set(listOf("IIC-243.26053.27"))
+    }
 }
