@@ -23,9 +23,6 @@ jobs:
           gradle-version: "8.1.1"
           cache-read-only: false
 
-      - name: Grant execute permission for gradlew
-        run: sudo chmod +x gradlew
-
       - name: Create token directory
         run: mkdir -p ./token
 
