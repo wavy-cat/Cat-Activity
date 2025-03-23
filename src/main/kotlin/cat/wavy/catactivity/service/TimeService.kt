@@ -232,8 +232,11 @@ class TimeService : Disposable {
 
     private fun ActivityWrapper.applyRepoButton(repo: GitRemote): ActivityWrapper {
         if (repo.firstUrl == null) return this
+        val link = convertGitRepositoryUrl(repo.firstUrl!!) ?: return this
+
         buttonLabel = "Repository"
-        buttonLink = convertGitRepositoryUrl(repo.firstUrl!!)
+        buttonLink = convertGitRepositoryUrl(link)
+
         return this
     }
 
