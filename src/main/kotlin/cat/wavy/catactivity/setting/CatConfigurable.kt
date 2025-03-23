@@ -73,7 +73,7 @@ class CatConfigurable(
 
             row {
                 checkBox("Show a button with a link to the repository")
-                    .bindSelected(state::usingDefaultIDEName)
+                    .bindSelected(state::showRepositoryButton)
 
                 contextHelp(
                     """
