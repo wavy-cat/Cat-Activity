@@ -77,8 +77,8 @@ class CatConfigurable(
 
                 contextHelp(
                     """
-                    Доступно в деталях Project и File.
-                    Не отображается, если проект не использует Git.
+                    Not available if Details is set as IDE.
+                    Not displayed if the project does not use Git or the link is not correct.
                     """.trimIndent()
                 )
             }.enabledIf(displayCombo!!.selectedValueMatches { it in setOf(Details.Project, Details.File) })
