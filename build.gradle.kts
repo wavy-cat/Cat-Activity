@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "cat.wavy"
-version = "1.6.5"
+version = "1.8.0"
 
 repositories {
     mavenCentral()
@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.JnCrMx:discord-game-sdk4j:master-SNAPSHOT")
+    implementation("com.github.JnCrMx:discord-game-sdk4j:-SNAPSHOT")
 }
 
 // Configure Gradle IntelliJ Plugin
@@ -48,5 +48,9 @@ tasks {
 
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    runPluginVerifier {
+        ideVersions.set(listOf("IIC-243.26053.27"))
     }
 }
