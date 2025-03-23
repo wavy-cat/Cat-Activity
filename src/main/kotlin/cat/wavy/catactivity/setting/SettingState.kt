@@ -5,7 +5,7 @@ data class SettingState(
     var details: Details = Details.IDE,
     var usingTheme: ThemeList = ThemeList.Macchiato,
     var usingDefaultIDEName: Boolean = false,
-    var showRepositoryButton: Boolean = true,
+    var showRepositoryButton: Boolean = false,
 
     var projectStateFormat: String = "Working on %projectName%",
     var projectDetailFormat: String = "%projectProblems% Problems in Project",
