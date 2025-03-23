@@ -14,6 +14,7 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.layout.selected
 import com.intellij.ui.layout.selectedValueIs
+import com.intellij.ui.layout.selectedValueMatches
 import javax.swing.JComponent
 
 class CatConfigurable(
@@ -69,6 +70,18 @@ class CatConfigurable(
 
                 contextHelp("Restart required")
             }.visible(currentIDEType != IDEType.JETBRAINS)
+
+            row {
+                checkBox("Show a button with a link to the repository")
+                    .bindSelected(state::showRepositoryButton)
+
+                contextHelp(
+                    """
+                    Not available if Details is set as IDE.
+                    Not displayed if the project does not use Git or the link is not correct.
+                    """.trimIndent()
+                )
+            }.enabledIf(displayCombo!!.selectedValueMatches { it in setOf(Details.Project, Details.File) })
         }.enabledIf(enableCheck!!.selected)
 
         group("Format Project") {

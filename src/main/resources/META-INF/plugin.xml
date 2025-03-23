@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        This update added support for new languages and icons for them.
+        You can now enable the display of a button that will lead to your repository.
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.

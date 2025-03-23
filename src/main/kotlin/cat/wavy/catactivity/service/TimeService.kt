@@ -24,6 +24,7 @@ import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.IconsStyle
 import cat.wavy.catactivity.setting.SettingState
 import cat.wavy.catactivity.types.*
+import git4idea.repo.GitRemote
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 
@@ -97,6 +98,9 @@ class TimeService : Disposable {
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
                 }
+                val gitRemotes = editingFile?.file?.get()?.let {
+                    GitUtil.getRepositoryManager(project).getRepositoryForFile(it)?.remotes?.toList()
+                }
 
                 val activityRender = service<ActivityRender>()
                 val activityWrapper: ActivityWrapper
@@ -135,22 +139,28 @@ class TimeService : Disposable {
                             }
                             return@runAsync
                         }
+
                         variables.putAll(
                             mutableMapOf(
                                 "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
-                            "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
-                            "%fileProblems%" to (editingFile?.file?.get()
-                                ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
-                            "%linesCount%" to (editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default),
-                            "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
-                            "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
-                        ))
+                                "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
+                                "%fileProblems%" to (editingFile?.file?.get()
+                                    ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
+                                "%linesCount%" to (editingFile?.linesCount?.toString()
+                                    ?: DefaultVars.LINESCOUNT.default),
+                                "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
+                                "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
+                            ))
 
                         activityWrapper = ActivityWrapper(
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project).applyFileInfo(project)
+
+                        if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
+                            activityWrapper.applyRepoButton(gitRemotes[0])
+                        }
                     }
 
                     Details.Project -> {
@@ -159,6 +169,10 @@ class TimeService : Disposable {
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project)
+
+                        if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
+                            activityWrapper.applyRepoButton(gitRemotes[0])
+                        }
                     }
 
                     Details.IDE -> {
@@ -199,6 +213,31 @@ class TimeService : Disposable {
         val style = if (state.iconsStyle == IconsStyle.New) "new/" else ""
 
         return "$ICONS_URL/IDE/$style${state.usingTheme.name}/${ide.icon}.png"
+    }
+
+    private fun convertGitRepositoryUrl(url: String): String? {
+        return try {
+            when {
+                url.startsWith("http://") || url.startsWith("https://") -> url
+                url.startsWith("ssh://") -> url.replace("ssh://", "https://")
+                else -> {
+                    val parts = url.substringAfter('@').split(':', limit = 2)
+                    "https://${parts[0]}/${parts[1]}"
+                }
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun ActivityWrapper.applyRepoButton(repo: GitRemote): ActivityWrapper {
+        if (repo.firstUrl == null) return this
+        val link = convertGitRepositoryUrl(repo.firstUrl!!) ?: return this
+
+        buttonLabel = "Repository"
+        buttonLink = convertGitRepositoryUrl(link)
+
+        return this
     }
 
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
