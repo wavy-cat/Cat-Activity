@@ -1071,6 +1071,42 @@
     "uv": {
       "title": "uv lockfile"
     },
+    "cabal": {
+      "title": "Cabal"
+    },
+    "drizzle-orm": {
+      "title": "Drizzle ORM"
+    },
+    "xcode": {
+      "title": "Xcode"
+    },
+    "fvm": {
+      "title": "FVM"
+    },
+    "zip": {
+      "title": "ZIP",
+      "extensions": [
+        "7z",
+        "arj",
+        "aseprite-extension",
+        "bz",
+        "bz2",
+        "gz",
+        "paq8n",
+        "paq8o",
+        "pkg",
+        "rar",
+        "tar",
+        "tbz",
+        "tbz2",
+        "tgz",
+        "xz",
+        "z",
+        "zip",
+        "zpaq",
+        "zst"
+      ]
+    },
     "_file": {
       "title": "File",
       "altName": "file",

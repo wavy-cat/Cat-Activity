@@ -1,7 +1,7 @@
-name: Build Assets
+name: Preview Build Assets
 
 on:
-  push:
+  pull_request:
     branches:
       - master
     paths:
@@ -42,7 +42,7 @@ jobs:
           path: dist/
 
   build-assets:
-    name: Build Assets
+    name: (Not) Build Assets
     runs-on: ubuntu-24.04-arm
     needs: build-builder
 
@@ -68,30 +68,4 @@ jobs:
         run: npm ci --omit=dev
 
       - name: Start Builder
-        run: npm run start
-
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: assets
-          path: assets-dist/
-
-  deploy:
-    name: Upload to S3
-    runs-on: ubuntu-24.04-arm
-    needs: build-assets
-
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: assets
-          path: assets-dist/
-
-      - name: Upload files
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws configure set region auto
-          aws s3 sync --endpoint-url ${{ secrets.AWS_ENDPOINT }} assets-dist/ s3://cat-activity --checksum-algorithm CRC32
+        run: npm run start-without-build

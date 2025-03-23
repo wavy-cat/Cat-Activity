@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsx generate/index.ts"
+    "start-without-build": "node dist/index.js --without-build",
+    "dev": "tsx generate/index.ts",
+    "dev-without-build": "tsx generate/index.ts --without-build"
   },
   "repository": {
     "type": "git",
@@ -20,10 +22,11 @@
   "homepage": "https://github.com/wavy-cat/Cat-Activity#readme",
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "commander": "^13.1.0",
     "sharp": "^0.33.5",
     "winston": "^3.17.0",
     "zod": "^3.24.1"
