@@ -24,6 +24,7 @@ import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.IconsStyle
 import cat.wavy.catactivity.setting.SettingState
 import cat.wavy.catactivity.types.*
+import git4idea.repo.GitRemote
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 
@@ -97,11 +98,9 @@ class TimeService : Disposable {
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
                 }
-                val repoUrl = editingFile?.file?.get()?.let {
+                val gitRemotes = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)?.remotes?.toList()
                 }
-                // null - нет Git. [] - нет remotes.
-                println(repoUrl?.get(0))
 
                 val activityRender = service<ActivityRender>()
                 val activityWrapper: ActivityWrapper
@@ -140,6 +139,7 @@ class TimeService : Disposable {
                             }
                             return@runAsync
                         }
+
                         variables.putAll(
                             mutableMapOf(
                                 "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
@@ -157,6 +157,10 @@ class TimeService : Disposable {
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project).applyFileInfo(project)
+
+                        if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
+                            activityWrapper.applyRepoButton(gitRemotes[0])
+                        }
                     }
 
                     Details.Project -> {
@@ -165,6 +169,10 @@ class TimeService : Disposable {
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
                         ).applyIDEInfo(project)
+
+                        if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
+                            activityWrapper.applyRepoButton(gitRemotes[0])
+                        }
                     }
 
                     Details.IDE -> {
@@ -187,15 +195,6 @@ class TimeService : Disposable {
         }
     }
 
-    private fun sshToHttp(sshUrl: String): String {
-        return sshUrl.replaceFirst("git@", "https://")
-            .replace(":", "/")
-    }
-
-//    private fun getButtonValueByGit(): Pair<String?, String?> {
-//
-//    }
-
     /** Returns `true` if the file is to be ignored. */
     private fun getIgnoreByName(fileType: String, fileName: String) = when (fileType) {
         "Terminal Prompt" -> true
@@ -214,6 +213,28 @@ class TimeService : Disposable {
         val style = if (state.iconsStyle == IconsStyle.New) "new/" else ""
 
         return "$ICONS_URL/IDE/$style${state.usingTheme.name}/${ide.icon}.png"
+    }
+
+    private fun convertGitRepositoryUrl(url: String): String? {
+        return try {
+            when {
+                url.startsWith("http://") || url.startsWith("https://") -> url
+                url.startsWith("ssh://") -> url.replace("ssh://", "https://")
+                else -> {
+                    val parts = url.substringAfter('@').split(':', limit = 2)
+                    "https://${parts[0]}/${parts[1]}"
+                }
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun ActivityWrapper.applyRepoButton(repo: GitRemote): ActivityWrapper {
+        if (repo.firstUrl == null) return this
+        buttonLabel = "Repository"
+        buttonLink = convertGitRepositoryUrl(repo.firstUrl!!)
+        return this
     }
 
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
