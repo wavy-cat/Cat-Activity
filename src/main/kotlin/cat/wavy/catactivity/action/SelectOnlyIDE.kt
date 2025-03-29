@@ -11,12 +11,11 @@ import com.intellij.openapi.project.DumbAware
 class SelectOnlyIDE : AnAction("Show only IDE"), DumbAware {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        val configState = project.service<CatActivitySettingProjectState>().state
-        val timeService = project.service<TimeService>()
-
-        configState.details = Details.IDE
-        configState.isEnabled = true
-        timeService.render(project)
+        with(project.service<CatActivitySettingProjectState>().state) {
+            details = Details.IDE
+            isEnabled = true
+        }
+        project.service<TimeService>().render(project)
     }
 
     override fun update(e: AnActionEvent) {
