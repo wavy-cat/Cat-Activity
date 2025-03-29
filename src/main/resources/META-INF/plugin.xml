@@ -55,9 +55,30 @@
     </projectListeners>
 
     <actions>
-        <group id="CatActivity.Discord" text="Cat Activity">
+        <group id="CatActivity.MainMenu" text="Cat Activity" description="Discord Rich Presence">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <action id="CatActivity.ReloadAction" class="cat.wavy.catactivity.action.ReloadAction"/>
+
+            <group id="CatActivity.StatusMenu" text="Cat Activity" popup="true" description="Change Discord status and reconnect to discord">
+                <action id="CatActivity.SelectOnlyIDE"
+                        class="cat.wavy.catactivity.action.SelectOnlyIDE"
+                        text="Show Only IDE"/>
+
+                <action id="CatActivity.SelectShowProject"
+                        class="cat.wavy.catactivity.action.SelectShowProject"
+                        text="Show Project"/>
+
+                <action id="CatActivity.SelectShowProjectAndFiles"
+                        class="cat.wavy.catactivity.action.SelectShowProjectAndFiles"
+                        text="Show Project and Files"/>
+
+                <action id="CatActivity.SelectDisableActivity"
+                        class="cat.wavy.catactivity.action.SelectDisableActivity"
+                        text="Disable Activity"/>
+
+                <action id="CatActivity.ReloadAction"
+                        class="cat.wavy.catactivity.action.ReloadAction"
+                        text="Reconnect to Discord"/>
+            </group>
         </group>
     </actions>
 </idea-plugin>
