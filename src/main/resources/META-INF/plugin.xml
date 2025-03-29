@@ -1,63 +1,68 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
-<idea-plugin url="https://github.com/wavy-cat/cat-activity">
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>cat.wavy.catactivity</id>
+<idea-plugin>
+<id>cat.wavy.catactivity</id>
+<name>Cat Activity</name>
+<version>1.8.0</version>
+<vendor email="wavycatter@proton.me" url="https://wavycat.ru">WavyCat</vendor>
 
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Cat Activity</name>
+<description><![CDATA[
+        Plugin for JetBrains IDE to display Rich Presence on your Discord profile...
+    ]]></description>
 
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="wavycatter@proton.me" url="https://wavycat.ru">WavyCat</vendor>
+<change-notes>
+    You can now enable the display of a button that will lead to your repository.
+</change-notes>
 
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[
-        Plugin for JetBrains IDE to display Rich Presence on your Discord profile using Catppuccin Icons and Theme.
-        <br/>
-        <b>
-            The settings are in <i>Settings > Tools > Cat Activity</i>
-        </b>
-  ]]></description>
+<depends>com.intellij.modules.platform</depends>
+<depends>Git4Idea</depends>
 
-    <change-notes>
-        You can now enable the display of a button that will lead to your repository.
-    </change-notes>
+<!-- Все extensions должны быть здесь, а не внутри actions -->
+<extensions defaultExtensionNs="com.intellij">
+    <postStartupActivity implementation="cat.wavy.catactivity.listener.PostStartListener"/>
+    <postStartupActivity implementation="cat.wavy.catactivity.action.MenuActions"/>
 
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
-    <depends>Git4Idea</depends>
+    <projectConfigurable id="cat.wavy.catactivity.setting.CatConfigurableProject"
+                         displayName="Cat Activity"
+                         instance="cat.wavy.catactivity.setting.CatConfigurable"
+                         parentId="tools"/>
+</extensions>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
-    <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="cat.wavy.catactivity.listener.PostStartListener"/>
+<applicationListeners>
+    <listener class="cat.wavy.catactivity.listener.FileListener"
+              topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+    <listener class="cat.wavy.catactivity.listener.ProjectListener"
+              topic="com.intellij.openapi.project.ProjectManagerListener"/>
+</applicationListeners>
 
-        <projectConfigurable id="cat.wavy.catactivity.setting.CatConfigurableProject"
-                             displayName="Cat Activity"
-                             instance="cat.wavy.catactivity.setting.CatConfigurable"
-                             parentId="tools"/>
-    </extensions>
-
-    <applicationListeners>
-        <listener class="cat.wavy.catactivity.listener.FileListener"
-                  topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
-
-        <listener class="cat.wavy.catactivity.listener.ProjectListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
-
-    <projectListeners>
-        <listener class="cat.wavy.catactivity.listener.FileProblemListener"
-                  topic="com.intellij.analysis.problemsView.ProblemsListener"/>
-    </projectListeners>
+<projectListeners>
+    <listener class="cat.wavy.catactivity.listener.FileProblemListener"
+              topic="com.intellij.analysis.problemsView.ProblemsListener"/>
+</projectListeners>
 
     <actions>
-        <group id="CatActivity.Discord" text="Cat Activity">
+        <group id="CatActivity.MainMenu" text="Cat Activity" description="Discord Rich Presence">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <action id="CatActivity.ReloadAction" class="cat.wavy.catactivity.action.ReloadAction"/>
+
+            <group id="CatActivity.StatusMenu" text="Cat Activity" popup="true" description="Change Discord status and reconnect to discord">
+                <action id="CatActivity.SelectOnlyIDE"
+                        class="cat.wavy.catactivity.action.SelectOnlyIDE"
+                        text="Show Only IDE"/>
+
+                <action id="CatActivity.SelectShowProject"
+                        class="cat.wavy.catactivity.action.SelectShowProject"
+                        text="Show Project"/>
+
+                <action id="CatActivity.SelectShowProjectAndFiles"
+                        class="cat.wavy.catactivity.action.SelectShowProjectAndFiles"
+                        text="Show Project and Files"/>
+
+                <action id="CatActivity.SelectDisableActivity"
+                        class="cat.wavy.catactivity.action.SelectDisableActivity"
+                        text="Disable Activity"/>
+
+                <action id="CatActivity.ReloadAction"
+                        class="cat.wavy.catactivity.action.ReloadAction"
+                        text="Reconnect to Discord"/>
+            </group>
         </group>
     </actions>
 </idea-plugin>
