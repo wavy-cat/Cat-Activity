@@ -7,14 +7,21 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.DumbAware
 
-class SelectDisableActivity : AnAction("Disable Activity"), DumbAware {
-    override fun actionPerformed(e: AnActionEvent) {
-        val project = e.project ?: return
-        project.service<CatActivitySettingProjectState>().state.isEnabled = false
-        project.service<TimeService>().render(project)
+class SelectDisableActivity : ToggleAction("Disable Activity"), DumbAware {
+
+    override fun isSelected(e: AnActionEvent): Boolean {
+        val project = e.project ?: return false
+        val configState = project.service<CatActivitySettingProjectState>().state
+
+        return !configState.isEnabled
     }
 
-    override fun update(e: AnActionEvent) {
-        e.presentation.isEnabled = e.project != null
+    override fun setSelected(e: AnActionEvent, state: Boolean) {
+        val project = e.project ?: return
+        val configState = project.service<CatActivitySettingProjectState>().state
+        val timeService = project.service<TimeService>()
+
+        configState.isEnabled = !state
+        timeService.render(project)
     }
 }
