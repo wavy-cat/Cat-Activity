@@ -53,14 +53,11 @@ jobs:
           gradle-version: "8.1.1"
           cache-read-only: false
 
-      - name: Create token directory
-        run: mkdir -p ./token
-
-      - name: Create and write to chain.crt file
-        run: echo "${{ secrets.CHAIN_CRT_CONTENTS }}" | base64 --decode > ./token/chain.crt
-
-      - name: Create and write to private.pem file
-        run: echo "${{ secrets.PRIVATE_PEM_CONTENTS }}" | base64 --decode > ./token/private.pem
+      - name: Add the secret files
+        run: |
+          mkdir -p ./token
+          echo "${{ secrets.CHAIN_CRT_CONTENTS }}" > ./token/chain.crt
+          echo "${{ secrets.PRIVATE_PEM_CONTENTS }}" > ./token/private.pem
 
       - name: Build plugin
         run: gradle buildPlugin

@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        You can now enable the display of a button that will lead to your repository.
+        Added display selection in the “Tools” menu
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.

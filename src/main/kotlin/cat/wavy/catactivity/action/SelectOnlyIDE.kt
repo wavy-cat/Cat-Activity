@@ -20,11 +20,10 @@ class SelectOnlyIDE : ToggleAction("Show only IDE"), DumbAware {
         if (!state) return
 
         val project = e.project ?: return
-        val configState = project.service<CatActivitySettingProjectState>().state
-        val timeService = project.service<TimeService>()
-
-        configState.details = Details.IDE
-        configState.isEnabled = true
-        timeService.render(project)
+        with(project.service<CatActivitySettingProjectState>().state) {
+            details = Details.IDE
+            isEnabled = true
+        }
+        project.service<TimeService>().render(project)
     }
 }
