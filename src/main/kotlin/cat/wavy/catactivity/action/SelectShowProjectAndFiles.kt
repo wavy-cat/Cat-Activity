@@ -8,17 +8,24 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.DumbAware
 
-class SelectShowProjectAndFiles : AnAction("Show Project and File"), DumbAware {
-    override fun actionPerformed(e: AnActionEvent) {
-        val project = e.project ?: return
-        with(project.service<CatActivitySettingProjectState>().state) {
-            details = Details.File
-            isEnabled = true
-        }
-        project.service<TimeService>().render(project)
+class SelectShowProjectAndFiles : ToggleAction("Show Project and File"), DumbAware {
+
+    override fun isSelected(e: AnActionEvent): Boolean {
+        val project = e.project ?: return false
+        val configState = project.service<CatActivitySettingProjectState>().state
+
+        return configState.details == Details.File && configState.isEnabled
     }
 
-    override fun update(e: AnActionEvent) {
-        e.presentation.isEnabled = e.project != null
+    override fun setSelected(e: AnActionEvent, state: Boolean) {
+        if (!state) return
+
+        val project = e.project ?: return
+        val configState = project.service<CatActivitySettingProjectState>().state
+        val timeService = project.service<TimeService>()
+
+        configState.details = Details.File
+        configState.isEnabled = true
+        timeService.render(project)
     }
 }
