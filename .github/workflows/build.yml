@@ -54,7 +54,6 @@ jobs:
           cache-read-only: false
 
       - name: Add the secret files
-        if: github.event_name != 'pull_request'
         run: |
           mkdir -p ./token
           echo "${{ secrets.CHAIN_CRT_CONTENTS }}" > ./token/chain.crt
@@ -62,6 +61,8 @@ jobs:
 
       - name: Build plugin
         run: gradle buildPlugin
+        env:
+          PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
 
       - name: Sign plugin
         if: github.event_name != 'pull_request'
