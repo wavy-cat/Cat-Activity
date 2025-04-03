@@ -65,6 +65,7 @@ jobs:
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
 
       - name: Sign plugin
+        if: github.event_name != 'pull_request'
         run: gradle signPlugin
         env:
           PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
