@@ -1,21 +1,21 @@
 name: Build Plugin
 
 on:
-#  push:
-#    branches:
-#      - master
-#    paths-ignore:
-#      - 'README.md'
-#      - 'LICENSE'
-#      - '.github/workflows/issues.yml'
-#      - '.github/workflows/icons.yml'
-#      - '.github/workflows/icons-pr.yml'
-#      - '.github/workflows/publish.yml'
-#      - 'generate/**'
-#      - 'package.json'
-#      - 'package-lock.json'
-#      - 'builder_config.json'
-#      - 'tsconfig.json'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/workflows/issues.yml'
+      - '.github/workflows/icons.yml'
+      - '.github/workflows/icons-pr.yml'
+      - '.github/workflows/publish.yml'
+      - 'generate/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'builder_config.json'
+      - 'tsconfig.json'
   pull_request:
     branches:
       - master
