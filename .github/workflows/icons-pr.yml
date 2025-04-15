@@ -12,6 +12,9 @@ on:
       - 'package-lock.json'
       - 'tsconfig.json'
 
+permissions:
+  contents: read
+
 jobs:
   build-builder:
     name: Build Assets builder
