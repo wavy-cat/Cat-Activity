@@ -3,8 +3,6 @@ import {createLogger, format, transports} from "winston"
 import {checker} from "./steps/checker";
 import {builder} from "./steps/builder";
 import {code_generation} from "./steps/code_generation";
-import {copyFile} from "node:fs/promises";
-import {DistFolder} from "./consts";
 import {Command} from "commander";
 
 const logger = createLogger({
@@ -17,7 +15,7 @@ const logger = createLogger({
     ],
 })
 
-const program = new Command();
+const program = new Command()
 
 program
     .option('--without-build', 'Do not compile the assemblies', false)
@@ -60,8 +58,6 @@ async function main() {
             logger.error(`The building ended unsuccessfully: ${e}`)
             process.exit(1)
         }
-
-        await copyFile("generate/index.html", `${DistFolder}/index.html`)
 
         logger.info(`Successfully built ${assetsCount} of assets!`)
     } else {
