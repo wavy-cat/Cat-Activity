@@ -22,7 +22,7 @@
   ]]></description>
 
     <change-notes>
-        Improved display selection in the "Tools" menu.
+        Added support for IDEA 2025.2
     </change-notes>
 
     <!-- Product and plugin compatibility requirements.
