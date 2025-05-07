@@ -9,7 +9,28 @@
 
 name: Run UI Tests
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - CHANGELOG.md
+      - generate
+      - package.json
+      - package-lock.json
+      - README.md
+      - LICENSE
+      - tsconfig.json
+      - builder_config.json
+  pull_request:
+    paths-ignore:
+      - CHANGELOG.md
+      - generate
+      - package.json
+      - package-lock.json
+      - README.md
+      - LICENSE
+      - tsconfig.json
+      - builder_config.json
 
 jobs:
 
