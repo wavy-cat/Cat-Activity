@@ -22,7 +22,7 @@
   "homepage": "https://github.com/wavy-cat/Cat-Activity#readme",
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "tsx": "^4.19.3",
+    "tsx": "^4.19.4",
     "typescript": "^5.7.2"
   },
   "dependencies": {
