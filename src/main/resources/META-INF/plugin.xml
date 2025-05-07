@@ -4,14 +4,6 @@
     <name>Cat Activity</name>
     <vendor email="me@wavycat.ru" url="https://wavycat.ru">WavyCat</vendor>
 
-    <description><![CDATA[
-        Plugin for JetBrains IDE to display Rich Presence on your Discord profile using Catppuccin Icons and Theme.
-        <br/>
-        <b>
-            The settings are in <i>Settings > Tools > Cat Activity</i>
-        </b>
-  ]]></description>
-
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
 
