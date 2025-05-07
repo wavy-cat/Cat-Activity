@@ -15,31 +15,28 @@ import cat.wavy.catactivity.service.TimeService
 
 class PostStartListener : ProjectActivity {
     override suspend fun execute(project: Project) {
-        service<TimeService>().onProjectOpened(project)
+        project.service<TimeService>().onProjectOpened(project)
     }
 }
 
 class ProjectListener : ProjectManagerListener {
     override fun projectClosing(project: Project) {
-        service<TimeService>().onProjectClosed(project)
+        project.service<TimeService>().onProjectClosed(project)
     }
 }
 
 class FileListener : FileEditorManagerListener {
     override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
-        val service = service<TimeService>()
-        service.onFileOpened(source.project, file)
+        source.project.service<TimeService>().onFileOpened(source.project, file)
     }
 
     override fun fileClosed(source: FileEditorManager, file: VirtualFile) {
-        val service = service<TimeService>()
-        service.onFileClosed(source.project, file)
+        source.project.service<TimeService>().onFileClosed(source.project, file)
     }
 
     override fun selectionChanged(event: FileEditorManagerEvent) {
         event.newFile?.let {
-            val service = service<TimeService>()
-            service.onFileChanged(event.manager.project, it)
+            event.manager.project.service<TimeService>().onFileChanged(event.manager.project, it)
         }
     }
 }
@@ -47,22 +44,19 @@ class FileListener : FileEditorManagerListener {
 class FileProblemListener : ProblemsListener {
     override fun problemAppeared(problem: Problem) {
         ApplicationManager.getApplication().invokeLater {
-            val service = service<TimeService>()
-            service.render(problem.provider.project)
+            problem.provider.project.service<TimeService>().render(problem.provider.project)
         }
     }
 
     override fun problemDisappeared(problem: Problem) {
         ApplicationManager.getApplication().invokeLater {
-            val service = service<TimeService>()
-            service.render(problem.provider.project)
+            problem.provider.project.service<TimeService>().render(problem.provider.project)
         }
     }
 
     override fun problemUpdated(problem: Problem) {
         ApplicationManager.getApplication().invokeLater {
-            val service = service<TimeService>()
-            service.render(problem.provider.project)
+            problem.provider.project.service<TimeService>().render(problem.provider.project)
         }
     }
 }

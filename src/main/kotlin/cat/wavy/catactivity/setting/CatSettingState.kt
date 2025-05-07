@@ -7,8 +7,7 @@ import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(
-    name = "CatActivitySettingProjectState",
-    storages = [Storage("cat-activity.xml")]
+    name = "CatActivitySettingProjectState", storages = [Storage("cat-activity.xml")]
 )
 @Service(Service.Level.PROJECT)
 class CatActivitySettingProjectState : PersistentStateComponent<SettingState> {

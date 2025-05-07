@@ -7,11 +7,11 @@ import de.jcm.discordgamesdk.Core
 import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
-import cat.wavy.catactivity.CatActivity
 import cat.wavy.catactivity.action.alert.reloadAlert
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.types.applicationId
 import cat.wavy.catactivity.types.defaultApplicationId
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.ProjectManager
 import de.jcm.discordgamesdk.activity.ActivityButton
 import de.jcm.discordgamesdk.activity.ActivityButtonsMode
@@ -43,7 +43,7 @@ class ActivityRender : Disposable {
         }
         activityManager = core.activityManager()
     }.also {
-        CatActivity.logger.info("ActivityRender init result: ${it.isSuccess}")
+        thisLogger().info("ActivityRender init result: ${it.isSuccess}")
     }
 
     init {
@@ -76,7 +76,7 @@ class ActivityRender : Disposable {
                 activityManager.updateActivity(activityNative)
             }
                 .onFailure {
-                    CatActivity.logger.warn("Failed to update activity: " + it.message)
+                    thisLogger().warn("Failed to update activity: " + it.message)
                     val project = ProjectManager.getInstance().openProjects.firstOrNull()
                     if (project != null && !ignoreFlag) {
                         reloadAlert(project, it.message)

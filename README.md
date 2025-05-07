@@ -2,7 +2,7 @@
 
 Plugin for JetBrains IDE to show your activity in your Discord profile.
 
-<img src="assets/header.png" alt="Header"/>
+<img src=".github/assets/header.png" alt="Header"/>
 
 > [!NOTE]
 > This is a fork of the [re-ovo/discord-ij](https://github.com/re-ovo/discord-ij) repository with [Catppuccin icons](https://github.com/catppuccin/vscode-icons).

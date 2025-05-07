@@ -15,7 +15,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
 import cat.wavy.catactivity.ICONS_URL
-import cat.wavy.catactivity.CatActivity.logger
 import cat.wavy.catactivity.action.alert.welcomeAlert
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
@@ -24,11 +23,12 @@ import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.IconsStyle
 import cat.wavy.catactivity.setting.SettingState
 import cat.wavy.catactivity.types.*
+import com.intellij.openapi.diagnostic.thisLogger
 import git4idea.repo.GitRemote
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
 
-@Service
+@Service(Service.Level.PROJECT)
 class TimeService : Disposable {
     private val startTime = System.currentTimeMillis()
     private var timeTracker = CacheBuilder.newBuilder()
@@ -112,7 +112,7 @@ class TimeService : Disposable {
 
                 editingFile?.let {
                     if (getIgnoreByName(it.type, it.fileName)) {
-                        logger.info("Ignoring a ${it.type} (${it.fileName}) file")
+                        thisLogger().info("Ignoring a ${it.type} (${it.fileName}) file")
                         return@runAsync
                     }
                 }
@@ -183,7 +183,7 @@ class TimeService : Disposable {
                     }
                 }
 
-                logger.info("Rendering file: ${activityWrapper.details}")
+                thisLogger().info("Rendering file: ${activityWrapper.details}")
 
                 activityWrapper.let {
                     activityRender.updateActivity(it)

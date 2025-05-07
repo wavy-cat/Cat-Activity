@@ -1,15 +1,14 @@
 package cat.wavy.catactivity.action
 
-import cat.wavy.catactivity.CatActivity
 import cat.wavy.catactivity.render.ActivityRender
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
-import com.intellij.openapi.project.DumbAware
+import com.intellij.openapi.diagnostic.thisLogger
+import com.intellij.openapi.project.DumbAwareAction
 
-class ReloadAction : AnAction("Reconnect to Discord"), DumbAware {
+class ReloadAction : DumbAwareAction() {
     override fun actionPerformed(e: AnActionEvent) {
         service<ActivityRender>().reinit()
-        CatActivity.logger.info("ActivityRender is forcefully reinitialized")
+        thisLogger().info("ActivityRender is forcefully reinitialized")
     }
 }

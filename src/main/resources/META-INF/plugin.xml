@@ -1,18 +1,9 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin url="https://github.com/wavy-cat/cat-activity">
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>cat.wavy.catactivity</id>
-
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>Cat Activity</name>
+    <vendor email="me@wavycat.ru" url="https://wavycat.ru">WavyCat</vendor>
 
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="wavycatter@proton.me" url="https://wavycat.ru">WavyCat</vendor>
-
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
         Plugin for JetBrains IDE to display Rich Presence on your Discord profile using Catppuccin Icons and Theme.
         <br/>
@@ -21,24 +12,18 @@
         </b>
   ]]></description>
 
-    <change-notes>
-        Added support for IDEA 2025.2
-    </change-notes>
-
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="cat.wavy.catactivity.listener.PostStartListener"/>
 
-        <projectConfigurable id="cat.wavy.catactivity.setting.CatConfigurableProject"
-                             displayName="Cat Activity"
-                             instance="cat.wavy.catactivity.setting.CatConfigurable"
-                             parentId="tools"/>
+        <projectConfigurable
+                id="cat.wavy.catactivity.setting.CatConfigurableProject"
+                instance="cat.wavy.catactivity.setting.CatConfigurable"
+                parentId="tools"
+                key="projectTitle"
+                bundle="messages.MyBundle"/>
     </extensions>
 
     <applicationListeners>
@@ -58,7 +43,8 @@
         <group id="CatActivity.MainMenu" text="Cat Activity" description="Discord Rich Presence">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
 
-            <group id="CatActivity.StatusMenu" text="Cat Activity" popup="true" description="Change Discord status and reconnect to discord">
+            <group id="CatActivity.StatusMenu" text="Cat Activity" popup="true"
+                   description="Change Discord status and reconnect to discord">
                 <action id="CatActivity.SelectOnlyIDE"
                         class="cat.wavy.catactivity.action.SelectOnlyIDE"
                         text="Show Only IDE"/>
@@ -81,4 +67,6 @@
             </group>
         </group>
     </actions>
+
+    <resource-bundle>messages.MyBundle</resource-bundle>
 </idea-plugin>

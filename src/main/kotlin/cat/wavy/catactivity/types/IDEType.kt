@@ -1,7 +1,6 @@
 package cat.wavy.catactivity.types
 
 import com.intellij.openapi.application.ex.ApplicationInfoEx
-import cat.wavy.catactivity.CatActivity
 
 enum class IDEType(
     val title: String,
@@ -45,9 +44,7 @@ val currentIDEType by lazy {
         "QA" -> IDEType.AQUA
         "OC" -> IDEType.APPCODE
         "MPS" -> IDEType.MPS
-        else -> IDEType.JETBRAINS.also {
-            CatActivity.logger.warn("Unknown IDE type: ${info.build.productCode}")
-        }
+        else -> IDEType.JETBRAINS
     }
 }
 

@@ -38,7 +38,7 @@ class CatConfigurable(
         group("Display") {
             row("Details") {
                 comboBox(
-                    items = Details.values().toList(),
+                    items = Details.entries,
                 ).bindItem(state::details.toNullableProperty())
                     .applyToComponent { displayCombo = this }
 
@@ -55,12 +55,12 @@ class CatConfigurable(
             }
 
             row("Theme") {
-                comboBox(items = ThemeList.values().toList())
+                comboBox(items = ThemeList.entries)
                     .bindItem(state::usingTheme.toNullableProperty())
             }
 
             row("IDE icons") {
-                comboBox(items = IconsStyle.values().toList())
+                comboBox(items = IconsStyle.entries)
                     .bindItem(state::iconsStyle.toNullableProperty())
             }.enabledIf(enableCheck!!.selected)
 
@@ -168,7 +168,7 @@ class CatConfigurable(
                     """.trimIndent(), "Placeholders"
                 )
             }
-        }.visibleIf(displayCombo!!.selectedValueIs(Details.File)).enabledIf(enableCheck!!.selected)
+        }.visibleIf(displayCombo.selectedValueIs(Details.File)).enabledIf(enableCheck.selected)
 
         group("Format Idle") {
             row("Details Line") {
@@ -208,7 +208,7 @@ class CatConfigurable(
                     """.trimIndent(), "Placeholders"
                 )
             }
-        }.visibleIf(displayCombo!!.selectedValueIs(Details.File)).enabledIf(enableCheck!!.selected)
+        }.visibleIf(displayCombo.selectedValueIs(Details.File)).enabledIf(enableCheck.selected)
     }
 
     override fun createComponent(): JComponent = panel
@@ -216,7 +216,7 @@ class CatConfigurable(
     override fun isModified(): Boolean = panel.isModified()
 
     override fun apply() = panel.apply().also {
-        service<TimeService>().render(project)
+        project.service<TimeService>().render(project)
     }
 
     override fun reset() = panel.reset()

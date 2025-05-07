@@ -8,7 +8,6 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.DumbAware
 
 class SelectOnlyIDE : ToggleAction("Show only IDE"), DumbAware {
-
     override fun isSelected(e: AnActionEvent): Boolean {
         val project = e.project ?: return false
         val configState = project.service<CatActivitySettingProjectState>().state
