@@ -19,43 +19,40 @@
     </extensions>
 
     <applicationListeners>
-        <listener class="cat.wavy.catactivity.listener.FileListener"
-                  topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+        <listener
+                class="cat.wavy.catactivity.listener.FileListener"
+                topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
 
-        <listener class="cat.wavy.catactivity.listener.ProjectListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+        <listener
+                class="cat.wavy.catactivity.listener.ProjectListener"
+                topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
     <projectListeners>
-        <listener class="cat.wavy.catactivity.listener.FileProblemListener"
-                  topic="com.intellij.analysis.problemsView.ProblemsListener"/>
+        <listener
+                class="cat.wavy.catactivity.listener.FileProblemListener"
+                topic="com.intellij.analysis.problemsView.ProblemsListener"/>
     </projectListeners>
 
-    <actions>
-        <group id="CatActivity.MainMenu" text="Cat Activity" description="Discord Rich Presence">
+    <actions resource-bundle="messages.ActionsBundle">
+        <group id="cat.wavy.catactivity.MainGroup">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
 
-            <group id="CatActivity.StatusMenu" text="Cat Activity" popup="true"
-                   description="Change Discord status and reconnect to discord">
-                <action id="CatActivity.SelectOnlyIDE"
-                        class="cat.wavy.catactivity.action.SelectOnlyIDE"
-                        text="Show Only IDE"/>
+            <group id="cat.wavy.catactivity.StatusGroup" popup="true">
+                <action id="cat.wavy.catactivity.SelectOnlyIDE"
+                        class="cat.wavy.catactivity.action.SelectOnlyIDE"/>
 
-                <action id="CatActivity.SelectShowProject"
-                        class="cat.wavy.catactivity.action.SelectShowProject"
-                        text="Show Project"/>
+                <action id="cat.wavy.catactivity.SelectShowProject"
+                        class="cat.wavy.catactivity.action.SelectShowProject"/>
 
-                <action id="CatActivity.SelectShowProjectAndFiles"
-                        class="cat.wavy.catactivity.action.SelectShowProjectAndFiles"
-                        text="Show Project and Files"/>
+                <action id="cat.wavy.catactivity.SelectShowProjectAndFiles"
+                        class="cat.wavy.catactivity.action.SelectShowProjectAndFiles"/>
 
-                <action id="CatActivity.SelectDisableActivity"
-                        class="cat.wavy.catactivity.action.SelectDisableActivity"
-                        text="Disable Activity"/>
+                <action id="cat.wavy.catactivity.SelectDisableActivity"
+                        class="cat.wavy.catactivity.action.SelectDisableActivity"/>
 
-                <action id="CatActivity.ReloadAction"
-                        class="cat.wavy.catactivity.action.ReloadAction"
-                        text="Reconnect to Discord"/>
+                <action id="cat.wavy.catactivity.ReloadAction"
+                        class="cat.wavy.catactivity.action.ReloadAction"/>
             </group>
         </group>
     </actions>
