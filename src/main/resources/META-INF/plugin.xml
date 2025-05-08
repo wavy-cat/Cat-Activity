@@ -34,7 +34,7 @@
                 topic="com.intellij.analysis.problemsView.ProblemsListener"/>
     </projectListeners>
 
-    <actions resource-bundle="messages.ActionsBundle">
+    <actions resource-bundle="messages.ToolsBundle">
         <group id="cat.wavy.catactivity.MainGroup">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
 
