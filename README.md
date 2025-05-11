@@ -1,8 +1,8 @@
 # Cat Activity
 
-![Build](https://github.com/wavy-cat/Cat-Activity/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/24065-cat-activity.svg)](https://plugins.jetbrains.com/plugin/24065-cat-activity)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/24065-cat-activity.svg)](https://plugins.jetbrains.com/plugin/24065-cat-activity)
+![Build](https://img.shields.io/github/actions/workflow/status/wavy-cat/Cat-Activity/build.yml?style=for-the-badge&logo=github&logoColor=white&labelColor=1A222E&color=242B36)
+[![Version](https://img.shields.io/jetbrains/plugin/v/24065-cat-activity.svg?style=for-the-badge&logoColor=white&labelColor=1A222E&color=242B36)](https://plugins.jetbrains.com/plugin/24065-cat-activity)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/24065-cat-activity.svg?style=for-the-badge&logoColor=white&labelColor=1A222E&color=242B36)](https://plugins.jetbrains.com/plugin/24065-cat-activity)
 
 ![Header](.github/assets/header.png)
 
