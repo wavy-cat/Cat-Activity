@@ -123,6 +123,7 @@ class TimeService : Disposable {
                     "%projectProblems%" to problemsCollector.getProblemCount().toString(),
                     "%branch%" to (repo?.currentBranch?.name ?: DefaultVars.BRANCH.default),
                     "%repository%" to (repo?.project?.name ?: DefaultVars.REPO.default),
+                    "%dinnerbone%" to "\u202E",
                 )
 
                 when (configState.details) {
