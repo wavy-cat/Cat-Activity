@@ -280,7 +280,7 @@ private fun Long.formatBytes(): String {
         this < 1048576 -> "${(this / 1024)} KiB"
         this < 1073741824 -> "${(this / 1048576)} MiB"
         this < 1099511627776 -> "${(this / 1073741824)} GiB"
-        else -> "${(this / 1073741824)} TiB"
+        else -> "${(this / 1099511627776)} TiB"
     }
 }
 
