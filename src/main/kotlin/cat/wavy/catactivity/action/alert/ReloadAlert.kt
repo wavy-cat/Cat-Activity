@@ -1,6 +1,7 @@
 package cat.wavy.catactivity.action.alert
 
 import cat.wavy.catactivity.NOTIFICATION_GROUP_ID
+import cat.wavy.catactivity.bundle.ToolsBundle
 import cat.wavy.catactivity.render.ActivityRender
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
@@ -32,16 +33,16 @@ private class DismissAction(
 
 
 fun reloadAlert(project: Project, message: String?) {
-    val title = "Connection to Discord lost"
+    val title = ToolsBundle.message("reloadAlert.title")
     val content = when (message) {
-        null -> "Do you want to try reconnecting?"
-        else -> "Reason: $message. Do you want to try reconnecting?"
+        null -> ToolsBundle.message("reloadAlert.content.noMessage")
+        else -> ToolsBundle.message("reloadAlert.content.withMessage", message)
     }
 
     val notification = Notification(NOTIFICATION_GROUP_ID, title, content, NotificationType.INFORMATION)
 
-    notification.addAction(ReloadAction(notification, "Reconnect"))
-    notification.addAction(DismissAction(notification, "Dismiss"))
+    notification.addAction(ReloadAction(notification, ToolsBundle.message("reloadAlert.action.reconnect")))
+    notification.addAction(DismissAction(notification, ToolsBundle.message("reloadAlert.action.dismiss")))
 
     Notifications.Bus.notify(notification, project)
 }
