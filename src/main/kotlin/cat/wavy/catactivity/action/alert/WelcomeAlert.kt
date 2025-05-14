@@ -1,6 +1,7 @@
 package cat.wavy.catactivity.action.alert
 
 import cat.wavy.catactivity.NOTIFICATION_GROUP_ID
+import cat.wavy.catactivity.bundle.ToolsBundle
 import cat.wavy.catactivity.service.TimeService
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
@@ -40,14 +41,14 @@ fun welcomeAlert(project: Project, timeService: TimeService): Boolean {
     val configState = project.service<CatActivitySettingProjectState>().state
 
     if (configState.firstInit) {
-        val title = "Let's set up your activity display!"
-        val content = "What details would you like to showcase in your profile?"
+        val title = ToolsBundle.message("welcomeAlert.title")
+        val content = ToolsBundle.message("welcomeAlert.content")
         val notification = Notification(NOTIFICATION_GROUP_ID, title, content, NotificationType.INFORMATION)
 
-        notification.addAction(ShowAction(notification, timeService, Details.IDE, "Only IDE"))
-        notification.addAction(ShowAction(notification, timeService, Details.Project, "Project"))
-        notification.addAction(ShowAction(notification, timeService, Details.File, "Project and File"))
-        notification.addAction(ShowAction(notification, null, null, "Disable"))
+        notification.addAction(ShowAction(notification, timeService, Details.IDE, ToolsBundle.message("welcomeAlert.action.onlyIDE")))
+        notification.addAction(ShowAction(notification, timeService, Details.Project, ToolsBundle.message("welcomeAlert.action.project")))
+        notification.addAction(ShowAction(notification, timeService, Details.File, ToolsBundle.message("welcomeAlert.action.projectAndFile")))
+        notification.addAction(ShowAction(notification, null, null, ToolsBundle.message("welcomeAlert.action.disable")))
 
         Notifications.Bus.notify(notification, project)
 

@@ -15,7 +15,7 @@
                 instance="cat.wavy.catactivity.setting.CatConfigurable"
                 parentId="tools"
                 key="projectTitle"
-                bundle="messages.MyBundle"/>
+                bundle="messages.ConfigBundle"/>
     </extensions>
 
     <applicationListeners>
@@ -56,6 +56,4 @@
             </group>
         </group>
     </actions>
-
-    <resource-bundle>messages.MyBundle</resource-bundle>
 </idea-plugin>
