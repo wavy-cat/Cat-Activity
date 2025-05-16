@@ -341,7 +341,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "angular-cli.json", ".angular-cli.json", "angular.json", "ng-package.json" -> FileType.ANGULAR
     ".ansible-lint", "ansible-lint.yml", "ansible-lint.yaml" -> FileType.ANSIBLE_LINT
     "maven.config", "jvm.config", "pom.xml" -> FileType.APACHE
-    ".ds_store", "apple-app-site-association" -> FileType.APPLE
+    ".ds_store", "apple-app-site-association", "apple-developer-merchantid-domain-association" -> FileType.APPLE
     ".bazelrc" -> FileType.BAZEL
     "benchmark.md", "benchmark.rst", "benchmark.txt", "benchmarks.md", "benchmarks.rst", "benchmarks.txt" -> FileType.BENCHMARK
     "cspell.json", "cspell.yml", "cspell.yaml", ".cspell.json", ".cspell.yml", ".cspell.yaml", "cspell.config.js", "cspell.config.cjs", "cspell.config.yml", "cspell.config.yaml" -> FileType.CSPELL
@@ -543,7 +543,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "freezed.dart", "g.dart" -> FileType.DART_GENERATED
             "exe", "msi" -> FileType.EXE
             "fig" -> FileType.FIGMA
-            "f", "f77", "f90", "f95", "f03", "f08" -> FileType.FORTRAN
+            "f", "f77", "f90", "f95", "f03", "f08", "for" -> FileType.FORTRAN
             "gitlab-ci.yml", "gitlab-ci.yaml" -> FileType.GITLAB
             "gleam" -> FileType.GLEAM
             "tmpl", "templ", "gotmpl", "gohtml", "go.tmp", "go.html" -> FileType.GO_TEMPLATE
