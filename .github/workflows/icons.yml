@@ -11,6 +11,14 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'tsconfig.json'
+  pull_request:
+    paths:
+      - 'generate/**'
+      - '.github/workflows/icons.yml'
+      - 'builder_config.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
