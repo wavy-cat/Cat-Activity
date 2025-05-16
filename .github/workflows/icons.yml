@@ -11,6 +11,14 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'tsconfig.json'
+  pull_request:
+    paths:
+      - 'generate/**'
+      - '.github/workflows/icons.yml'
+      - 'builder_config.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -30,17 +38,22 @@ jobs:
         with:
           submodules: true
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install Dev Dependencies
-        run: npm ci --save-dev
+        run: pnpm install --frozen-lockfile
 
       - name: Build Project
-        run: npm run build
+        run: pnpm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -59,11 +72,16 @@ jobs:
         with:
           submodules: true
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
@@ -72,10 +90,10 @@ jobs:
           path: dist/
 
       - name: Install Dependencies
-        run: npm ci --omit=dev
+        run: pnpm install --frozen-lockfile --prod
 
       - name: Start Builder
-        run: npm run start
+        run: pnpm run start
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4

@@ -3,5 +3,6 @@
 .intellijPlatform
 .qodana
 build
+dist
 .kotlin
 node_modules
