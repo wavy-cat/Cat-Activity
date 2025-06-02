@@ -20,5 +20,6 @@ updates:
       interval: "monthly"
     groups:
       all-dependencies:
+        applies-to: version-updates
         patterns:
           - "*"
