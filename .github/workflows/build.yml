@@ -19,7 +19,7 @@ on:
     paths-ignore:
       - generate
       - package.json
-      - package-lock.json
+      - pnpm-lock.yaml
       - README.md
       - LICENSE
       - tsconfig.json
@@ -29,7 +29,7 @@ on:
       - CHANGELOG.md
       - generate
       - package.json
-      - package-lock.json
+      - pnpm-lock.yaml
       - README.md
       - LICENSE
       - tsconfig.json
