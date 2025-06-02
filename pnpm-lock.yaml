@@ -18,8 +18,8 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
       zod:
-        specifier: ^3.24.4
-        version: 3.25.46
+        specifier: ^3.25.47
+        version: 3.25.47
     devDependencies:
       '@types/node':
         specifier: ^22.15.29
@@ -463,8 +463,8 @@ packages:
     resolution: {integrity: sha512-DLiFIXYC5fMPxaRg832S6F5mJYvePtmO5G9v9IgUFPhXm9/GkXarH/TUrBAVzhTCzAj9anE/+GjrgXp/54nOgw==}
     engines: {node: '>= 12.0.0'}
 
-  zod@3.25.46:
-    resolution: {integrity: sha512-IqRxcHEIjqLd4LNS/zKffB3Jzg3NwqJxQQ0Ns7pdrvgGkwQsEBdEQcOHaBVqvvZArShRzI39+aMST3FBGmTrLQ==}
+  zod@3.25.47:
+    resolution: {integrity: sha512-+f8+agSYoT9niC0VUL60IuXnr81FJeJ27Lf5YPrmcxTWmygcpGBeEuAAovDDEjkyQ36KyqNswwbhISZ1Z7yY+A==}
 
 snapshots:
 
@@ -837,4 +837,4 @@ snapshots:
       triple-beam: 1.4.1
       winston-transport: 4.9.0
 
-  zod@3.25.46: {}
+  zod@3.25.47: {}
