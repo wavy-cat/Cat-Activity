@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-06-04
+
 ### Added
 
 - Added `%dinnerbone%` placeholder that flips the text.
@@ -33,5 +35,6 @@
 
 - Dropped support for IDE versions below 2024.2
 
-[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/wavy-cat/Cat-Activity/commits/v2.0.0
