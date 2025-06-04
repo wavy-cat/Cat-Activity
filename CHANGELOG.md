@@ -4,6 +4,23 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `%dinnerbone%` placeholder that flips the text.
+
+### Changed
+
+- Updated Catppuccian icons to version 1.21.0.
+- Units in the `%fileSize%` placeholder were changed from SI prefixes to binary (KB, MB, GB, TB → KiB, MiB, GiB, TiB).
+
+### Fixed
+
+- Fixed an error in calculating file size in TiB in the `%fileSize%` placeholder.
+
+### Security
+
+- Updated libraries to the latest stable versions to ensure security and performance.
+
 ## [2.0.0] - 2025-05-07
 
 ### Changed
