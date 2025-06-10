@@ -9,8 +9,8 @@ import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
 import cat.wavy.catactivity.action.alert.reloadAlert
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
-import cat.wavy.catactivity.types.applicationId
-import cat.wavy.catactivity.types.defaultApplicationId
+import cat.wavy.catactivity.types.IDEType
+import cat.wavy.catactivity.types.currentIDEType
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.ProjectManager
 import de.jcm.discordgamesdk.activity.ActivityButton
@@ -29,7 +29,7 @@ class ActivityRender : Disposable {
             ?.getService(CatActivitySettingProjectState::class.java)?.state
         val core = Core(
             CreateParams().apply {
-                clientID = if (state?.usingDefaultIDEName == true) defaultApplicationId else applicationId
+                clientID = if (state?.usingDefaultIDEName == true) IDEType.JETBRAINS.applicationId else currentIDEType.applicationId
                 flags = CreateParams.getDefaultFlags()
             }
         )
