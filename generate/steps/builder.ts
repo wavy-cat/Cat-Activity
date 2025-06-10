@@ -77,7 +77,7 @@ async function buildCA(config: Config, color: string, sourcePath: string, ...des
         config.renderSettings.iconSize
     )
 
-    const filename = "cat-activity"
+    const filename = "cat_activity"
 
     for (let destPath of destPaths) {
         await writeFile(path.join(destPath, `${filename}.png`), image)
