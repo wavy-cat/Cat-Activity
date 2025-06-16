@@ -118,6 +118,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
         run: |
           aws configure set region auto
-          aws s3 sync --endpoint-url ${{ secrets.AWS_ENDPOINT }} assets-dist/ s3://cat-activity --checksum-algorithm CRC32
+          aws s3 sync --endpoint-url $AWS_ENDPOINT assets-dist/ s3://cat-activity --checksum-algorithm CRC32
