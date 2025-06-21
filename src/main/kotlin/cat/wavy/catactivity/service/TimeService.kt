@@ -186,8 +186,14 @@ class TimeService : Disposable {
 
                 thisLogger().info("Rendering file: ${activityWrapper.details}")
 
-                activityWrapper.let {
-                    activityRender.updateActivity(it)
+                activityRender.updateActivity(activityWrapper)
+
+                val jbClientId = IDEType.JETBRAINS.applicationId
+                val caClientId = IDEType.CATACTIVITY.applicationId
+
+                if (configState.usingDefaultIDEName && activityRender.clientID != jbClientId) activityRender.apply {
+                    clientID = jbClientId
+                    reinit()
                 }
             }.onFailure {
                 it.printStackTrace()

@@ -8,8 +8,6 @@ import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
 import kotlinx.coroutines.*
 import cat.wavy.catactivity.action.alert.reloadAlert
-import cat.wavy.catactivity.setting.CatActivitySettingProjectState
-import cat.wavy.catactivity.types.IDEType
 import cat.wavy.catactivity.types.currentIDEType
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.ProjectManager
@@ -22,17 +20,15 @@ class ActivityRender : Disposable {
     private lateinit var activityManager: ActivityManager
     private var scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private lateinit var lastActivity: ActivityWrapper
+    var clientID = currentIDEType.applicationId
     var ignoreFlag = false
 
     private fun init() = kotlin.runCatching {
-        val state = ProjectManager.getInstance().openProjects.firstOrNull()
-            ?.getService(CatActivitySettingProjectState::class.java)?.state
         val core = Core(
             CreateParams().apply {
-                clientID = if (state?.usingDefaultIDEName == true) IDEType.JETBRAINS.applicationId else currentIDEType.applicationId
+                clientID = this@ActivityRender.clientID
                 flags = CreateParams.getDefaultFlags()
-            }
-        )
+            })
         scope.launch(Dispatchers.IO) {
             delay(1000L)
             runCatching {
@@ -74,15 +70,14 @@ class ActivityRender : Disposable {
         scope.launch(Dispatchers.IO) {
             kotlin.runCatching {
                 activityManager.updateActivity(activityNative)
-            }
-                .onFailure {
-                    thisLogger().warn("Failed to update activity: " + it.message)
-                    val project = ProjectManager.getInstance().openProjects.firstOrNull()
-                    if (project != null && !ignoreFlag) {
-                        reloadAlert(project, it.message)
-                        ignoreFlag = true
-                    }
+            }.onFailure {
+                thisLogger().warn("Failed to update activity: " + it.message)
+                val project = ProjectManager.getInstance().openProjects.firstOrNull()
+                if (project != null && !ignoreFlag) {
+                    reloadAlert(project, it.message)
+                    ignoreFlag = true
                 }
+            }
         }
     }
 
