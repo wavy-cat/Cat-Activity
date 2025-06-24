@@ -1,10 +1,12 @@
 package cat.wavy.catactivity.setting
 
+import cat.wavy.catactivity.types.currentIDEType
+
 data class SettingState(
     var isEnabled: Boolean = false,
     var details: Details = Details.IDE,
-    var usingTheme: ThemeList = ThemeList.Macchiato,
-    var usingDefaultIDEName: Boolean = false,
+    var theme: Theme = Theme.Macchiato,
+    var ideIcon: IDEIcon = IDEIcon.New,
     var showRepositoryButton: Boolean = false,
 
     var projectStateFormat: String = "Working on %projectName%",
@@ -12,7 +14,6 @@ data class SettingState(
 
     var fileStateFormat: String = "Editing %fileName%",
     var fileDetailFormat: String = "%projectName% (%branch%)",
-    var iconsStyle: IconsStyle = IconsStyle.New,
 
     var idleStateFormat: String = "Idle",
     var idleDetailFormat: String = "%projectName% (%branch%)",
@@ -23,17 +24,19 @@ data class SettingState(
 enum class Details {
     IDE,
     Project,
-    File
+    File,
 }
 
-enum class ThemeList {
+enum class Theme {
     Frappe,
     Latte,
     Macchiato,
-    Mocha
+    Mocha,
 }
 
-enum class IconsStyle {
-    New,
-    Old
+enum class IDEIcon(val displayName: String) {
+    New("${currentIDEType.title} (New)"),
+    Old("${currentIDEType.title} (Old)"),
+    JetBrains("JetBrains"),
+    CatActivity("Cat Activity"),
 }
