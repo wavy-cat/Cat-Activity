@@ -122,3 +122,13 @@ jobs:
         run: |
           aws configure set region auto
           aws s3 sync --endpoint-url $AWS_ENDPOINT assets-dist/ s3://cat-activity --checksum-algorithm CRC32
+
+      - name: Purge cache
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"hosts":["cat-activity.wavycat.ru"]}'
