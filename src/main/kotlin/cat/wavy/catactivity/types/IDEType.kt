@@ -4,30 +4,32 @@ import com.intellij.openapi.application.ex.ApplicationInfoEx
 
 enum class IDEType(
     val title: String,
-    val icon: String
+    val icon: String,
+    val applicationId: Long,
 ) {
-    IDEA("IntelliJ IDEA", "intellij_idea"),
-    WEBSTORM("WebStorm", "webstorm"),
-    PYCHARM("PyCharm", "pycharm"),
-    CLION("CLion", "clion"),
-    GOLAND("GoLand", "goland"),
-    RIDER("Rider", "rider"),
-    PHPSTORM("PhpStorm", "phpstorm"),
-    ANDROID_STUDIO("Android Studio", "android_studio"),
-    RUSTROVER("RustRover", "rustrover"),
-    RUBYMINE("RubyMine", "rubymine"),
-    WRITERSIDE("Writerside", "writerside"),
-    AQUA("Aqua", "aqua"),
-    DATASPELL("DataSpell", "dataspell"),
-    DATAGRIP("DataGrip", "datagrip"),
-    APPCODE("AppCode", "appcode"),
-    MPS("MPS", "mps"),
-    JETBRAINS("JetBrains", "jetbrains"), // FALLBACK
+    IDEA("IntelliJ IDEA", "intellij_idea", 1226060730273497098),
+    WEBSTORM("WebStorm", "webstorm", 1226061280125653013),
+    PYCHARM("PyCharm", "pycharm", 1226061359217774703),
+    CLION("CLion", "clion", 1226061434320846949),
+    GOLAND("GoLand", "goland", 1226061515212193853),
+    RIDER("Rider", "rider", 1226061591087157300),
+    PHPSTORM("PhpStorm", "phpstorm", 1226061672276299817),
+    ANDROID_STUDIO("Android Studio", "android_studio", 1226061783484338269),
+    RUSTROVER("RustRover", "rustrover", 1226061856167301140),
+    RUBYMINE("RubyMine", "rubymine", 1226061949897412639),
+    WRITERSIDE("Writerside", "writerside", 1226075499168534538),
+    AQUA("Aqua", "aqua", 1226075813003132949),
+    DATASPELL("DataSpell", "dataspell", 1226075981727404032),
+    DATAGRIP("DataGrip", "datagrip", 1226108086985424896),
+    APPCODE("AppCode", "appcode", 1247235403832885371),
+    MPS("MPS", "mps", 1247234752470188113),
+    CATACTIVITY("Cat Activity", "cat_activity", 1382041195777097799),
+    JETBRAINS("JetBrains", "jetbrains", 1199736719377965187), // FALLBACK
 }
 
 val currentIDEType by lazy {
     val info = ApplicationInfoEx.getInstanceEx()
-    when(info.build.productCode) {
+    when (info.build.productCode) {
         "IC", "IU" -> IDEType.IDEA
         "PC", "PY" -> IDEType.PYCHARM
         "WS" -> IDEType.WEBSTORM
@@ -45,29 +47,5 @@ val currentIDEType by lazy {
         "OC" -> IDEType.APPCODE
         "MPS" -> IDEType.MPS
         else -> IDEType.JETBRAINS
-    }
-}
-
-const val defaultApplicationId = 1199736719377965187
-
-val applicationId by lazy {
-    when (currentIDEType) {
-        IDEType.IDEA -> 1226060730273497098
-        IDEType.PYCHARM -> 1226061280125653013
-        IDEType.WEBSTORM -> 1226061359217774703
-        IDEType.CLION -> 1226061434320846949
-        IDEType.GOLAND -> 1226061515212193853
-        IDEType.RIDER -> 1226061591087157300
-        IDEType.PHPSTORM -> 1226061672276299817
-        IDEType.ANDROID_STUDIO -> 1226061783484338269
-        IDEType.RUSTROVER -> 1226061856167301140
-        IDEType.RUBYMINE -> 1226061949897412639
-        IDEType.WRITERSIDE -> 1226075499168534538
-        IDEType.AQUA -> 1226075813003132949
-        IDEType.DATASPELL -> 1226075981727404032
-        IDEType.DATAGRIP -> 1226108086985424896
-        IDEType.APPCODE -> 1247235403832885371
-        IDEType.MPS -> 1247234752470188113
-        else -> defaultApplicationId // IDEType.JETBRAINS
     }
 }

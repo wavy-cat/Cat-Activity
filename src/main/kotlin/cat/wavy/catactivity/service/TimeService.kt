@@ -20,7 +20,7 @@ import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
-import cat.wavy.catactivity.setting.IconsStyle
+import cat.wavy.catactivity.setting.IDEIcon
 import cat.wavy.catactivity.setting.SettingState
 import cat.wavy.catactivity.types.*
 import com.intellij.openapi.diagnostic.thisLogger
@@ -186,9 +186,23 @@ class TimeService : Disposable {
 
                 thisLogger().info("Rendering file: ${activityWrapper.details}")
 
-                activityWrapper.let {
-                    activityRender.updateActivity(it)
+                activityRender.updateActivity(activityWrapper)
+
+                val jbClientId = IDEType.JETBRAINS.applicationId
+                val caClientId = IDEType.CATACTIVITY.applicationId
+
+                when (configState.ideIcon) {
+                    IDEIcon.JetBrains -> if (activityRender.clientID != jbClientId) activityRender.apply {
+                        clientID = jbClientId
+                        reinit()
+                    }
+                    IDEIcon.CatActivity -> if (activityRender.clientID != caClientId) activityRender.apply {
+                        clientID = caClientId
+                        reinit()
+                    }
+                    else -> {}
                 }
+
             }.onFailure {
                 it.printStackTrace()
                 println("Failed to render activity: ${it.message}")
@@ -206,14 +220,14 @@ class TimeService : Disposable {
     }
 
     private fun getLangIconUrl(state: SettingState, icon: String): String {
-        return "$ICONS_URL/${state.usingTheme.name}/$icon.png"
+        return "$ICONS_URL/${state.theme.name}/$icon.png"
     }
 
-    private fun getIDEIconUrl(state: SettingState): String {
-        val ide = if (state.usingDefaultIDEName) IDEType.JETBRAINS else currentIDEType
-        val style = if (state.iconsStyle == IconsStyle.New) "new/" else ""
-
-        return "$ICONS_URL/IDE/$style${state.usingTheme.name}/${ide.icon}.png"
+    private fun getIDEIconUrl(state: SettingState): String = when (state.ideIcon) {
+        IDEIcon.New -> "$ICONS_URL/IDE/new/${state.theme.name}/${currentIDEType.icon}.png"
+        IDEIcon.Old -> "$ICONS_URL/IDE/${state.theme.name}/${currentIDEType.icon}.png"
+        IDEIcon.JetBrains -> "$ICONS_URL/IDE/${state.theme.name}/jetbrains.png"
+        IDEIcon.CatActivity -> "$ICONS_URL/IDE/${state.theme.name}/cat_activity.png"
     }
 
     private fun convertGitRepositoryUrl(url: String): String? {

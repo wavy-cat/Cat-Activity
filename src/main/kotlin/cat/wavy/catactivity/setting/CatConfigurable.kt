@@ -9,9 +9,8 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
 import cat.wavy.catactivity.service.TimeService
-import cat.wavy.catactivity.types.IDEType
-import cat.wavy.catactivity.types.currentIDEType
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.layout.selected
 import com.intellij.ui.layout.selectedValueIs
@@ -45,21 +44,16 @@ class CatConfigurable(
             }
 
             row(ConfigBundle.message("theme")) {
-                comboBox(items = ThemeList.entries).bindItem(state::usingTheme.toNullableProperty())
+                comboBox(items = Theme.entries).bindItem(state::theme.toNullableProperty())
             }
 
             row(ConfigBundle.message("ideIcons")) {
-                comboBox(items = IconsStyle.entries).bindItem(state::iconsStyle.toNullableProperty())
+                comboBox(items = IDEIcon.entries)
+                    .applyToComponent {
+                        renderer = SimpleListCellRenderer.create { label, icon, _ -> label.text = icon.displayName }
+                    }
+                    .bindItem(state::ideIcon.toNullableProperty())
             }.enabledIf(enableCheck!!.selected)
-
-            row {
-                checkBox(
-                    ConfigBundle.message(
-                        "showInstead",
-                        currentIDEType.title
-                    )
-                ).bindSelected(state::usingDefaultIDEName)
-            }.visible(currentIDEType != IDEType.JETBRAINS)
 
             row {
                 checkBox(ConfigBundle.message("showRepositoryButton")).bindSelected(state::showRepositoryButton)
@@ -75,14 +69,14 @@ class CatConfigurable(
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::projectStateFormat).applyToComponent {
-                        projectStateField = this
-                    }
+                    projectStateField = this
+                }
             }
 
             row {
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
-                        foreground = JBColor.RED
-                    }.visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
+                    foreground = JBColor.RED
+                }.visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
             }
 
             row {
@@ -99,14 +93,14 @@ class CatConfigurable(
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::fileStateFormat).applyToComponent {
-                        fileStateField = this
-                    }
+                    fileStateField = this
+                }
             }
 
             row {
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
-                        foreground = JBColor.RED
-                    }.visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
+                    foreground = JBColor.RED
+                }.visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
             }
 
             row {
@@ -123,14 +117,14 @@ class CatConfigurable(
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::idleStateFormat).applyToComponent {
-                        idleStateField = this
-                    }
+                    idleStateField = this
+                }
             }
 
             row {
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
-                        foreground = JBColor.RED
-                    }.visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
+                    foreground = JBColor.RED
+                }.visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
             }
 
             row {

@@ -69,6 +69,23 @@ async function buildIde(config: Config, color: string, sourcePath: string, destP
     return files.length
 }
 
+async function buildCA(config: Config, color: string, sourcePath: string, ...destPaths: string[]): Promise<number> {
+    const image = await processImage(
+        path.join(sourcePath, color == "Latte" ? "icon.svg" : "icon_dark.svg"),
+        Palette[color],
+        config.renderSettings.canvasSize,
+        config.renderSettings.iconSize
+    )
+
+    const filename = "cat_activity"
+
+    for (let destPath of destPaths) {
+        await writeFile(path.join(destPath, `${filename}.png`), image)
+    }
+
+    return destPaths.length
+}
+
 export async function builder(config: Config): Promise<number> {
     let funcs: Promise<number>[] = []
 
@@ -78,9 +95,31 @@ export async function builder(config: Config): Promise<number> {
         await mkdir(path.join(DistFolder, "IDE", "new", color), {recursive: true})
 
         funcs.push(
-            buildFiles(config, color, path.join("generate", "vscode-icons", "icons", color.toLocaleLowerCase()), path.join(DistFolder, color)),
-            buildIde(config, color, path.join("generate", "ide-icons", "old"), path.join(DistFolder, "IDE", color)),
-            buildIde(config, color, path.join("generate", "ide-icons", "new"), path.join(DistFolder, "IDE", "new", color))
+            buildFiles(
+                config,
+                color,
+                path.join("generate", "vscode-icons", "icons", color.toLocaleLowerCase()),
+                path.join(DistFolder, color)
+            ),
+            buildIde(
+                config,
+                color,
+                path.join("generate", "ide-icons", "old"),
+                path.join(DistFolder, "IDE", color)
+            ),
+            buildIde(
+                config,
+                color,
+                path.join("generate", "ide-icons", "new"),
+                path.join(DistFolder, "IDE", "new", color)
+            ),
+            buildCA(
+                config,
+                color,
+                path.join("generate", "ide-icons", "cat-activity"),
+                path.join(DistFolder, "IDE", color),
+                path.join(DistFolder, "IDE", "new", color)
+            )
         )
     }
 
