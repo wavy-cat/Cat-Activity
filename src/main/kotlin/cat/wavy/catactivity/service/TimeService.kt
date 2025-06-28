@@ -186,8 +186,9 @@ class TimeService : Disposable {
 
                 thisLogger().info("Rendering file: ${activityWrapper.details}")
 
-                if (activityRender.clientID != configState.ideIcon.app.applicationId) {
-                    activityRender.changeClientID(configState.ideIcon.app.applicationId)
+                if (activityRender.clientID != configState.ideIcon.app.applicationId) activityRender.apply {
+                    clientID = configState.ideIcon.app.applicationId
+                    reinit(false)
                 }
 
                 activityRender.updateActivity(activityWrapper)
@@ -246,7 +247,7 @@ class TimeService : Disposable {
     private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
         val state = project.service<CatActivitySettingProjectState>().state
         largeImageKey = getIDEIconUrl(state)
-        largeImageText = currentIDEType.title
+        largeImageText = state.ideIcon.app.title
         return this
     }
 

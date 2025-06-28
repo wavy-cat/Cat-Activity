@@ -85,19 +85,14 @@ class ActivityRender : Disposable {
         activityManager.clearActivity()
     }
 
-    fun reinit() {
+    fun reinit(update: Boolean = true) {
         dispose()
         scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
         init()
         ignoreFlag = false
-        if (this::lastActivity.isInitialized) {
+        if (this::lastActivity.isInitialized && update) {
             updateActivity(lastActivity)
         }
-    }
-
-    fun changeClientID(clientID: Long) {
-        this.clientID = clientID
-        reinit()
     }
 
     override fun dispose() {
