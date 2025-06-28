@@ -186,23 +186,11 @@ class TimeService : Disposable {
 
                 thisLogger().info("Rendering file: ${activityWrapper.details}")
 
-                activityRender.updateActivity(activityWrapper)
-
-                val jbClientId = IDEType.JETBRAINS.applicationId
-                val caClientId = IDEType.CATACTIVITY.applicationId
-
-                when (configState.ideIcon) {
-                    IDEIcon.JetBrains -> if (activityRender.clientID != jbClientId) activityRender.apply {
-                        clientID = jbClientId
-                        reinit()
-                    }
-                    IDEIcon.CatActivity -> if (activityRender.clientID != caClientId) activityRender.apply {
-                        clientID = caClientId
-                        reinit()
-                    }
-                    else -> {}
+                if (activityRender.clientID != configState.ideIcon.app.applicationId) {
+                    activityRender.changeClientID(configState.ideIcon.app.applicationId)
                 }
 
+                activityRender.updateActivity(activityWrapper)
             }.onFailure {
                 it.printStackTrace()
                 println("Failed to render activity: ${it.message}")

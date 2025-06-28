@@ -1,5 +1,6 @@
 package cat.wavy.catactivity.setting
 
+import cat.wavy.catactivity.types.IDEType
 import cat.wavy.catactivity.types.currentIDEType
 
 data class SettingState(
@@ -34,9 +35,9 @@ enum class Theme {
     Mocha,
 }
 
-enum class IDEIcon(val displayName: String) {
-    New("${currentIDEType.title} (New)"),
-    Old("${currentIDEType.title} (Old)"),
-    JetBrains("JetBrains"),
-    CatActivity("Cat Activity"),
+enum class IDEIcon(val displayName: String, val app: IDEType) {
+    New("${currentIDEType.title} (New)", currentIDEType),
+    Old("${currentIDEType.title} (Old)", currentIDEType),
+    JetBrains("JetBrains", IDEType.JETBRAINS),
+    CatActivity("Cat Activity", IDEType.CATACTIVITY),
 }

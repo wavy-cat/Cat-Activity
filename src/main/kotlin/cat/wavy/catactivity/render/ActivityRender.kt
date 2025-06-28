@@ -95,6 +95,11 @@ class ActivityRender : Disposable {
         }
     }
 
+    fun changeClientID(clientID: Long) {
+        this.clientID = clientID
+        reinit()
+    }
+
     override fun dispose() {
         clearActivity()
         scope.cancel()
