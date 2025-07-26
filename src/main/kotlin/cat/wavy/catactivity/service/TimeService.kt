@@ -209,14 +209,14 @@ class TimeService : Disposable {
     }
 
     private fun getLangIconUrl(state: SettingState, icon: String): String {
-        return "$ICONS_URL/${state.theme.name}/$icon.png"
+        return "$ICONS_URL/${state.theme.name}/$icon.webp"
     }
 
     private fun getIDEIconUrl(state: SettingState): String = when (state.ideIcon) {
-        IDEIcon.New -> "$ICONS_URL/IDE/new/${state.theme.name}/${currentIDEType.icon}.png"
-        IDEIcon.Old -> "$ICONS_URL/IDE/${state.theme.name}/${currentIDEType.icon}.png"
-        IDEIcon.JetBrains -> "$ICONS_URL/IDE/${state.theme.name}/jetbrains.png"
-        IDEIcon.CatActivity -> "$ICONS_URL/IDE/${state.theme.name}/cat_activity.png"
+        IDEIcon.New -> "$ICONS_URL/IDE/new/${state.theme.name}/${currentIDEType.icon}.webp"
+        IDEIcon.Old -> "$ICONS_URL/IDE/${state.theme.name}/${currentIDEType.icon}.webp"
+        IDEIcon.JetBrains -> "$ICONS_URL/IDE/${state.theme.name}/jetbrains.webp"
+        IDEIcon.CatActivity -> "$ICONS_URL/IDE/${state.theme.name}/cat_activity.webp"
     }
 
     private fun convertGitRepositoryUrl(url: String): String? {

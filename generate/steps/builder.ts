@@ -7,7 +7,7 @@ import {DistFolder, Palette} from "../consts"
 async function processImage(file: string, backgroundColor: string, canvasSize: number, iconSize: number): Promise<Buffer<ArrayBufferLike>> {
     const iconBuffer = await sharp(file)
         .resize(iconSize, iconSize)
-        .png()
+        .webp({preset: "icon", lossless: true})
         .toBuffer()
 
     const baseImage = sharp({
@@ -23,7 +23,7 @@ async function processImage(file: string, backgroundColor: string, canvasSize: n
 
     return await baseImage
         .composite([{input: iconBuffer, left: offset, top: offset}])
-        .png()
+        .webp({preset: "icon", lossless: true})
         .toBuffer()
 }
 
@@ -39,11 +39,11 @@ async function buildFiles(config: Config, color: string, sourcePath: string, des
         )
 
         const filename = iconName.toLowerCase()
-        const outputPath = path.join(destPath, `${filename}.png`)
+        const outputPath = path.join(destPath, `${filename}.webp`)
         await writeFile(outputPath, image)
 
         if (iconProperties.altName !== undefined) {
-            await writeFile(path.join(destPath, `${iconProperties.altName}.png`), image)
+            await writeFile(path.join(destPath, `${iconProperties.altName}.webp`), image)
         }
     }
 
@@ -62,7 +62,7 @@ async function buildIde(config: Config, color: string, sourcePath: string, destP
         )
 
         const filename = file.toLowerCase().split('.', 1)[0]
-        const outputPath = path.join(destPath, `${filename}.png`)
+        const outputPath = path.join(destPath, `${filename}.webp`)
         await writeFile(outputPath, image)
     }
 
@@ -80,7 +80,7 @@ async function buildCA(config: Config, color: string, sourcePath: string, ...des
     const filename = "cat_activity"
 
     for (let destPath of destPaths) {
-        await writeFile(path.join(destPath, `${filename}.png`), image)
+        await writeFile(path.join(destPath, `${filename}.webp`), image)
     }
 
     return destPaths.length
