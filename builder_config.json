@@ -1107,6 +1107,39 @@
         "zst"
       ]
     },
+    "crystal": {
+      "title": "Crystal"
+    },
+    "cue": {
+      "title": "Cue"
+    },
+    "hare": {
+      "title": "Hare"
+    },
+    "lua-rocks": {
+      "title": "LuaRocks"
+    },
+    "moonrepo": {
+      "title": "moonrepo"
+    },
+    "odin": {
+      "title": "Odin"
+    },
+    "prototools": {
+      "title": "prototools"
+    },
+    "scheme": {
+      "title": "Scheme"
+    },
+    "squirrel": {
+      "title": "Squirrel"
+    },
+    "swiftformat": {
+      "title": "SwiftFormat"
+    },
+    "wally": {
+      "title": "Wally"
+    },
     "_file": {
       "title": "File",
       "altName": "file",

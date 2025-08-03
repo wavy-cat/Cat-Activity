@@ -334,6 +334,17 @@ enum class FileType(
     XCODE("Xcode", "xcode"),
     FVM("FVM", "fvm"),
     ZIP("ZIP", "zip"),
+    CRYSTAL("Crystal", "crystal"),
+    CUE("Cue", "cue"),
+    HARE("Hare", "hare"),
+    LUA_ROCKS("LuaRocks", "lua-rocks"),
+    MOONREPO("moonrepo", "moonrepo"),
+    ODIN("Odin", "odin"),
+    PROTOTOOLS("prototools", "prototools"),
+    SCHEME("Scheme", "scheme"),
+    SQUIRREL("Squirrel", "squirrel"),
+    SWIFTFORMAT("SwiftFormat", "swiftformat"),
+    WALLY("Wally", "wally"),
     FILE("File", "_file")
 }
 
@@ -380,7 +391,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".Rhistory" -> FileType.R
     ".ruby-version" -> FileType.RUBY
     ".htaccess" -> FileType.XML
-    ".env.defaults", ".env.example", ".env.sample", ".env.template", ".env.schema", ".env.local", ".env.dev", ".env.development", ".env.alpha", ".env.e2e", ".env.qa", ".env.dist", ".env.prod", ".env.production", ".env.stage", ".env.staging", ".env.preview", ".env.test", ".env.testing", ".env.development.local", ".env.qa.local", ".env.production.local", ".env.staging.local", ".env.test.local", ".env.uat", ".env.cat" -> FileType.ENV
+    ".env.defaults", ".env.example", ".env.sample", ".env.template", ".env.schema", ".env.local", ".env.dev", ".env.development", ".env.alpha", ".env.e2e", ".env.qa", ".env.dist", ".env.prod", ".env.production", ".env.stage", ".env.staging", ".env.preview", ".env.test", ".env.testing", ".env.dev.local", ".env.development.local", ".env.qa.local", ".env.prod.local", ".env.production.local", ".env.staging.local", ".env.test.local", ".env.uat", ".env.cat" -> FileType.ENV
     "cmakelists.txt", "cmakecache.txt" -> FileType.CMAKE
     "firebase.json", ".firebaserc", "firestore.rules", "storage.rules", "firestore.indexes.json" -> FileType.FIREBASE
     "procfile" -> FileType.HEROKU
@@ -437,7 +448,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".htpasswd" -> FileType.KEY
     "lerna.json" -> FileType.LERNA
     "copying", "copying.md", "copying.rst", "copying.txt", "copyright", "copyright.md", "copyright.rst", "copyright.txt", "license", "license-agpl", "license-apache", "license-bsd", "license-mit", "license-gpl", "license-lgpl", "unlicense", "license.md", "license.rst", "license.txt", "licence", "licence-agpl", "licence-apache", "licence-bsd", "licence-mit", "licence-gpl", "licence-lgpl", "unlicence", "licence.md", "licence.rst", "licence.txt" -> FileType.LICENSE
-    ".lintstagedrc", ".lintstagedrc.json", ".lintstagedrc.yaml", ".lintstagedrc.yml", ".lintstagedrc.mjs", ".lintstagedrc.cjs", ".lintstagedrc.js", "lint-staged.config.js", "lint-staged.config.mjs", "lint-staged.config.cjs" -> FileType.LINT_STAGED
+    ".lintstagedrc", ".lintstagedrc.json", ".lintstagedrc.yaml", ".lintstagedrc.yml", ".lintstagedrc.mjs", ".lintstagedrc.mts", ".lintstagedrc.cjs", ".lintstagedrc.cts", ".lintstagedrc.js", ".lintstagedrc.ts", "lint-staged.config.js", "lint-staged.config.ts", "lint-staged.config.mjs", "lint-staged.config.mts", "lint-staged.config.cjs", "lint-staged.config.cts" -> FileType.LINT_STAGED
     ".liquidrc.json", ".liquidrc" -> FileType.LIQUID
     "makefile", "gnumakefile", "kbuild" -> FileType.MAKEFILE
     "meson.build", "meson_options.txt" -> FileType.MESON
@@ -465,7 +476,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "pnpm-lock.yaml" -> FileType.PNPM_LOCK
     "postcss.config.js", "postcss.config.cjs", "postcss.config.mjs", "postcss.config.ts", "postcss.config.cts", "postcss.config.mts", ".postcssrc.js", ".postcssrc.cjs", ".postcssrc.ts", ".postcssrc.cts", ".postcssrc", ".postcssrc.json", ".postcssrc.yaml", ".postcssrc.yml" -> FileType.POSTCSS
     "premake4.lua", "premake5.lua", "premake.lua" -> FileType.PREMAKE
-    ".prettierrc", "prettier.config.js", "prettier.config.cjs", ".prettierrc.js", ".prettierrc.cjs", ".prettierrc.json", ".prettierrc.json5", ".prettierrc.yaml", ".prettierrc.yml", ".prettierrc.toml", "prettier.config.mjs", ".prettierrc.mjs" -> FileType.PRETTIER
+    ".prettierrc", ".prettierrc.json", ".prettierrc.yml", ".prettierrc.yaml", ".prettierrc.json5", ".prettierrc.js", "prettier.config.js", ".prettierrc.ts", "prettier.config.ts", ".prettierrc.mjs", "prettier.config.mjs", ".prettierrc.mts", "prettier.config.mts", ".prettierrc.cjs", "prettier.config.cjs", ".prettierrc.cts", "prettier.config.cts", ".prettierrc.toml" -> FileType.PRETTIER
     ".prettierignore" -> FileType.PRETTIER_IGNORE
     ".pug-lintrc", ".pug-lintrc.js", ".pug-lintrc.json" -> FileType.PUG
     ".puppeteerrc.cjs,", ".puppeteerrc.js,", ".puppeteerrc", ".puppeteerrc.json,", ".puppeteerrc.yaml,", "puppeteer.config.js", "puppeteer.config.cjs" -> FileType.PUPPETEER
@@ -488,7 +499,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".stackblitzrc" -> FileType.STACKBLITZ
     "stencil.config.js", "stencil.config.ts" -> FileType.STENCIL
     "stitches.config.js", "stitches.config.ts" -> FileType.STITCHES
-    ".stylelintrc", "stylelint.config.js", "stylelint.config.cjs", "stylelint.config.mjs", ".stylelintrc.json", ".stylelintrc.yaml", ".stylelintrc.yml", ".stylelintrc.js", ".stylelintrc.cjs", ".stylelintrc.mjs" -> FileType.STYLELINT
+    ".stylelintrc", "stylelint.config.js", "stylelint.config.ts", "stylelint.config.cjs", "stylelint.config.cts", "stylelint.config.mjs", "stylelint.config.mts", ".stylelintrc.json", ".stylelintrc.yaml", ".stylelintrc.yml", ".stylelintrc.js", ".stylelintrc.ts", ".stylelintrc.cjs", ".stylelintrc.cts", ".stylelintrc.mjs", ".stylelintrc.mts" -> FileType.STYLELINT
     ".stylelintignore", ".stylelintcache" -> FileType.STYLELINT_IGNORE
     "tailwind.js", "tailwind.ts", "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.mjs", "tailwind.config.ts", "tailwind.config.cts", "tailwind.config.mts" -> FileType.TAILWIND
     "tauri.conf.json", "tauri.conf.json5", "tauri.config.json", "tauri.linux.conf.json", "tauri.windows.conf.json", "tauri.macos.conf.json", "Tauri.toml" -> FileType.TAURI
@@ -515,6 +526,11 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "cabal.project" -> FileType.CABAL
     "drizzle.config.ts", "drizzle.config.js" -> FileType.DRIZZLE_ORM
     ".fvmrc", "fvm_config.json" -> FileType.FVM
+    ".rock", ".rockspec" -> FileType.LUA_ROCKS
+    "moon.yml", "moon.yaml" -> FileType.MOONREPO
+    ".prototools" -> FileType.PROTOTOOLS
+    ".swiftformat" -> FileType.SWIFTFORMAT
+    "wally.toml", "wally.lock" -> FileType.WALLY
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -557,7 +573,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "blade.php", "inky.php" -> FileType.LARAVEL
             "luau" -> FileType.LUAU
             "pptx", "ppt", "pptm", "potx", "potm", "ppsx", "ppsm", "pps", "ppam", "ppa", "odp" -> FileType.MS_POWERPOINT
-            "doc", "docx", "rtf", "odt" -> FileType.MS_WORD
+            "doc", "docm", "docx", "dot", "dotm", "dotx", "rtf", "odt" -> FileType.MS_WORD
             "org" -> FileType.ORG
             "pu", "puml", "plantuml" -> FileType.PLANTUML
             "rbxl", "rbxlx", "rbxm", "rbxmx" -> FileType.ROBLOX
@@ -613,7 +629,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "bin" -> FileType.BINARY
             "h" -> FileType.C_HEADER
             "hh", "hpp", "hxx", "h++", "hp", "tcc", "inl" -> FileType.CPP_HEADER
-            "cer", "cert", "crt", "pfx" -> FileType.CERTIFICATE
+            "cer", "cert", "crt", "pfx", "entitlements" -> FileType.CERTIFICATE
             "clj", "cljs", "cljc" -> FileType.CLOJURE
             "cmake" -> FileType.CMAKE
             "cob", "cbl" -> FileType.COBOL
@@ -656,7 +672,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "mmd", "mermaid" -> FileType.MERMAID
             "wrap" -> FileType.MESON
             "mjml" -> FileType.MJML
-            "xlsx", "xlsm", "xls" -> FileType.MS_EXCEL
+            "xlsx", "xlsm", "xls", "xlsb", "xltx", "xltm", "xlt", "ods" -> FileType.MS_EXCEL
             "nf" -> FileType.NEXTFLOW
             "nginx", "nginxconf", "nginxconfig" -> FileType.NGINX
             "nim", "nimble" -> FileType.NIM
@@ -707,6 +723,12 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "cabal" -> FileType.CABAL
             "xcsettings", "xcworkspacedata" -> FileType.XCODE
             "7z", "arj", "aseprite-extension", "bz", "bz2", "gz", "paq8n", "paq8o", "pkg", "rar", "tar", "tbz", "tbz2", "tgz", "xz", "z", "zip", "zpaq", "zst" -> FileType.ZIP
+            "cr", "ecr" -> FileType.CRYSTAL
+            "cue" -> FileType.CUE
+            "ha" -> FileType.HARE
+            "odin" -> FileType.ODIN
+            "scm" -> FileType.SCHEME
+            "nut" -> FileType.SQUIRREL
             else -> FileType.FILE
         }
     }
