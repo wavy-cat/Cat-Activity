@@ -4,19 +4,24 @@
 
 ## [Unreleased]
 
+## [2.2.0] - 2025-08-04
+
 ### Added
-* Added Cat Activity as the IDE icon
+
+- Added Cat Activity as the IDE icon
 
 ### Changed
-* Updated Catppuccin icons from v1.21.0 to v1.23.0
-* Redesigned IDE icon selection UI
-* Optimized internal logic
-* Changed icon format to WebP (≈65% smaller). **Please open an issue if this causes any problems!**
-* Raised minimum supported IDE version to 2024.3
-* Added a "Disable" button to the disconnect notification for turning off Rich Presence
+
+- Updated Catppuccin icons from v1.21.0 to v1.23.0
+- Redesigned IDE icon selection UI
+- Optimized internal logic
+- Changed icon format to WebP (≈65% smaller). **Please open an issue if this causes any problems!**
+- Raised minimum supported IDE version to 2024.3
+- Added a "Disable" button to the disconnect notification for turning off Rich Presence
 
 ### Security
-* Updated plugin dependencies
+
+- Updated plugin dependencies
 
 ## [2.1.0] - 2025-06-04
 
@@ -49,6 +54,7 @@
 
 - Dropped support for IDE versions below 2024.2
 
-[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/wavy-cat/Cat-Activity/commits/v2.0.0
