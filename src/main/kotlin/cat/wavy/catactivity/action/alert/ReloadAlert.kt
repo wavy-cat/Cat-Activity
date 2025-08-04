@@ -3,6 +3,8 @@ package cat.wavy.catactivity.action.alert
 import cat.wavy.catactivity.NOTIFICATION_GROUP_ID
 import cat.wavy.catactivity.bundle.ToolsBundle
 import cat.wavy.catactivity.render.ActivityRender
+import cat.wavy.catactivity.service.TimeService
+import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
@@ -31,6 +33,20 @@ private class DismissAction(
     }
 }
 
+private class DisableAction(
+    private val notification: Notification,
+    title: String
+) : AnAction(title) {
+    override fun actionPerformed(e: AnActionEvent) {
+        val project = e.project ?: return
+        val configState = project.service<CatActivitySettingProjectState>().state
+        val timeService = project.service<TimeService>()
+
+        configState.isEnabled = false
+        timeService.render(project)
+        notification.expire()
+    }
+}
 
 fun reloadAlert(project: Project, message: String?) {
     val title = ToolsBundle.message("reloadAlert.title")
@@ -42,6 +58,7 @@ fun reloadAlert(project: Project, message: String?) {
     val notification = Notification(NOTIFICATION_GROUP_ID, title, content, NotificationType.INFORMATION)
 
     notification.addAction(ReloadAction(notification, ToolsBundle.message("reloadAlert.action.reconnect")))
+    notification.addAction(DisableAction(notification, ToolsBundle.message("reloadAlert.action.disable")))
     notification.addAction(DismissAction(notification, ToolsBundle.message("reloadAlert.action.dismiss")))
 
     Notifications.Bus.notify(notification, project)
