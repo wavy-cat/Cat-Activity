@@ -4,168 +4,60 @@
     "iconSize": 512
   },
   "fileIcons": {
-    "amber": {
-      "title": "Amber"
-    },
-    "angular": {
-      "title": "Angular"
-    },
-    "ansible-lint": {
-      "title": "Ansible Lint"
-    },
-    "antlr": {
-      "title": "ANTLR"
-    },
-    "apache": {
-      "title": "Apache"
-    },
-    "apple": {
-      "title": "A bitten apple"
-    },
-    "autohotkey": {
-      "title": "AutoHotkey"
-    },
-    "bazel": {
-      "title": "Bazel"
-    },
-    "benchmark": {
-      "title": "Benchmark"
-    },
-    "cspell": {
-      "title": "CSpell"
-    },
-    "css-map": {
-      "title": "CSS Source Map"
-    },
-    "cucumber": {
-      "title": "Cucumber"
-    },
-    "dart-generated": {
-      "title": "Dart Generated"
-    },
-    "dub-selections": {
-      "title": "DUB"
-    },
-    "exe": {
-      "title": "EXE"
-    },
-    "favicon": {
-      "title": "Favicon"
-    },
-    "figma": {
-      "title": "Figma"
-    },
-    "flutter": {
-      "title": "Flutter"
-    },
-    "fortran": {
-      "title": "Fortran"
-    },
-    "git-cliff": {
-      "title": "git-cliff"
-    },
-    "gitlab": {
-      "title": "GitLab CI/CD"
-    },
-    "gleam-config": {
-      "title": "Gleam Config file"
-    },
-    "gleam": {
-      "title": "Gleam"
-    },
-    "go-template": {
-      "title": "Go template"
-    },
-    "hardhat": {
-      "title": "Hardhat"
-    },
-    "helm": {
-      "title": "Helm"
-    },
-    "huff": {
-      "title": "Huff"
-    },
-    "humans": {
-      "title": "humans.txt"
-    },
-    "java-class": {
-      "title": "Java Class"
-    },
-    "java-jar": {
-      "title": "JAR file"
-    },
-    "javascript-map": {
-      "title": "JavaScript Source Map"
-    },
-    "javascript-test": {
-      "title": "JavaScript Test"
-    },
-    "json-schema": {
-      "title": "JSON Schema"
-    },
-    "just": {
-      "title": "Justfile"
-    },
-    "laravel": {
-      "title": "Laravel"
-    },
-    "luau": {
-      "title": "Luau"
-    },
-    "mdbook": {
-      "title": "mdBook"
-    },
-    "midi": {
-      "title": "MIDI"
-    },
-    "ms-powerpoint": {
-      "title": "Powerpoint"
-    },
-    "ms-word": {
-      "title": "Word"
-    },
-    "org": {
-      "title": "Org"
-    },
-    "pixi": {
-      "title": "Pixi"
-    },
-    "pixi-lock": {
-      "title": "Pixi Lockfile"
-    },
-    "plantuml": {
-      "title": "PlantUML"
-    },
-    "poetry-lock": {
-      "title": "Poetry Lockfile"
-    },
-    "pre-commit": {
-      "title": "Precommit"
-    },
-    "python-config": {
-      "title": "Python Requirements"
-    },
-    "release": {
-      "title": "Release"
-    },
-    "roblox": {
-      "title": "Roblox"
-    },
-    "ruff": {
-      "title": "Ruff"
-    },
-    "rust-config": {
-      "title": "Rust Toolchain Config"
-    },
-    "salesforce": {
-      "title": "Salesforce"
-    },
-    "spwn": {
-      "title": "SPWN"
-    },
-    "stata": {
-      "title": "Stata"
-    },
+    "amber": "Amber",
+    "angular": "Angular",
+    "ansible-lint": "Ansible Lint",
+    "antlr": "ANTLR",
+    "apache": "Apache",
+    "apple": "A bitten apple",
+    "autohotkey": "AutoHotkey",
+    "bazel": "Bazel",
+    "benchmark": "Benchmark",
+    "cspell": "CSpell",
+    "css-map": "CSS Source Map",
+    "cucumber": "Cucumber",
+    "dart-generated": "Dart Generated",
+    "dub-selections": "DUB",
+    "exe": "EXE",
+    "favicon": "Favicon",
+    "figma": "Figma",
+    "flutter": "Flutter",
+    "fortran": "Fortran",
+    "git-cliff": "git-cliff",
+    "gitlab": "GitLab CI/CD",
+    "gleam-config": "Gleam Config file",
+    "gleam": "Gleam",
+    "go-template": "Go template",
+    "hardhat": "Hardhat",
+    "helm": "Helm",
+    "huff": "Huff",
+    "humans": "humans.txt",
+    "java-class": "Java Class",
+    "java-jar": "JAR file",
+    "javascript-map": "JavaScript Source Map",
+    "javascript-test": "JavaScript Test",
+    "json-schema": "JSON Schema",
+    "just": "Justfile",
+    "laravel": "Laravel",
+    "luau": "Luau",
+    "mdbook": "mdBook",
+    "midi": "MIDI",
+    "ms-powerpoint": "Powerpoint",
+    "ms-word": "Word",
+    "org": "Org",
+    "pixi": "Pixi",
+    "pixi-lock": "Pixi Lockfile",
+    "plantuml": "PlantUML",
+    "poetry-lock": "Poetry Lockfile",
+    "pre-commit": "Precommit",
+    "python-config": "Python Requirements",
+    "release": "Release",
+    "roblox": "Roblox",
+    "ruff": "Ruff",
+    "rust-config": "Rust Toolchain Config",
+    "salesforce": "Salesforce",
+    "spwn": "SPWN",
+    "stata": "Stata",
     "taskfile": {
       "title": "Taskfile",
       "fileNames": [
@@ -175,61 +67,27 @@
         "taskfile.dist.yaml"
       ]
     },
-    "turbo": {
-      "title": "turbo.json"
-    },
-    "typescript-def": {
-      "title": "TypeScript Declaration"
-    },
-    "typescript-react": {
-      "title": "React"
-    },
-    "typescript-test": {
-      "title": "TypeScript Testing"
-    },
-    "typst": {
-      "title": "Typst"
-    },
-    "vanilla-extract": {
-      "title": "vanilla-extract"
-    },
-    "video": {
-      "title": "Video"
-    },
-    "vital": {
-      "title": "Vital"
-    },
-    "zap": {
-      "title": "ZAP"
-    },
-    "dub": {
-      "title": "DUB"
-    },
-    "bash": {
-      "title": "Bash"
-    },
+    "turbo": "turbo.json",
+    "typescript-def": "TypeScript Declaration",
+    "typescript-react": "React",
+    "typescript-test": "TypeScript Testing",
+    "typst": "Typst",
+    "vanilla-extract": "vanilla-extract",
+    "video": "Video",
+    "vital": "Vital",
+    "zap": "ZAP",
+    "dub": "DUB",
+    "bash": "Bash",
     "batch": {
       "title": "Bat",
       "altName": "bat"
     },
-    "c": {
-      "title": "C"
-    },
-    "cpp": {
-      "title": "C++"
-    },
-    "csharp": {
-      "title": "C#"
-    },
-    "database": {
-      "title": "Database"
-    },
-    "docker-ignore": {
-      "title": "Docker Ignore"
-    },
-    "docker-compose": {
-      "title": "Docker Compose"
-    },
+    "c": "C",
+    "cpp": "C++",
+    "csharp": "C#",
+    "database": "Database",
+    "docker-ignore": "Docker Ignore",
+    "docker-compose": "Docker Compose",
     "docker": {
       "title": "Dockerfile",
       "fileTypes": [
@@ -238,28 +96,16 @@
       "fileNames": null,
       "extensions": null
     },
-    "git": {
-      "title": "Git"
-    },
-    "go-mod": {
-      "title": "Go.mod"
-    },
+    "git": "Git",
+    "go-mod": "Go.mod",
     "go": {
       "title": "Go",
       "altName": "golang"
     },
-    "haskell": {
-      "title": "Haskell"
-    },
-    "html": {
-      "title": "HTML"
-    },
-    "http": {
-      "title": "HTTP"
-    },
-    "image": {
-      "title": "Image"
-    },
+    "haskell": "Haskell",
+    "html": "HTML",
+    "http": "HTTP",
+    "image": "Image",
     "java": {
       "title": "Java",
       "fileTypes": [
@@ -296,18 +142,10 @@
       "fileNames": null,
       "extensions": null
     },
-    "markdown": {
-      "title": "Markdown"
-    },
-    "perl": {
-      "title": "Perl"
-    },
-    "php": {
-      "title": "php"
-    },
-    "prisma": {
-      "title": "Prisma"
-    },
+    "markdown": "Markdown",
+    "perl": "Perl",
+    "php": "php",
+    "prisma": "Prisma",
     "properties": {
       "title": "Properties",
       "fileTypes": [
@@ -328,9 +166,7 @@
       "fileNames": null,
       "extensions": null
     },
-    "ruby": {
-      "title": "Ruby"
-    },
+    "ruby": "Ruby",
     "rust": {
       "title": "Rust",
       "fileTypes": [
@@ -339,30 +175,14 @@
       "fileNames": null,
       "extensions": null
     },
-    "css": {
-      "title": "CSS"
-    },
-    "sass": {
-      "title": "Sass"
-    },
-    "scala": {
-      "title": "Scala"
-    },
-    "svelte": {
-      "title": "Svelte"
-    },
-    "svg": {
-      "title": "SVG"
-    },
-    "swift": {
-      "title": "Swift"
-    },
-    "terraform": {
-      "title": "Terraform"
-    },
-    "toml": {
-      "title": "TOML"
-    },
+    "css": "CSS",
+    "sass": "Sass",
+    "scala": "Scala",
+    "svelte": "Svelte",
+    "svg": "SVG",
+    "swift": "Swift",
+    "terraform": "Terraform",
+    "toml": "TOML",
     "text": {
       "title": "TXT",
       "altName": "txt"
@@ -375,15 +195,9 @@
       "fileNames": null,
       "extensions": null
     },
-    "vue": {
-      "title": "Vue"
-    },
-    "xml": {
-      "title": "XML"
-    },
-    "yaml": {
-      "title": "YAML"
-    },
+    "vue": "Vue",
+    "xml": "XML",
+    "yaml": "YAML",
     "csv": {
       "title": "CSV",
       "fileTypes": [
@@ -416,12 +230,8 @@
       "fileNames": null,
       "extensions": null
     },
-    "fsharp": {
-      "title": "F#"
-    },
-    "assembly": {
-      "title": "Assembly"
-    },
+    "fsharp": "F#",
+    "assembly": "Assembly",
     "dart": {
       "title": "Dart",
       "fileTypes": [
@@ -434,9 +244,7 @@
       "title": "React",
       "altName": "react"
     },
-    "env": {
-      "title": ".env"
-    },
+    "env": ".env",
     "jupyter": {
       "title": "Jupyter",
       "fileTypes": [
@@ -445,12 +253,8 @@
       "fileNames": null,
       "extensions": null
     },
-    "audio": {
-      "title": "Audio"
-    },
-    "binary": {
-      "title": "Binary"
-    },
+    "audio": "Audio",
+    "binary": "Binary",
     "c-header": {
       "title": "C Header file",
       "altName": "c_header"
@@ -459,24 +263,12 @@
       "title": "C++ Header file",
       "altName": "cpp_header"
     },
-    "certificate": {
-      "title": "Certificate"
-    },
-    "clojure": {
-      "title": "Clojure"
-    },
-    "cmake": {
-      "title": "CMake"
-    },
-    "cobol": {
-      "title": "Cobol"
-    },
-    "coffeescript": {
-      "title": "CoffeeScript"
-    },
-    "cuda": {
-      "title": "CUDA"
-    },
+    "certificate": "Certificate",
+    "clojure": "Clojure",
+    "cmake": "CMake",
+    "cobol": "Cobol",
+    "coffeescript": "CoffeeScript",
+    "cuda": "CUDA",
     "diff": {
       "title": "Diff",
       "fileTypes": [
@@ -485,42 +277,18 @@
       "fileNames": null,
       "extensions": null
     },
-    "django": {
-      "title": "Django"
-    },
-    "ejs": {
-      "title": "EJS"
-    },
-    "elixir": {
-      "title": "Elixir"
-    },
-    "elm": {
-      "title": "Elm"
-    },
-    "firebase": {
-      "title": "Firebase"
-    },
-    "font": {
-      "title": "Font"
-    },
-    "heroku": {
-      "title": "Heroku Procfile"
-    },
-    "adonis": {
-      "title": "Adonis"
-    },
-    "alex": {
-      "title": "Alex"
-    },
-    "android": {
-      "title": "Android"
-    },
-    "api-blueprint": {
-      "title": "API Blueprint"
-    },
-    "apollo": {
-      "title": "Apollo GraphQL"
-    },
+    "django": "Django",
+    "ejs": "EJS",
+    "elixir": "Elixir",
+    "elm": "Elm",
+    "firebase": "Firebase",
+    "font": "Font",
+    "heroku": "Heroku Procfile",
+    "adonis": "Adonis",
+    "alex": "Alex",
+    "android": "Android",
+    "api-blueprint": "API Blueprint",
+    "apollo": "Apollo GraphQL",
     "asciidoc": {
       "title": "AsciiDoc",
       "extensions": [
@@ -528,561 +296,191 @@
         "asciidoc"
       ]
     },
-    "astro": {
-      "title": "Astro"
-    },
-    "astro-config": {
-      "title": "Astro Config"
-    },
-    "azure-pipelines": {
-      "title": "Azure Pipelines"
-    },
-    "babel": {
-      "title": "Babel"
-    },
-    "biome": {
-      "title": "Biome"
-    },
-    "bitbucket": {
-      "title": "Bitbucket Pipelines"
-    },
-    "blitz": {
-      "title": "Blitz"
-    },
-    "bower": {
-      "title": "Bower"
-    },
-    "browserslist": {
-      "title": "Browserslist"
-    },
-    "bun": {
-      "title": "Bun Config"
-    },
-    "bun-lock": {
-      "title": "Bun Lockfile"
-    },
-    "caddy": {
-      "title": "Caddyfile"
-    },
-    "capacitor": {
-      "title": "Capacitor"
-    },
-    "cargo": {
-      "title": "Cargo"
-    },
-    "cargo-lock": {
-      "title": "Cargo Lockfile"
-    },
-    "changelog": {
-      "title": "Changelog"
-    },
-    "circle-ci": {
-      "title": "CircleCI"
-    },
-    "code-climate": {
-      "title": "Code Climate"
-    },
-    "code-of-conduct": {
-      "title": "Code of conduct"
-    },
-    "codeowners": {
-      "title": "Codeowners file"
-    },
-    "commitlint": {
-      "title": "commitlint"
-    },
-    "contributing": {
-      "title": "Contributing file"
-    },
-    "cypress": {
-      "title": "Cypress"
-    },
-    "d": {
-      "title": "D lang"
-    },
-    "deno": {
-      "title": "Deno"
-    },
-    "deno_lock": {
-      "title": "Deno Lockfile"
-    },
-    "dependabot": {
-      "title": "Dependabot"
-    },
-    "devcontainer": {
-      "title": "Devcontainer"
-    },
-    "dhall": {
-      "title": "Dhall"
-    },
-    "markdown-mdx": {
-      "title": "MDX"
-    },
-    "svelte-config": {
-      "title": "Svelte Config"
-    },
-    "drawio": {
-      "title": "Diagram"
-    },
-    "editorconfig": {
-      "title": "EditorConfig"
-    },
-    "eleventy": {
-      "title": "Eleventy"
-    },
-    "ember": {
-      "title": "Ember.js"
-    },
-    "esbuild": {
-      "title": "esbuild"
-    },
-    "eslint": {
-      "title": "ESLint"
-    },
-    "eslint-ignore": {
-      "title": "ESLint Ignorefile"
-    },
-    "fastlane": {
-      "title": "fastlane"
-    },
-    "gatsby": {
-      "title": "Gatsby"
-    },
-    "gcp": {
-      "title": "GCP"
-    },
-    "gitpod": {
-      "title": "Gitpod"
-    },
-    "godot": {
-      "title": "GodotScript"
-    },
-    "godot-assets": {
-      "title": "Godot Assets"
-    },
-    "gradle": {
-      "title": "Gradle"
-    },
-    "graphql": {
-      "title": "GraphQL"
-    },
-    "gulp": {
-      "title": "Gulp"
-    },
-    "haml": {
-      "title": "Haml"
-    },
-    "handlebars": {
-      "title": "Handlebars"
-    },
-    "haxe": {
-      "title": "Haxe"
-    },
-    "histoire": {
-      "title": "Histoire"
-    },
-    "husky": {
-      "title": "Husky"
-    },
-    "ionic": {
-      "title": "Ionic"
-    },
-    "javascript-config": {
-      "title": "JavaScript Config"
-    },
-    "jest": {
-      "title": "Jest"
-    },
-    "jinja": {
-      "title": "Jinja"
-    },
-    "julia": {
-      "title": "Julia"
-    },
-    "key": {
-      "title": "Keystore"
-    },
-    "latex": {
-      "title": "LaTeX"
-    },
-    "lerna": {
-      "title": "Lerna"
-    },
-    "less": {
-      "title": "Less"
-    },
-    "lib": {
-      "title": "Lib"
-    },
-    "license": {
-      "title": "License"
-    },
-    "lint-staged": {
-      "title": "lint-staged"
-    },
-    "liquid": {
-      "title": "LiquidJS"
-    },
-    "lisp": {
-      "title": "Lisp"
-    },
-    "log": {
-      "title": "Log file"
-    },
-    "makefile": {
-      "title": "Makefile"
-    },
-    "marko": {
-      "title": "Marko"
-    },
-    "mermaid": {
-      "title": "Mermaid"
-    },
-    "meson": {
-      "title": "Meson"
-    },
-    "mjml": {
-      "title": "MJML"
-    },
-    "modernizr": {
-      "title": "Modernizr"
-    },
-    "ms-excel": {
-      "title": "Excel"
-    },
-    "nativescript": {
-      "title": "NativeScript"
-    },
-    "nest": {
-      "title": "Nest"
-    },
-    "netlify": {
-      "title": "Netlify"
-    },
-    "next": {
-      "title": "Next"
-    },
-    "nextflow": {
-      "title": "Nextflow"
-    },
-    "nginx": {
-      "title": "Nginx"
-    },
-    "nim": {
-      "title": "Nim"
-    },
-    "ninja": {
-      "title": "Ninja"
-    },
-    "nix": {
-      "title": "Nix"
-    },
-    "nix-lock": {
-      "title": "Nix Lockfile"
-    },
-    "nodemon": {
-      "title": "Nodemon"
-    },
-    "npm": {
-      "title": "npm rcfile"
-    },
-    "npm-ignore": {
-      "title": "npm ignorefile"
-    },
-    "npm-lock": {
-      "title": "npm lockfile"
-    },
-    "nuget": {
-      "title": "NuGet"
-    },
-    "nunjucks": {
-      "title": "Nunjucks"
-    },
-    "nuxt": {
-      "title": "Nuxt"
-    },
-    "nuxt-ignore": {
-      "title": "Nuxt Ignorefile"
-    },
-    "ocaml": {
-      "title": "OCaml"
-    },
-    "package-json": {
-      "title": "package.json"
-    },
-    "panda-css": {
-      "title": "Panda CSS"
-    },
-    "pdf": {
-      "title": "PDF"
-    },
-    "phrase": {
-      "title": "Phrase"
-    },
-    "playwright": {
-      "title": "Playwright"
-    },
-    "plop": {
-      "title": "Plop"
-    },
-    "pnpm": {
-      "title": "pnpm"
-    },
-    "pnpm-lock": {
-      "title": "pnpm Lockfile"
-    },
-    "postcss": {
-      "title": "PostCSS"
-    },
-    "powershell": {
-      "title": "Powershell"
-    },
-    "premake": {
-      "title": "Premake"
-    },
-    "prettier": {
-      "title": "Prettier"
-    },
-    "prettier-ignore": {
-      "title": "Prettier Ignorefile"
-    },
-    "prolog": {
-      "title": "Prolog"
-    },
-    "pug": {
-      "title": "Pug"
-    },
-    "puppeteer": {
-      "title": "Puppeteer"
-    },
-    "python-compiled": {
-      "title": "Python Compiled"
-    },
-    "racket": {
-      "title": "Racket"
-    },
-    "razor": {
-      "title": "Razor"
-    },
-    "readme": {
-      "title": "Readme"
-    },
-    "reason": {
-      "title": "Reason"
-    },
-    "redwood": {
-      "title": "Redwood"
-    },
-    "remix": {
-      "title": "Remix"
-    },
-    "renovate": {
-      "title": "Renovate"
-    },
-    "rescript": {
-      "title": "ReScript"
-    },
-    "robots": {
-      "title": "robots.txt"
-    },
-    "rollup": {
-      "title": "Rollup"
-    },
-    "ruby-gem": {
-      "title": "Ruby Gemfile"
-    },
-    "ruby-gem-lock": {
-      "title": "Ruby Gem Lockfile"
-    },
-    "security": {
-      "title": "SECURITY"
-    },
-    "semantic-release": {
-      "title": "Semantic Release"
-    },
-    "semgrep": {
-      "title": "Semgrep"
-    },
-    "semgrep-ignore": {
-      "title": "Semgrep Ignorefile"
-    },
-    "sentry": {
-      "title": "Sentry"
-    },
-    "serverless": {
-      "title": "Serverless"
-    },
-    "shader": {
-      "title": "Shader"
-    },
-    "sketch": {
-      "title": "Sketch"
-    },
-    "snowpack": {
-      "title": "Snowpack"
-    },
-    "solidity": {
-      "title": "Solidity"
-    },
-    "sonar-cloud": {
-      "title": "SonarCloud"
-    },
-    "stackblitz": {
-      "title": "Stackblitz"
-    },
-    "stencil": {
-      "title": "Stencil"
-    },
-    "stitches": {
-      "title": "Stitches"
-    },
-    "storybook": {
-      "title": "Storybook"
-    },
-    "storybook-svelte": {
-      "title": "Storybook Svelte"
-    },
-    "storybook-vue": {
-      "title": "Storybook Vue"
-    },
-    "stylelint": {
-      "title": "Stylelint"
-    },
-    "stylelint-ignore": {
-      "title": "Stylelint Ignorefile"
-    },
-    "sublime": {
-      "title": "Sublime"
-    },
-    "tailwind": {
-      "title": "Tailwind CSS"
-    },
-    "tauri": {
-      "title": "Tauri"
-    },
-    "tauri-ignore": {
-      "title": "Tauri Ignorefile"
-    },
-    "todo": {
-      "title": "TODO"
-    },
-    "twig": {
-      "title": "Twig"
-    },
-    "twine": {
-      "title": "Twine"
-    },
-    "typescript-config": {
-      "title": "Typescript Config"
-    },
-    "unity": {
-      "title": "Unity"
-    },
-    "unocss": {
-      "title": "UnoCSS"
-    },
-    "url": {
-      "title": "URL"
-    },
-    "v": {
-      "title": "V lang"
-    },
-    "vento": {
-      "title": "Vento"
-    },
-    "vercel": {
-      "title": "Vercel"
-    },
-    "vercel-ignore": {
-      "title": "Vercel Ignorefile"
-    },
-    "verilog": {
-      "title": "Verilog"
-    },
-    "vim": {
-      "title": "Vim file"
-    },
-    "visual-studio": {
-      "title": "Visual Studio file"
-    },
-    "vscode": {
-      "title": "VSCode file"
-    },
-    "vscode-ignore": {
-      "title": "VSCode Ignorefile"
-    },
-    "vite": {
-      "title": "Vite"
-    },
-    "vitest": {
-      "title": "Vitest"
-    },
-    "vue-config": {
-      "title": "Vue Config"
-    },
-    "web-assembly": {
-      "title": "WebAssembly"
-    },
-    "webpack": {
-      "title": "webpack"
-    },
-    "windi": {
-      "title": "Windi CSS"
-    },
-    "wxt": {
-      "title": "WXT"
-    },
-    "xaml": {
-      "title": "XAML"
-    },
-    "xmake": {
-      "title": "Xmake"
-    },
-    "yarn": {
-      "title": "Yarn"
-    },
-    "yarn-lock": {
-      "title": "Yarn Lockfile"
-    },
-    "zig": {
-      "title": "Zig"
-    },
-    "proto": {
-      "title": "Protocol Buffers"
-    },
-    "envrc": {
-      "title": ".envrc"
-    },
-    "hugo": {
-      "title": "Hugo"
-    },
-    "juce": {
-      "title": "JUCE"
-    },
-    "kdl": {
-      "title": "KDL"
-    },
-    "latte": {
-      "title": "latte"
-    },
-    "phtml": {
-      "title": "phtml"
-    },
-    "uv": {
-      "title": "uv lockfile"
-    },
-    "cabal": {
-      "title": "Cabal"
-    },
-    "drizzle-orm": {
-      "title": "Drizzle ORM"
-    },
-    "xcode": {
-      "title": "Xcode"
-    },
-    "fvm": {
-      "title": "FVM"
-    },
+    "astro": "Astro",
+    "astro-config": "Astro Config",
+    "azure-pipelines": "Azure Pipelines",
+    "babel": "Babel",
+    "biome": "Biome",
+    "bitbucket": "Bitbucket Pipelines",
+    "blitz": "Blitz",
+    "bower": "Bower",
+    "browserslist": "Browserslist",
+    "bun": "Bun Config",
+    "bun-lock": "Bun Lockfile",
+    "caddy": "Caddyfile",
+    "capacitor": "Capacitor",
+    "cargo": "Cargo",
+    "cargo-lock": "Cargo Lockfile",
+    "changelog": "Changelog",
+    "circle-ci": "CircleCI",
+    "code-climate": "Code Climate",
+    "code-of-conduct": "Code of conduct",
+    "codeowners": "Codeowners file",
+    "commitlint": "commitlint",
+    "contributing": "Contributing file",
+    "cypress": "Cypress",
+    "d": "D lang",
+    "deno": "Deno",
+    "deno_lock": "Deno Lockfile",
+    "dependabot": "Dependabot",
+    "devcontainer": "Devcontainer",
+    "dhall": "Dhall",
+    "markdown-mdx": "MDX",
+    "svelte-config": "Svelte Config",
+    "drawio": "Diagram",
+    "editorconfig": "EditorConfig",
+    "eleventy": "Eleventy",
+    "ember": "Ember.js",
+    "esbuild": "esbuild",
+    "eslint": "ESLint",
+    "eslint-ignore": "ESLint Ignorefile",
+    "fastlane": "fastlane",
+    "gatsby": "Gatsby",
+    "gcp": "GCP",
+    "gitpod": "Gitpod",
+    "godot": "GodotScript",
+    "godot-assets": "Godot Assets",
+    "gradle": "Gradle",
+    "graphql": "GraphQL",
+    "gulp": "Gulp",
+    "haml": "Haml",
+    "handlebars": "Handlebars",
+    "haxe": "Haxe",
+    "histoire": "Histoire",
+    "husky": "Husky",
+    "ionic": "Ionic",
+    "javascript-config": "JavaScript Config",
+    "jest": "Jest",
+    "jinja": "Jinja",
+    "julia": "Julia",
+    "key": "Keystore",
+    "latex": "LaTeX",
+    "lerna": "Lerna",
+    "less": "Less",
+    "lib": "Lib",
+    "license": "License",
+    "lint-staged": "lint-staged",
+    "liquid": "LiquidJS",
+    "lisp": "Lisp",
+    "log": "Log file",
+    "makefile": "Makefile",
+    "marko": "Marko",
+    "mermaid": "Mermaid",
+    "meson": "Meson",
+    "mjml": "MJML",
+    "modernizr": "Modernizr",
+    "ms-excel": "Excel",
+    "nativescript": "NativeScript",
+    "nest": "Nest",
+    "netlify": "Netlify",
+    "next": "Next",
+    "nextflow": "Nextflow",
+    "nginx": "Nginx",
+    "nim": "Nim",
+    "ninja": "Ninja",
+    "nix": "Nix",
+    "nix-lock": "Nix Lockfile",
+    "nodemon": "Nodemon",
+    "npm": "npm rcfile",
+    "npm-ignore": "npm ignorefile",
+    "npm-lock": "npm lockfile",
+    "nuget": "NuGet",
+    "nunjucks": "Nunjucks",
+    "nuxt": "Nuxt",
+    "nuxt-ignore": "Nuxt Ignorefile",
+    "ocaml": "OCaml",
+    "package-json": "package.json",
+    "panda-css": "Panda CSS",
+    "pdf": "PDF",
+    "phrase": "Phrase",
+    "playwright": "Playwright",
+    "plop": "Plop",
+    "pnpm": "pnpm",
+    "pnpm-lock": "pnpm Lockfile",
+    "postcss": "PostCSS",
+    "powershell": "Powershell",
+    "premake": "Premake",
+    "prettier": "Prettier",
+    "prettier-ignore": "Prettier Ignorefile",
+    "prolog": "Prolog",
+    "pug": "Pug",
+    "puppeteer": "Puppeteer",
+    "python-compiled": "Python Compiled",
+    "racket": "Racket",
+    "razor": "Razor",
+    "readme": "Readme",
+    "reason": "Reason",
+    "redwood": "Redwood",
+    "remix": "Remix",
+    "renovate": "Renovate",
+    "rescript": "ReScript",
+    "robots": "robots.txt",
+    "rollup": "Rollup",
+    "ruby-gem": "Ruby Gemfile",
+    "ruby-gem-lock": "Ruby Gem Lockfile",
+    "security": "SECURITY",
+    "semantic-release": "Semantic Release",
+    "semgrep": "Semgrep",
+    "semgrep-ignore": "Semgrep Ignorefile",
+    "sentry": "Sentry",
+    "serverless": "Serverless",
+    "shader": "Shader",
+    "sketch": "Sketch",
+    "snowpack": "Snowpack",
+    "solidity": "Solidity",
+    "sonar-cloud": "SonarCloud",
+    "stackblitz": "Stackblitz",
+    "stencil": "Stencil",
+    "stitches": "Stitches",
+    "storybook": "Storybook",
+    "storybook-svelte": "Storybook Svelte",
+    "storybook-vue": "Storybook Vue",
+    "stylelint": "Stylelint",
+    "stylelint-ignore": "Stylelint Ignorefile",
+    "sublime": "Sublime",
+    "tailwind": "Tailwind CSS",
+    "tauri": "Tauri",
+    "tauri-ignore": "Tauri Ignorefile",
+    "todo": "TODO",
+    "twig": "Twig",
+    "twine": "Twine",
+    "typescript-config": "Typescript Config",
+    "unity": "Unity",
+    "unocss": "UnoCSS",
+    "url": "URL",
+    "v": "V lang",
+    "vento": "Vento",
+    "vercel": "Vercel",
+    "vercel-ignore": "Vercel Ignorefile",
+    "verilog": "Verilog",
+    "vim": "Vim file",
+    "visual-studio": "Visual Studio file",
+    "vscode": "VSCode file",
+    "vscode-ignore": "VSCode Ignorefile",
+    "vite": "Vite",
+    "vitest": "Vitest",
+    "vue-config": "Vue Config",
+    "web-assembly": "WebAssembly",
+    "webpack": "webpack",
+    "windi": "Windi CSS",
+    "wxt": "WXT",
+    "xaml": "XAML",
+    "xmake": "Xmake",
+    "yarn": "Yarn",
+    "yarn-lock": "Yarn Lockfile",
+    "zig": "Zig",
+    "proto": "Protocol Buffers",
+    "envrc": ".envrc",
+    "hugo": "Hugo",
+    "juce": "JUCE",
+    "kdl": "KDL",
+    "latte": "latte",
+    "phtml": "phtml",
+    "uv": "uv lockfile",
+    "cabal": "Cabal",
+    "drizzle-orm": "Drizzle ORM",
+    "xcode": "Xcode",
+    "fvm": "FVM",
     "zip": {
       "title": "ZIP",
       "extensions": [
@@ -1107,120 +505,44 @@
         "zst"
       ]
     },
-    "crystal": {
-      "title": "Crystal"
-    },
-    "cue": {
-      "title": "Cue"
-    },
-    "hare": {
-      "title": "Hare"
-    },
-    "lua-rocks": {
-      "title": "LuaRocks"
-    },
-    "moonrepo": {
-      "title": "moonrepo"
-    },
-    "odin": {
-      "title": "Odin"
-    },
-    "prototools": {
-      "title": "prototools"
-    },
-    "scheme": {
-      "title": "Scheme"
-    },
-    "squirrel": {
-      "title": "Squirrel"
-    },
-    "swiftformat": {
-      "title": "SwiftFormat"
-    },
-    "wally": {
-      "title": "Wally"
-    },
-    "arduino": {
-      "title": "Arduino"
-    },
-    "bicep": {
-      "title": "Bicep"
-    },
-    "cursor-ignore": {
-      "title": "Cursor ignorefile"
-    },
-    "cursor": {
-      "title": "Cursor"
-    },
-    "darklua": {
-      "title": "darklua"
-    },
-    "docusaurus": {
-      "title": "Docusaurus"
-    },
-    "hacking": {
-      "title": "Hacking file"
-    },
-    "jule": {
-      "title": "Jule"
-    },
-    "macos": {
-      "title": ".DS_Store"
-    },
-    "mantle": {
-      "title": "Mantle"
-    },
-    "msbuild": {
-      "title": "MSBuild"
-    },
-    "nx-ignore": {
-      "title": "Nx ignorefile"
-    },
-    "nx": {
-      "title": "Nx"
-    },
-    "opentofu": {
-      "title": "OpenTofu"
-    },
-    "pesde-lock": {
-      "title": "pesde lockfile"
-    },
-    "pesde": {
-      "title": "pesde"
-    },
-    "puppet": {
-      "title": "Puppet"
-    },
-    "rdata": {
-      "title": ".RData"
-    },
-    "rmd": {
-      "title": ".Rmd"
-    },
-    "rproj": {
-      "title": ".Rproj"
-    },
-    "rocket": {
-      "title": "Rocket"
-    },
-    "rokit": {
-      "title": "Rokit"
-    },
-    "slidesk": {
-      "title": "SliDesk"
-    },
-    "stylua-ignore": {
-      "title": "StyLua ignorefile"
-    },
-    "stylua": {
-      "title": "StyLua"
-    },
-    "vala": {
-      "title": "Vala"
-    },
-    "vapi": {
-      "title": "VAPI"
-    },
+    "crystal": "Crystal",
+    "cue": "Cue",
+    "hare": "Hare",
+    "lua-rocks": "LuaRocks",
+    "moonrepo": "moonrepo",
+    "odin": "Odin",
+    "prototools": "prototools",
+    "scheme": "Scheme",
+    "squirrel": "Squirrel",
+    "swiftformat": "SwiftFormat",
+    "wally": "Wally",
+    "arduino": "Arduino",
+    "bicep": "Bicep",
+    "cursor-ignore": "Cursor ignorefile",
+    "cursor": "Cursor",
+    "darklua": "darklua",
+    "docusaurus": "Docusaurus",
+    "hacking": "Hacking file",
+    "jule": "Jule",
+    "macos": ".DS_Store",
+    "mantle": "Mantle",
+    "msbuild": "MSBuild",
+    "nx-ignore": "Nx ignorefile",
+    "nx": "Nx",
+    "opentofu": "OpenTofu",
+    "pesde-lock": "pesde lockfile",
+    "pesde": "pesde",
+    "puppet": "Puppet",
+    "rdata": ".RData",
+    "rmd": ".Rmd",
+    "rproj": ".Rproj",
+    "rocket": "Rocket",
+    "rokit": "Rokit",
+    "slidesk": "SliDesk",
+    "stylua-ignore": "StyLua ignorefile",
+    "stylua": "StyLua",
+    "vala": "Vala",
+    "vapi": "VAPI",
     "wrangler": "Wrangler",
     "_file": {
       "title": "File",
