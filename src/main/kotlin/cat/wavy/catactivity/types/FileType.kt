@@ -345,6 +345,34 @@ enum class FileType(
     SQUIRREL("Squirrel", "squirrel"),
     SWIFTFORMAT("SwiftFormat", "swiftformat"),
     WALLY("Wally", "wally"),
+    ARDUINO("Arduino", "arduino"),
+    BICEP("Bicep", "bicep"),
+    CURSOR_IGNORE("Cursor ignorefile", "cursor-ignore"),
+    CURSOR("Cursor", "cursor"),
+    DARKLUA("darklua", "darklua"),
+    DOCUSAURUS("Docusaurus", "docusaurus"),
+    HACKING("Hacking file", "hacking"),
+    JULE("Jule", "jule"),
+    MACOS(".DS_Store", "macos"),
+    MANTLE("Mantle", "mantle"),
+    MSBUILD("MSBuild", "msbuild"),
+    NX_IGNORE("Nx ignorefile", "nx-ignore"),
+    NX("Nx", "nx"),
+    OPENTOFU("OpenTofu", "opentofu"),
+    PESDE_LOCK("pesde lockfile", "pesde-lock"),
+    PESDE("pesde", "pesde"),
+    PUPPET("Puppet", "puppet"),
+    RDATA(".RData", "rdata"),
+    RMD(".Rmd", "rmd"),
+    RPROJ(".Rproj", "rproj"),
+    ROCKET("Rocket", "rocket"),
+    ROKIT("Rokit", "rokit"),
+    SLIDESK("SliDesk", "slidesk"),
+    STYLUA_IGNORE("StyLua ignorefile", "stylua-ignore"),
+    STYLUA("StyLua", "stylua"),
+    VALA("Vala", "vala"),
+    VAPI("VAPI", "vapi"),
+    WRANGLER("Wrangler", "wrangler"),
     FILE("File", "_file")
 }
 
@@ -352,7 +380,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "angular-cli.json", ".angular-cli.json", "angular.json", "ng-package.json" -> FileType.ANGULAR
     ".ansible-lint", "ansible-lint.yml", "ansible-lint.yaml" -> FileType.ANSIBLE_LINT
     "maven.config", "jvm.config", "pom.xml" -> FileType.APACHE
-    ".ds_store", "apple-app-site-association", "apple-developer-merchantid-domain-association" -> FileType.APPLE
+    "apple-app-site-association", "apple-developer-merchantid-domain-association" -> FileType.APPLE
     ".bazelrc" -> FileType.BAZEL
     "benchmark.md", "benchmark.rst", "benchmark.txt", "benchmarks.md", "benchmarks.rst", "benchmarks.txt" -> FileType.BENCHMARK
     "cspell.json", "cspell.yml", "cspell.yaml", ".cspell.json", ".cspell.yml", ".cspell.yaml", "cspell.config.js", "cspell.config.cjs", "cspell.config.yml", "cspell.config.yaml" -> FileType.CSPELL
@@ -388,7 +416,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "CNAME" -> FileType.HTTP
     ".jscsrc", ".jshintrc", "composer.lock", ".jsbeautifyrc", ".esformatter", "cdp.pid", ".whitesource" -> FileType.JSON
     "prisma.yml" -> FileType.PRISMA
-    ".Rhistory" -> FileType.R
+    ".rhistory" -> FileType.R
     ".ruby-version" -> FileType.RUBY
     ".htaccess" -> FileType.XML
     ".env.defaults", ".env.example", ".env.sample", ".env.template", ".env.schema", ".env.local", ".env.dev", ".env.development", ".env.alpha", ".env.e2e", ".env.qa", ".env.dist", ".env.prod", ".env.production", ".env.stage", ".env.staging", ".env.preview", ".env.test", ".env.testing", ".env.dev.local", ".env.development.local", ".env.qa.local", ".env.prod.local", ".env.production.local", ".env.staging.local", ".env.test.local", ".env.uat", ".env.cat" -> FileType.ENV
@@ -531,6 +559,24 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".prototools" -> FileType.PROTOTOOLS
     ".swiftformat" -> FileType.SWIFTFORMAT
     "wally.toml", "wally.lock" -> FileType.WALLY
+    "bicepconfig.json" -> FileType.BICEP
+    ".cursorignore", ".cursorindexingignore" -> FileType.CURSOR_IGNORE
+    ".cursorrules" -> FileType.CURSOR
+    "docusaurus.config.js", "docusaurus.config.mjs", "docusaurus.config.cjs", "docusaurus.config.ts" -> FileType.DOCUSAURUS
+    "hacking.md", "hacking.txt", "hacking" -> FileType.HACKING
+    "jule.mod" -> FileType.JULE
+    ".ds_store" -> FileType.MACOS
+    "mantle.yml", ".mantle-state.yml" -> FileType.MANTLE
+    "directory.build.props", "directory.build.rsp", "directory.build.targets", "directory.packages.props" -> FileType.MSBUILD
+    ".nxignore" -> FileType.NX_IGNORE
+    "nx.json" -> FileType.NX
+    "pesde.lock" -> FileType.PESDE_LOCK
+    "pesde.toml" -> FileType.PESDE
+    "rocket.toml" -> FileType.ROCKET
+    "rokit.toml" -> FileType.ROKIT
+    ".styluaignore" -> FileType.STYLUA_IGNORE
+    "stylua.toml" -> FileType.STYLUA
+    "wrangler.toml", "wrangler.json", "wrangler.jsonc" -> FileType.WRANGLER
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -607,7 +653,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "pl", "pm", "pod", "t", "psgi", "raku", "rakumod", "rakutest", "rakudoc", "nqp", "p6", "pl6", "pm6" -> FileType.PERL
             "php" -> FileType.PHP
             "prisma" -> FileType.PRISMA
-            "r", "rmd" -> FileType.R
+            "r" -> FileType.R
             "rb", "erb", "rbs" -> FileType.RUBY
             "css" -> FileType.CSS
             "scss", "sass" -> FileType.SASS
@@ -621,7 +667,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "vue" -> FileType.VUE
             "xml", "plist", "xsd", "dtd", "xsl", "xslt", "resx", "iml", "xquery", "tmLanguage", "manifest", "project", "xml.dist", "xml.dist.sample", "dmn", "jrxml" -> FileType.XML
             "yml", "yaml" -> FileType.YAML
-            "fs", "fsx", "fsi", "fsproj" -> FileType.FSHARP
+            "fs", "fsx", "fsi" -> FileType.FSHARP
             "asm", "a51", "inc", "nasm", "s", "ms", "agc", "ags", "aea", "argus", "mitigus", "binsource" -> FileType.ASSEMBLY
             "jsx" -> FileType.JAVASCRIPT_REACT
             "env" -> FileType.ENV
@@ -709,7 +755,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "vto" -> FileType.VENTO
             "vhd", "sv", "svh" -> FileType.VERILOG
             "vimrc", "gvimrc", "exrc", "vim", "viminfo" -> FileType.VIM
-            "csproj", "ruleset", "sln", "slnx", "suo", "vb", "vbs", "vcxitems", "vcxitems.filters", "vcxproj", "vcxproj.filters" -> FileType.VISUAL_STUDIO
+            "csproj", "csproj.user", "vbproj", "vbproj.user", "fsproj", "fsproj.user", "ruleset", "sln", "slnf", "slnx", "suo", "vb", "vbs", "vcxitems", "vcxitems.filters", "vcxproj", "vcxproj.filters" -> FileType.VISUAL_STUDIO
             "vsixmanifest", "vsix", "code-workplace", "code-workspace", "code-profile", "code-snippets" -> FileType.VSCODE
             "wat", "wasm" -> FileType.WEB_ASSEMBLY
             "windi" -> FileType.WINDI
@@ -729,6 +775,18 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "odin" -> FileType.ODIN
             "scm" -> FileType.SCHEME
             "nut" -> FileType.SQUIRREL
+            "ino" -> FileType.ARDUINO
+            "bicep", "bicepparam" -> FileType.BICEP
+            "darklua.json", "darklua.json5" -> FileType.DARKLUA
+            "jule" -> FileType.JULE
+            "tofu", "tofu.json" -> FileType.OPENTOFU
+            "pp", "epp" -> FileType.PUPPET
+            "rdata" -> FileType.RDATA
+            "rmd" -> FileType.RMD
+            "rproj" -> FileType.RPROJ
+            "sdf", "sdt" -> FileType.SLIDESK
+            "vala" -> FileType.VALA
+            "vapi" -> FileType.VAPI
             else -> FileType.FILE
         }
     }

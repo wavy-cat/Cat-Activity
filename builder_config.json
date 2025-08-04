@@ -1140,6 +1140,88 @@
     "wally": {
       "title": "Wally"
     },
+    "arduino": {
+      "title": "Arduino"
+    },
+    "bicep": {
+      "title": "Bicep"
+    },
+    "cursor-ignore": {
+      "title": "Cursor ignorefile"
+    },
+    "cursor": {
+      "title": "Cursor"
+    },
+    "darklua": {
+      "title": "darklua"
+    },
+    "docusaurus": {
+      "title": "Docusaurus"
+    },
+    "hacking": {
+      "title": "Hacking file"
+    },
+    "jule": {
+      "title": "Jule"
+    },
+    "macos": {
+      "title": ".DS_Store"
+    },
+    "mantle": {
+      "title": "Mantle"
+    },
+    "msbuild": {
+      "title": "MSBuild"
+    },
+    "nx-ignore": {
+      "title": "Nx ignorefile"
+    },
+    "nx": {
+      "title": "Nx"
+    },
+    "opentofu": {
+      "title": "OpenTofu"
+    },
+    "pesde-lock": {
+      "title": "pesde lockfile"
+    },
+    "pesde": {
+      "title": "pesde"
+    },
+    "puppet": {
+      "title": "Puppet"
+    },
+    "rdata": {
+      "title": ".RData"
+    },
+    "rmd": {
+      "title": ".Rmd"
+    },
+    "rproj": {
+      "title": ".Rproj"
+    },
+    "rocket": {
+      "title": "Rocket"
+    },
+    "rokit": {
+      "title": "Rokit"
+    },
+    "slidesk": {
+      "title": "SliDesk"
+    },
+    "stylua-ignore": {
+      "title": "StyLua ignorefile"
+    },
+    "stylua": {
+      "title": "StyLua"
+    },
+    "vala": {
+      "title": "Vala"
+    },
+    "vapi": {
+      "title": "VAPI"
+    },
+    "wrangler": "Wrangler",
     "_file": {
       "title": "File",
       "altName": "file",
