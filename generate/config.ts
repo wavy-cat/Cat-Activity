@@ -1,5 +1,5 @@
 const fs = require('fs').promises
-import { z } from "zod"
+import {z} from "zod"
 
 const RenderSettingsSchema = z.object({
     canvasSize: z.number(),
@@ -18,7 +18,14 @@ const FileIconSchema = z.object({
 const FileIconsSchema = z.record(
     z.union([
         FileIconSchema,
-        z.string().transform(str => ({ title: str }))
+        z.string().transform(str => ({
+            title: str,
+            altName: undefined,
+            fileTypes: null,
+            fileNames: null,
+            extensions: null,
+            enumName: undefined
+        }))
     ])
 )
 
