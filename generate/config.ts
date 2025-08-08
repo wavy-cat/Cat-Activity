@@ -16,14 +16,15 @@ const FileIconSchema = z.object({
 })
 
 const FileIconsSchema = z.record(
+    z.string(),
     z.union([
         FileIconSchema,
         z.string().transform(str => ({
             title: str,
             altName: undefined,
-            fileTypes: null,
-            fileNames: null,
-            extensions: null,
+            fileTypes: undefined,
+            fileNames: undefined,
+            extensions: undefined,
             enumName: undefined
         }))
     ])
@@ -43,9 +44,7 @@ export async function loadConfig(filepath: string): Promise<Config> {
 
     const result = await ConfigSchema.safeParseAsync(parsed)
     if (!result.success) {
-        throw result.error.errors
-            .map(err => `${err.path.join('.')} - ${err.message}`)
-            .join('; ')
+        throw z.treeifyError(result.error)
     }
 
     return result.data
