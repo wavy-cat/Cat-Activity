@@ -45,8 +45,8 @@ jobs:
               export DISPLAY=:99.0
               Xvfb -ac :99 -screen 0 1920x1080x16 &
               gradle runIdeForUiTests &
-#          - os: windows-latest
-#            runIde: start gradlew.bat runIdeForUiTests
+          - os: windows-latest
+            runIde: start gradlew.bat runIdeForUiTests
           - os: macos-latest
             runIde: ./gradlew runIdeForUiTests &
 
