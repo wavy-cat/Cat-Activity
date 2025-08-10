@@ -8,8 +8,8 @@ enum class IDEType(
     val applicationId: Long,
 ) {
     IDEA("IntelliJ IDEA", "intellij_idea", 1226060730273497098),
-    WEBSTORM("WebStorm", "webstorm", 1226061280125653013),
-    PYCHARM("PyCharm", "pycharm", 1226061359217774703),
+    WEBSTORM("WebStorm", "webstorm", 1226061359217774703),
+    PYCHARM("PyCharm", "pycharm", 1226061280125653013),
     CLION("CLion", "clion", 1226061434320846949),
     GOLAND("GoLand", "goland", 1226061515212193853),
     RIDER("Rider", "rider", 1226061591087157300),
