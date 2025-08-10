@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed incorrect display of PyCharm and WebStorm.
+
 ## [2.2.0] - 2025-08-04
 
 ### Added
