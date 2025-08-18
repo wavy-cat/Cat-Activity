@@ -60,7 +60,8 @@ export async function code_generation(config: Config) {
 
     for (let icon in config.fileIcons) {
         const property = config.fileIcons[icon]
-        const enumName = property.enumName ? property.enumName : icon.toUpperCase().replace(/-/g, "_")
+        let enumName = property.enumName ? property.enumName : icon.toUpperCase().replace(/-/g, "_")
+        if (/^\d/.test(enumName)) enumName = "A_" + enumName
         items.push({
             icon: icon,
             name: property.title,
