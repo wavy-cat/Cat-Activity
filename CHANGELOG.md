@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Updated Catppuccin icons to v1.24.0
+
 ## [2.2.1] - 2025-08-10
 
 ### Fixed

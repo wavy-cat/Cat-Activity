@@ -373,6 +373,20 @@ enum class FileType(
     VALA("Vala", "vala"),
     VAPI("VAPI", "vapi"),
     WRANGLER("Wrangler", "wrangler"),
+    A_3D("3D", "3d"),
+    BLINK("Blink", "blink"),
+    FOREMAN("Foreman", "foreman"),
+    LUA_CHECK("Luacheck", "lua-check"),
+    LUA_CLIENT("Lua client-side script", "lua-client"),
+    LUA_SERVER("Lua server-side script", "lua-server"),
+    LUA_TEST("Lua test file", "lua-test"),
+    LUAU_CHECK("Luau type checker", "luau-check"),
+    LUAU_CLIENT("Luau client-side script", "luau-client"),
+    LUAU_CONFIG("Luau config file", "luau-config"),
+    LUAU_SERVER("Luau server-side script", "luau-server"),
+    LUAU_TEST("Luau test file", "luau-test"),
+    MOONWAVE("Moonwave", "moonwave"),
+    RSML("RSML", "rsml"),
     FILE("File", "_file")
 }
 
@@ -394,9 +408,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "humans.txt" -> FileType.HUMANS
     "justfile", ".justfile" -> FileType.JUST
     "artisan" -> FileType.LARAVEL
-    ".luaurc" -> FileType.LUAU
     "book.toml" -> FileType.MDBOOK
-    "mid", "midi" -> FileType.MIDI
     "pixi.toml" -> FileType.PIXI
     "pixi.lock" -> FileType.PIXI_LOCK
     "poetry.lock" -> FileType.POETRY_LOCK
@@ -577,6 +589,11 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     ".styluaignore" -> FileType.STYLUA_IGNORE
     "stylua.toml" -> FileType.STYLUA
     "wrangler.toml", "wrangler.json", "wrangler.jsonc" -> FileType.WRANGLER
+    "foreman.toml", "aftman.toml" -> FileType.FOREMAN
+    ".luacheckrc" -> FileType.LUA_CHECK
+    "selene.toml", "selene.yml", "selene.yaml" -> FileType.LUAU_CHECK
+    ".luaurc" -> FileType.LUAU_CONFIG
+    "moonwave.toml" -> FileType.MOONWAVE
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -618,6 +635,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "just" -> FileType.JUST
             "blade.php", "inky.php" -> FileType.LARAVEL
             "luau" -> FileType.LUAU
+            "mid", "midi" -> FileType.MIDI
             "pptx", "ppt", "pptm", "potx", "potm", "ppsx", "ppsm", "pps", "ppam", "ppa", "odp" -> FileType.MS_POWERPOINT
             "doc", "docm", "docx", "dot", "dotm", "dotx", "rtf", "odt" -> FileType.MS_WORD
             "org" -> FileType.ORG
@@ -787,6 +805,15 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "sdf", "sdt" -> FileType.SLIDESK
             "vala" -> FileType.VALA
             "vapi" -> FileType.VAPI
+            "fbx", "glb", "gltf", "ma", "mb", "obj", "prc", "stl", "u3d", "usd" -> FileType.A_3D
+            "blink" -> FileType.BLINK
+            "client.lua" -> FileType.LUA_CLIENT
+            "server.lua" -> FileType.LUA_SERVER
+            "spec.lua", "test.lua" -> FileType.LUA_TEST
+            "client.luau" -> FileType.LUAU_CLIENT
+            "server.luau" -> FileType.LUAU_SERVER
+            "spec.luau", "test.luau" -> FileType.LUAU_TEST
+            "rsml" -> FileType.RSML
             else -> FileType.FILE
         }
     }
