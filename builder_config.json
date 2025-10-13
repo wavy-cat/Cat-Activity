@@ -558,6 +558,7 @@
     "luau-test": "Luau test file",
     "moonwave": "Moonwave",
     "rsml": "RSML",
+    "knip": "Knip",
     "_file": {
       "title": "File",
       "altName": "file",

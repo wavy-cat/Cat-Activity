@@ -387,6 +387,7 @@ enum class FileType(
     LUAU_TEST("Luau test file", "luau-test"),
     MOONWAVE("Moonwave", "moonwave"),
     RSML("RSML", "rsml"),
+    KNIP("Knip", "knip"),
     FILE("File", "_file")
 }
 
@@ -427,7 +428,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "go.mod", "go.sum", "go.work", "go.work.sum" -> FileType.GO_MOD
     "CNAME" -> FileType.HTTP
     ".jscsrc", ".jshintrc", "composer.lock", ".jsbeautifyrc", ".esformatter", "cdp.pid", ".whitesource" -> FileType.JSON
-    "prisma.yml" -> FileType.PRISMA
+    "prisma.config.ts", "prisma.config.js", "prisma.config.cts", "prisma.config.cjs", "prisma.config.mts", "prisma.config.mjs", "prisma.yml" -> FileType.PRISMA
     ".rhistory" -> FileType.R
     ".ruby-version" -> FileType.RUBY
     ".htaccess" -> FileType.XML
@@ -594,6 +595,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
     "selene.toml", "selene.yml", "selene.yaml" -> FileType.LUAU_CHECK
     ".luaurc" -> FileType.LUAU_CONFIG
     "moonwave.toml" -> FileType.MOONWAVE
+    "knip.json", "knip.jsonc", ".knip.jsonc", ".knip.jsonc", "knip.ts", "knip.js", "knip.config.ts", "knip.config.js" -> FileType.KNIP
     else -> when (fileType) {
         "Dockerfile" -> FileType.DOCKER
         "JAVA" -> FileType.JAVA
@@ -619,7 +621,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "bzl", "bazel" -> FileType.BAZEL
             "css.map" -> FileType.CSS_MAP
             "feature", "features" -> FileType.CUCUMBER
-            "freezed.dart", "g.dart" -> FileType.DART_GENERATED
+            "config.dart", "freezed.dart", "gr.dart", "g.dart" -> FileType.DART_GENERATED
             "exe", "msi" -> FileType.EXE
             "fig" -> FileType.FIGMA
             "f", "f77", "f90", "f95", "f03", "f08", "for" -> FileType.FORTRAN
@@ -665,7 +667,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "hs" -> FileType.HASKELL
             "htm", "html", "xhtml", "html_vm", "asp" -> FileType.HTML
             "http", "rest" -> FileType.HTTP
-            "png", "jpeg", "jpg", "gif", "ico", "tif", "tiff", "psd", "psb", "ami", "apx", "avif", "bmp", "bpg", "brk", "cur", "dds", "dng", "exr", "fpx", "gbr", "img", "jbig2", "jb2", "jng", "jxr", "pgf", "pic", "raw", "webp", "eps", "afphoto", "ase", "aseprite", "clip", "cpt", "heif", "heic", "kra", "mdp", "ora", "pdn", "reb", "sai", "tga", "xcf", "jfif", "ppm", "pbm", "pgm", "pnm", "icns" -> FileType.IMAGE
+            "png", "jpeg", "jpg", "gif", "ico", "tif", "tiff", "psb", "ami", "apx", "avif", "bmp", "bpg", "brk", "cur", "dds", "dng", "exr", "fpx", "gbr", "img", "jbig2", "jb2", "jng", "jxr", "pgf", "pic", "raw", "webp", "eps", "afphoto", "ase", "aseprite", "clip", "cpt", "heif", "heic", "kra", "mdp", "ora", "pdn", "reb", "sai", "tga", "xcf", "jfif", "ppm", "pbm", "pgm", "pnm", "icns" -> FileType.IMAGE
             "json", "jsonc", "tsbuildinfo", "json5", "jsonl", "ndjson", "hjson", "webmanifest" -> FileType.JSON
             "md", "markdown", "rst" -> FileType.MARKDOWN
             "pl", "pm", "pod", "t", "psgi", "raku", "rakumod", "rakutest", "rakudoc", "nqp", "p6", "pl6", "pm6" -> FileType.PERL
@@ -715,7 +717,7 @@ fun getFileTypeByName(fileType: String, fileName: String, extension: String?) = 
             "mdx" -> FileType.MARKDOWN_MDX
             "drawio", "dio" -> FileType.DRAWIO
             "gd" -> FileType.GODOT
-            "godot", "tres", "tscn", "gdns", "gdnlib", "gdshader", "gdshaderinc", "gdextension" -> FileType.GODOT_ASSETS
+            "godot", "tres", "tscn", "gdns", "gdnlib", "gdshader", "gdshaderinc", "gdextension", "gd.uid" -> FileType.GODOT_ASSETS
             "gradle" -> FileType.GRADLE
             "graphql", "gql" -> FileType.GRAPHQL
             "haml" -> FileType.HAML

@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Updated Catppuccin icons to [v1.26.0](https://github.com/catppuccin/vscode-icons/blob/main/CHANGELOG.md#v1260)
+
+### Security
+
+- Updated plugin dependencies
+
 ## [2.3.0] - 2025-08-18
 
 ### Changed
