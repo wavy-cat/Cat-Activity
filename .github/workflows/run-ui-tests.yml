@@ -16,6 +16,7 @@ on:
       - CHANGELOG.md
       - generate
       - package.json
+      - package-lock.json
       - pnpm-lock.yaml
       - README.md
       - LICENSE
@@ -26,6 +27,7 @@ on:
       - CHANGELOG.md
       - generate
       - package.json
+      - package-lock.json
       - pnpm-lock.yaml
       - README.md
       - LICENSE
