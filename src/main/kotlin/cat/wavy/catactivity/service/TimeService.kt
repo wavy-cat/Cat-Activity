@@ -18,10 +18,12 @@ import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.action.alert.welcomeAlert
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
+import cat.wavy.catactivity.setting.CatActivitySettingAppState
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.IDEIcon
 import cat.wavy.catactivity.setting.SettingState
+import cat.wavy.catactivity.setting.mergeWith
 import cat.wavy.catactivity.types.*
 import com.intellij.openapi.diagnostic.thisLogger
 import git4idea.repo.GitRemote
@@ -93,7 +95,10 @@ class TimeService : Disposable {
     fun render(project: Project) {
         runAsync {
             runCatching {
-                val configState = project.service<CatActivitySettingProjectState>().state
+                val projectState = project.service<CatActivitySettingProjectState>().state
+                val appState = service<CatActivitySettingAppState>().state
+                val configState = projectState.mergeWith(appState)
+
                 val problemsCollector = ProblemsCollector.getInstance(project)
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)

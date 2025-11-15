@@ -28,11 +28,11 @@ enum class Details {
     File,
 }
 
-enum class Theme {
-    Frappe,
-    Latte,
-    Macchiato,
-    Mocha,
+enum class Theme(val fullName: String) {
+    Frappe("Catppuccin Frappe"),
+    Latte("Catppuccin Latte"),
+    Macchiato("Catppuccin Macchiato"),
+    Mocha("Catppuccin Mocha"),
 }
 
 enum class IDEIcon(val displayName: String, val app: IDEType) {
@@ -41,3 +41,30 @@ enum class IDEIcon(val displayName: String, val app: IDEType) {
     JetBrains("JetBrains", IDEType.JETBRAINS),
     CatActivity("Cat Activity", IDEType.CATACTIVITY),
 }
+
+/**
+ * Combine this [SettingState] with [base] so that every field keeps its
+ * non-default value (taken from `this`) and falls back first to [base] and
+ * finally to Kotlin-generated defaults.
+ */
+fun SettingState.mergeWith(
+    base: SettingState,
+    defaults: SettingState = SettingState()
+): SettingState = SettingState(
+    isEnabled = coalesce(isEnabled, defaults.isEnabled, base.isEnabled),
+    details = coalesce(details, defaults.details, base.details),
+    theme = coalesce(theme, defaults.theme, base.theme),
+    ideIcon = coalesce(ideIcon, defaults.ideIcon, base.ideIcon),
+    showRepositoryButton = coalesce(
+        showRepositoryButton, defaults.showRepositoryButton, base.showRepositoryButton
+    ),
+    projectStateFormat = coalesce(projectStateFormat, defaults.projectStateFormat, base.projectStateFormat),
+    projectDetailFormat = coalesce(projectDetailFormat, defaults.projectDetailFormat, base.projectDetailFormat),
+    fileStateFormat = coalesce(fileStateFormat, defaults.fileStateFormat, base.fileStateFormat),
+    fileDetailFormat = coalesce(fileDetailFormat, defaults.fileDetailFormat, base.fileDetailFormat),
+    idleStateFormat = coalesce(idleStateFormat, defaults.idleStateFormat, base.idleStateFormat),
+    idleDetailFormat = coalesce(idleDetailFormat, defaults.idleDetailFormat, base.idleDetailFormat),
+    firstInit = coalesce(firstInit, defaults.firstInit, base.firstInit),
+)
+
+private fun <T> coalesce(value: T, default: T, fallback: T): T = if (value != default) value else fallback
