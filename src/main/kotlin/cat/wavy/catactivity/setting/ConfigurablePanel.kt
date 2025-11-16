@@ -9,6 +9,7 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
 import cat.wavy.catactivity.service.TimeService
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.components.JBCheckBox
@@ -81,10 +82,11 @@ class ConfigurablePanel(
             }
 
             row {
+                icon(AllIcons.General.Error)
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
                     foreground = JBColor.RED
-                }.visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
-            }
+                }
+            }.visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
         }.visibleIf(displayCombo!!.selectedValueIs(Details.Project))
 
         group(ConfigBundle.message("formatFile")) {
@@ -107,10 +109,11 @@ class ConfigurablePanel(
             }
 
             row {
+                icon(AllIcons.General.Error)
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
                     foreground = JBColor.RED
-                }.visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
-            }
+                }
+            }.visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
         }.visibleIf(displayCombo.selectedValueIs(Details.File)).enabledIf(enableCheck.selected)
 
         group(ConfigBundle.message("formatIdle")) {
@@ -133,10 +136,11 @@ class ConfigurablePanel(
             }
 
             row {
+                icon(AllIcons.General.Error)
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
                     foreground = JBColor.RED
-                }.visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
-            }
+                }
+            }.visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
         }.visibleIf(displayCombo.selectedValueIs(Details.File)).enabledIf(enableCheck.selected)
     }
 
