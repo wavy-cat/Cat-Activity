@@ -84,7 +84,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: dist
           path: dist/
@@ -109,7 +109,7 @@ jobs:
 
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: assets
           path: assets-dist/
