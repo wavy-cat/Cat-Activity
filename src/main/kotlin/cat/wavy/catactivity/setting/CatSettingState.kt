@@ -21,3 +21,19 @@ class CatActivitySettingProjectState : PersistentStateComponent<SettingState> {
         XmlSerializerUtil.copyBean(state, this.state)
     }
 }
+
+@State(
+    name = "CatActivitySettingAppState", storages = [Storage("cat-activity-defaults.xml")]
+)
+@Service(Service.Level.APP)
+class CatActivitySettingAppState : PersistentStateComponent<DefaultsState> {
+    private val state = DefaultsState()
+
+    override fun getState(): DefaultsState {
+        return state
+    }
+
+    override fun loadState(state: DefaultsState) {
+        XmlSerializerUtil.copyBean(state, this.state)
+    }
+}
