@@ -17,7 +17,7 @@ import com.intellij.ui.layout.selectedValueIs
 import com.intellij.ui.layout.selectedValueMatches
 import javax.swing.JComponent
 
-class CatConfigurable(
+class ProjectConfigurable(
     private val project: Project
 ) : Configurable {
     private val panel = panel {
