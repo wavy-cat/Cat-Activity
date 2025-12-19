@@ -4,10 +4,7 @@ import cat.wavy.catactivity.bundle.ConfigBundle
 import com.intellij.openapi.components.service
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
-import com.intellij.ui.JBColor
-import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
-import com.intellij.ui.layout.enteredTextSatisfies
 import cat.wavy.catactivity.service.TimeService
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.SimpleListCellRenderer
@@ -25,9 +22,6 @@ class ProjectConfigurable(
 
         var enableCheck: JBCheckBox? = null
         var displayCombo: ComboBox<Details>? = null
-        var projectStateField: JBTextField? = null
-        var fileStateField: JBTextField? = null
-        var idleStateField: JBTextField? = null
 
         row {
             checkBox(ConfigBundle.message("enablePlugin")).bindSelected(state::isEnabled)
@@ -65,18 +59,14 @@ class ProjectConfigurable(
         group(ConfigBundle.message("formatProject")) {
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::projectDetailFormat)
+                    .applyToComponent {
+                        emptyText.text = ConfigBundle.message("leaveBlankDefaultValue")
+                    }
             }
 
             row(ConfigBundle.message("stateLine")) {
-                textField().columns(COLUMNS_LARGE).bindText(state::projectStateFormat).applyToComponent {
-                    projectStateField = this
-                }
-            }
-
-            row {
-                label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
-                    foreground = JBColor.RED
-                }.visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
+                textField().columns(COLUMNS_LARGE).bindText(state::projectStateFormat)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
             }
 
             row {
@@ -89,18 +79,12 @@ class ProjectConfigurable(
         group(ConfigBundle.message("formatFile")) {
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::fileDetailFormat)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
             }
 
             row(ConfigBundle.message("stateLine")) {
-                textField().columns(COLUMNS_LARGE).bindText(state::fileStateFormat).applyToComponent {
-                    fileStateField = this
-                }
-            }
-
-            row {
-                label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
-                    foreground = JBColor.RED
-                }.visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
+                textField().columns(COLUMNS_LARGE).bindText(state::fileStateFormat)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
             }
 
             row {
@@ -113,18 +97,12 @@ class ProjectConfigurable(
         group(ConfigBundle.message("formatIdle")) {
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::idleDetailFormat)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
             }
 
             row(ConfigBundle.message("stateLine")) {
-                textField().columns(COLUMNS_LARGE).bindText(state::idleStateFormat).applyToComponent {
-                    idleStateField = this
-                }
-            }
-
-            row {
-                label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
-                    foreground = JBColor.RED
-                }.visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
+                textField().columns(COLUMNS_LARGE).bindText(state::idleStateFormat)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
             }
 
             row {

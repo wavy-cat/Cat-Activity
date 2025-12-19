@@ -7,14 +7,10 @@ import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
-import cat.wavy.catactivity.service.TimeService
-import com.intellij.openapi.project.Project
 import com.intellij.ui.SimpleListCellRenderer
 import javax.swing.JComponent
 
-class DefaultsConfigurable(
-    private val project: Project
-) : Configurable {
+class DefaultsConfigurable() : Configurable {
     private val panel = panel {
         val state = service<CatActivitySettingAppState>().state
 
@@ -23,6 +19,10 @@ class DefaultsConfigurable(
         var idleStateField: JBTextField? = null
 
         group(ConfigBundle.message("display")) {
+            row(ConfigBundle.message("theme")) {
+                comboBox(items = Theme.entries).bindItem(state::theme.toNullableProperty())
+            }
+
             row(ConfigBundle.message("ideIcons")) {
                 comboBox(items = IDEIcon.entries)
                     .applyToComponent {
@@ -115,9 +115,7 @@ class DefaultsConfigurable(
 
     override fun isModified(): Boolean = panel.isModified()
 
-    override fun apply() = panel.apply().also {
-        project.service<TimeService>().render(project)
-    }
+    override fun apply() = panel.apply()
 
     override fun reset() = panel.reset()
 

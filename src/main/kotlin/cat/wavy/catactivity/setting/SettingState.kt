@@ -10,14 +10,14 @@ data class SettingState(
     var ideIcon: IDEIcon = IDEIcon.New,
     var showRepositoryButton: Boolean = false,
 
-    var projectStateFormat: String = "Working on %projectName%",
-    var projectDetailFormat: String = "%projectProblems% Problems in Project",
+    var projectStateFormat: String = "",
+    var projectDetailFormat: String = "",
 
-    var fileStateFormat: String = "Editing %fileName%",
-    var fileDetailFormat: String = "%projectName% (%branch%)",
+    var fileStateFormat: String = "",
+    var fileDetailFormat: String = "",
 
-    var idleStateFormat: String = "Idle",
-    var idleDetailFormat: String = "%projectName% (%branch%)",
+    var idleStateFormat: String = "",
+    var idleDetailFormat: String = "",
 
     var firstInit: Boolean = true,
 )
