@@ -119,5 +119,5 @@ class DefaultsConfigurable() : Configurable {
 
     override fun reset() = panel.reset()
 
-    override fun getDisplayName(): String = ConfigBundle.message("projectTitle")
+    override fun getDisplayName(): String = ConfigBundle.message("defaultsSettingsTitle")
 }
