@@ -17,7 +17,7 @@
                 key="projectTitle"
                 bundle="messages.ConfigBundle"/>
 
-        <projectConfigurable
+        <applicationConfigurable
                 id="cat.wavy.catactivity.setting.CatConfigurableDefaults"
                 instance="cat.wavy.catactivity.setting.DefaultsConfigurable"
                 parentId="cat.wavy.catactivity.setting.CatConfigurableProject"
