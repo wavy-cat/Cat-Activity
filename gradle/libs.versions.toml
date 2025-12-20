@@ -2,6 +2,7 @@
 # libraries
 junit = "4.13.2"
 opentest4j = "1.3.0"
+discordGameSdk4j = "v1.0.0"
 
 # plugins
 changelog = "2.5.0"
@@ -13,6 +14,7 @@ qodana = "2025.3.1"
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 opentest4j = { group = "org.opentest4j", name = "opentest4j", version.ref = "opentest4j" }
+discordGameSdk4j = { group = "com.github.JnCrMx", name = "discord-game-sdk4j", version.ref = "discordGameSdk4j" }
 
 [plugins]
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }
