@@ -43,7 +43,7 @@ class ProjectConfigurable(
 
                 contextHelp(ConfigBundle.message("showRepositoryButtonHelp"))
             }
-        }
+        }.enabledIf(enableCheck!!.selected)
 
         group(ConfigBundle.message("display")) {
             row(ConfigBundle.message("theme")) {
@@ -56,8 +56,8 @@ class ProjectConfigurable(
                         renderer = SimpleListCellRenderer.create { label, icon, _ -> label.text = icon.displayName }
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
-            }.enabledIf(enableCheck!!.selected)
-        }.enabledIf(enableCheck!!.selected)
+            }
+        }.enabledIf(enableCheck.selected)
 
         group(ConfigBundle.message("formatProject")) {
             row(ConfigBundle.message("detailsLine")) {
@@ -79,7 +79,7 @@ class ProjectConfigurable(
                     ConfigBundle.message("projectFormatHelp"), ConfigBundle.message("placeholders")
                 )
             }
-        }.visibleIf(displayCombo!!.selectedValueIs(Details.Project))
+        }.visibleIf(displayCombo!!.selectedValueIs(Details.Project)).enabledIf(enableCheck.selected)
 
         group(ConfigBundle.message("formatFile")) {
             row(ConfigBundle.message("detailsLine")) {
