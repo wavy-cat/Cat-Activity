@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [2.5.0] - 2025-12-20
+
 ### Changed
 
 - Updated settings menu. Now you can override default values (#65).
@@ -85,7 +87,8 @@
 
 - Dropped support for IDE versions below 2024.2
 
-[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.2.1...v2.3.0
 [2.2.1]: https://github.com/wavy-cat/Cat-Activity/compare/v2.2.0...v2.2.1
