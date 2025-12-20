@@ -6,8 +6,8 @@ import cat.wavy.catactivity.types.currentIDEType
 data class SettingState(
     var isEnabled: Boolean = false,
     var details: Details = Details.IDE,
-    var theme: Theme = Theme.Macchiato,
-    var ideIcon: IDEIcon = IDEIcon.New,
+    var theme: ThemeDefaultable = ThemeDefaultable.Macchiato,
+    var ideIcon: IDEIconDefaultable = IDEIconDefaultable.Default,
     var showRepositoryButton: Boolean = false,
 
     var projectStateFormat: String = "",
@@ -28,14 +28,16 @@ enum class Details {
     File,
 }
 
-enum class Theme {
+enum class ThemeDefaultable {
+    Default,
     Frappe,
     Latte,
     Macchiato,
     Mocha,
 }
 
-enum class IDEIcon(val displayName: String, val app: IDEType) {
+enum class IDEIconDefaultable(val displayName: String, val app: IDEType?) {
+    Default("Default", null),
     New("${currentIDEType.title} (New)", currentIDEType),
     Old("${currentIDEType.title} (Old)", currentIDEType),
     JetBrains("JetBrains", IDEType.JETBRAINS),

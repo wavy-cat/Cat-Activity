@@ -1,5 +1,8 @@
 package cat.wavy.catactivity.setting
 
+import cat.wavy.catactivity.types.IDEType
+import cat.wavy.catactivity.types.currentIDEType
+
 data class DefaultsState(
     var theme: Theme = Theme.Macchiato,
     var ideIcon: IDEIcon = IDEIcon.New,
@@ -13,3 +16,18 @@ data class DefaultsState(
     var idleStateFormat: String = "Idle",
     var idleDetailFormat: String = "%projectName% (%branch%)",
 )
+
+enum class Theme {
+    Frappe,
+    Latte,
+    Macchiato,
+    Mocha,
+}
+
+enum class IDEIcon(val displayName: String, val app: IDEType) {
+    New("${currentIDEType.title} (New)", currentIDEType),
+    Old("${currentIDEType.title} (Old)", currentIDEType),
+    JetBrains("JetBrains", IDEType.JETBRAINS),
+    CatActivity("Cat Activity", IDEType.CATACTIVITY),
+}
+

@@ -47,11 +47,11 @@ class ProjectConfigurable(
 
         group(ConfigBundle.message("display")) {
             row(ConfigBundle.message("theme")) {
-                comboBox(items = Theme.entries).bindItem(state::theme.toNullableProperty())
+                comboBox(items = ThemeDefaultable.entries).bindItem(state::theme.toNullableProperty())
             }
 
             row(ConfigBundle.message("ideIcons")) {
-                comboBox(items = IDEIcon.entries)
+                comboBox(items = IDEIconDefaultable.entries)
                     .applyToComponent {
                         renderer = SimpleListCellRenderer.create { label, icon, _ -> label.text = icon.displayName }
                     }
