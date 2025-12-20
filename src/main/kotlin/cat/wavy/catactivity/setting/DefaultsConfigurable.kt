@@ -14,10 +14,6 @@ class DefaultsConfigurable() : Configurable {
     private val panel = panel {
         val state = service<CatActivitySettingAppState>().state
 
-        var projectStateField: JBTextField? = null
-        var fileStateField: JBTextField? = null
-        var idleStateField: JBTextField? = null
-
         group(ConfigBundle.message("display")) {
             row(ConfigBundle.message("theme")) {
                 comboBox(items = Theme.entries).bindItem(state::theme.toNullableProperty())
@@ -30,23 +26,27 @@ class DefaultsConfigurable() : Configurable {
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }
-
-            row {
-                checkBox(ConfigBundle.message("showRepositoryButton")).bindSelected(state::showRepositoryButton)
-
-                contextHelp(ConfigBundle.message("showRepositoryButtonHelp"))
-            }
         }
 
         group(ConfigBundle.message("formatProject")) {
+            var projectStateField: JBTextField? = null
+
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::projectDetailFormat)
+
+                contextHelp(
+                    ConfigBundle.message("projectFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::projectStateFormat).applyToComponent {
                     projectStateField = this
                 }
+
+                contextHelp(
+                    ConfigBundle.message("projectFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row {
@@ -54,23 +54,27 @@ class DefaultsConfigurable() : Configurable {
                     foreground = JBColor.RED
                 }.visibleIf(projectStateField!!.enteredTextSatisfies { it.isBlank() })
             }
-
-            row {
-                contextHelp(
-                    ConfigBundle.message("projectFormatHelp"), ConfigBundle.message("placeholders")
-                )
-            }
         }
 
         group(ConfigBundle.message("formatFile")) {
+            var fileStateField: JBTextField? = null
+
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::fileDetailFormat)
+
+                contextHelp(
+                    ConfigBundle.message("fileFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::fileStateFormat).applyToComponent {
                     fileStateField = this
                 }
+
+                contextHelp(
+                    ConfigBundle.message("fileFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row {
@@ -78,35 +82,33 @@ class DefaultsConfigurable() : Configurable {
                     foreground = JBColor.RED
                 }.visibleIf(fileStateField!!.enteredTextSatisfies { it.isBlank() })
             }
-
-            row {
-                contextHelp(
-                    ConfigBundle.message("fileFormatHelp"), ConfigBundle.message("placeholders")
-                )
-            }
         }
 
         group(ConfigBundle.message("formatIdle")) {
+            var idleStateField: JBTextField? = null
+
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::idleDetailFormat)
+
+                contextHelp(
+                    ConfigBundle.message("idleFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::idleStateFormat).applyToComponent {
                     idleStateField = this
                 }
+
+                contextHelp(
+                    ConfigBundle.message("idleFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row {
                 label(ConfigBundle.message("stateLineEmpty")).applyToComponent {
                     foreground = JBColor.RED
                 }.visibleIf(idleStateField!!.enteredTextSatisfies { it.isBlank() })
-            }
-
-            row {
-                contextHelp(
-                    ConfigBundle.message("idleFormatHelp"), ConfigBundle.message("placeholders")
-                )
             }
         }
     }

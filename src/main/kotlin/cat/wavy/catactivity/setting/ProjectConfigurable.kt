@@ -28,15 +28,24 @@ class ProjectConfigurable(
                 .applyToComponent { enableCheck = this }
         }
 
-        group(ConfigBundle.message("display")) {
+        group(ConfigBundle.message("privacy")) {
             row(ConfigBundle.message("details")) {
                 comboBox(
                     items = Details.entries,
                 ).bindItem(state::details.toNullableProperty()).applyToComponent { displayCombo = this }
 
-                contextHelp(ConfigBundle.message("displayModeHelp"))
+                contextHelp(ConfigBundle.message("detailsModeHelp"), ConfigBundle.message("detailsModeHelpTitle"))
             }
 
+            row {
+                checkBox(ConfigBundle.message("showRepositoryButton")).bindSelected(state::showRepositoryButton)
+                    .enabledIf(displayCombo!!.selectedValueMatches { it in setOf(Details.Project, Details.File) })
+
+                contextHelp(ConfigBundle.message("showRepositoryButtonHelp"))
+            }
+        }
+
+        group(ConfigBundle.message("display")) {
             row(ConfigBundle.message("theme")) {
                 comboBox(items = Theme.entries).bindItem(state::theme.toNullableProperty())
             }
@@ -48,12 +57,6 @@ class ProjectConfigurable(
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }.enabledIf(enableCheck!!.selected)
-
-            row {
-                checkBox(ConfigBundle.message("showRepositoryButton")).bindSelected(state::showRepositoryButton)
-
-                contextHelp(ConfigBundle.message("showRepositoryButtonHelp"))
-            }.enabledIf(displayCombo!!.selectedValueMatches { it in setOf(Details.Project, Details.File) })
         }.enabledIf(enableCheck!!.selected)
 
         group(ConfigBundle.message("formatProject")) {
@@ -62,14 +65,16 @@ class ProjectConfigurable(
                     .applyToComponent {
                         emptyText.text = ConfigBundle.message("leaveBlankDefaultValue")
                     }
+
+                contextHelp(
+                    ConfigBundle.message("projectFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::projectStateFormat)
                     .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
-            }
 
-            row {
                 contextHelp(
                     ConfigBundle.message("projectFormatHelp"), ConfigBundle.message("placeholders")
                 )
@@ -80,14 +85,16 @@ class ProjectConfigurable(
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::fileDetailFormat)
                     .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
+
+                contextHelp(
+                    ConfigBundle.message("fileFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::fileStateFormat)
                     .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
-            }
 
-            row {
                 contextHelp(
                     ConfigBundle.message("fileFormatHelp"), ConfigBundle.message("placeholders")
                 )
@@ -98,14 +105,16 @@ class ProjectConfigurable(
             row(ConfigBundle.message("detailsLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::idleDetailFormat)
                     .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
+
+                contextHelp(
+                    ConfigBundle.message("idleFormatHelp"), ConfigBundle.message("placeholders")
+                )
             }
 
             row(ConfigBundle.message("stateLine")) {
                 textField().columns(COLUMNS_LARGE).bindText(state::idleStateFormat)
                     .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
-            }
 
-            row {
                 contextHelp(
                     ConfigBundle.message("idleFormatHelp"), ConfigBundle.message("placeholders")
                 )
