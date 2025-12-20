@@ -3,7 +3,7 @@ package cat.wavy.catactivity.setting
 import cat.wavy.catactivity.types.IDEType
 import cat.wavy.catactivity.types.currentIDEType
 
-data class SettingState(
+data class ProjectState(
     var isEnabled: Boolean = false,
     var details: Details = Details.IDE,
     var theme: ThemeDefaultable = ThemeDefaultable.Macchiato,

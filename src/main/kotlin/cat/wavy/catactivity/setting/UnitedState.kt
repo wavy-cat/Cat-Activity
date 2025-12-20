@@ -18,19 +18,19 @@ data class UnitedState(
 
     var firstInit: Boolean,
 ) {
-    constructor(settingState: SettingState, defaultsState: DefaultsState) : this(
-        isEnabled = settingState.isEnabled,
-        details = settingState.details,
-        theme = resolveTheme(settingState.theme, defaultsState.theme),
-        ideIcon = resolveIDEIcon(settingState.ideIcon, defaultsState.ideIcon),
-        showRepositoryButton = settingState.showRepositoryButton,
-        projectStateFormat = settingState.projectStateFormat.ifBlank { defaultsState.projectStateFormat },
-        projectDetailFormat = settingState.projectDetailFormat.ifBlank { defaultsState.projectDetailFormat },
-        fileStateFormat = settingState.fileStateFormat.ifBlank { defaultsState.fileStateFormat },
-        fileDetailFormat = settingState.fileDetailFormat.ifBlank { defaultsState.fileDetailFormat },
-        idleStateFormat = settingState.idleStateFormat.ifBlank { defaultsState.idleStateFormat },
-        idleDetailFormat = settingState.idleDetailFormat.ifBlank { defaultsState.idleDetailFormat },
-        firstInit = settingState.firstInit
+    constructor(projectState: ProjectState, defaultsState: DefaultsState) : this(
+        isEnabled = projectState.isEnabled,
+        details = projectState.details,
+        theme = resolveTheme(projectState.theme, defaultsState.theme),
+        ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon),
+        showRepositoryButton = projectState.showRepositoryButton,
+        projectStateFormat = projectState.projectStateFormat.ifBlank { defaultsState.projectStateFormat },
+        projectDetailFormat = projectState.projectDetailFormat.ifBlank { defaultsState.projectDetailFormat },
+        fileStateFormat = projectState.fileStateFormat.ifBlank { defaultsState.fileStateFormat },
+        fileDetailFormat = projectState.fileDetailFormat.ifBlank { defaultsState.fileDetailFormat },
+        idleStateFormat = projectState.idleStateFormat.ifBlank { defaultsState.idleStateFormat },
+        idleDetailFormat = projectState.idleDetailFormat.ifBlank { defaultsState.idleDetailFormat },
+        firstInit = projectState.firstInit
     )
 
     companion object {
