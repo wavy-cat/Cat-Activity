@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+- Updated settings menu. Now you can override default values (#65).
+
+### Security
+
+- Updated dependencies
+
 ## [2.4.0] - 2025-10-13
 
 ### Changed

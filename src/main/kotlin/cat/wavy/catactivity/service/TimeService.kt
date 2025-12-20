@@ -18,10 +18,12 @@ import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.action.alert.welcomeAlert
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
+import cat.wavy.catactivity.setting.CatActivitySettingAppState
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.IDEIcon
-import cat.wavy.catactivity.setting.SettingState
+import cat.wavy.catactivity.setting.Theme
+import cat.wavy.catactivity.setting.UnitedState
 import cat.wavy.catactivity.types.*
 import com.intellij.openapi.diagnostic.thisLogger
 import git4idea.repo.GitRemote
@@ -93,7 +95,11 @@ class TimeService : Disposable {
     fun render(project: Project) {
         runAsync {
             runCatching {
-                val configState = project.service<CatActivitySettingProjectState>().state
+                val configState = UnitedState(
+                    project.service<CatActivitySettingProjectState>().state,
+                    service<CatActivitySettingAppState>().state
+                )
+//                val configState = project.service<CatActivitySettingProjectState>().state
                 val problemsCollector = ProblemsCollector.getInstance(project)
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
@@ -133,7 +139,8 @@ class TimeService : Disposable {
                                 state = configState.idleStateFormat.replaceVariables(variables),
                                 details = configState.idleDetailFormat.ifBlank { null }?.replaceVariables(variables),
                                 startTimestamp = startIdleTimestamp
-                            ).applyIDEInfo(project).applyFileInfo(project)
+                            ).applyIDEInfo(configState.ideIcon, configState.theme)
+                                .applyFileInfo(configState.ideIcon, configState.theme)
 
                             activityWrapper.let {
                                 activityRender.updateActivity(it)
@@ -157,7 +164,8 @@ class TimeService : Disposable {
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo(project).applyFileInfo(project)
+                        ).applyIDEInfo(configState.ideIcon, configState.theme)
+                            .applyFileInfo(configState.ideIcon, configState.theme)
 
                         if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
                             activityWrapper.applyRepoButton(gitRemotes[0])
@@ -169,7 +177,7 @@ class TimeService : Disposable {
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo(project)
+                        ).applyIDEInfo(configState.ideIcon, configState.theme)
 
                         if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
                             activityWrapper.applyRepoButton(gitRemotes[0])
@@ -180,7 +188,7 @@ class TimeService : Disposable {
                         activityWrapper = ActivityWrapper(
                             state = ApplicationInfoEx.getInstanceEx().fullApplicationName,
                             startTimestamp = startTime,
-                        ).applyIDEInfo(project)
+                        ).applyIDEInfo(configState.ideIcon, configState.theme)
                     }
                 }
 
@@ -208,15 +216,13 @@ class TimeService : Disposable {
         }
     }
 
-    private fun getLangIconUrl(state: SettingState, icon: String): String {
-        return "$ICONS_URL/${state.theme.name}/$icon.webp"
-    }
+    private fun getLangIconUrl(icon: String, theme: Theme): String = "$ICONS_URL/${theme.name}/$icon.webp"
 
-    private fun getIDEIconUrl(state: SettingState): String = when (state.ideIcon) {
-        IDEIcon.New -> "$ICONS_URL/IDE/new/${state.theme.name}/${currentIDEType.icon}.webp"
-        IDEIcon.Old -> "$ICONS_URL/IDE/${state.theme.name}/${currentIDEType.icon}.webp"
-        IDEIcon.JetBrains -> "$ICONS_URL/IDE/${state.theme.name}/jetbrains.webp"
-        IDEIcon.CatActivity -> "$ICONS_URL/IDE/${state.theme.name}/cat_activity.webp"
+    private fun getIDEIconUrl(ideIcon: IDEIcon, theme: Theme): String = when (ideIcon) {
+        IDEIcon.New -> "$ICONS_URL/IDE/new/${theme.name}/${currentIDEType.icon}.webp"
+        IDEIcon.Old -> "$ICONS_URL/IDE/${theme.name}/${currentIDEType.icon}.webp"
+        IDEIcon.JetBrains -> "$ICONS_URL/IDE/${theme.name}/jetbrains.webp"
+        IDEIcon.CatActivity -> "$ICONS_URL/IDE/${theme.name}/cat_activity.webp"
     }
 
     private fun convertGitRepositoryUrl(url: String): String? {
@@ -244,20 +250,18 @@ class TimeService : Disposable {
         return this
     }
 
-    private fun ActivityWrapper.applyIDEInfo(project: Project): ActivityWrapper {
-        val state = project.service<CatActivitySettingProjectState>().state
-        largeImageKey = getIDEIconUrl(state)
-        largeImageText = state.ideIcon.app.title
+    private fun ActivityWrapper.applyIDEInfo(ideIcon: IDEIcon, theme: Theme): ActivityWrapper {
+        largeImageKey = getIDEIconUrl(ideIcon, theme)
+        largeImageText = ideIcon.app.title
         return this
     }
 
-    private fun ActivityWrapper.applyFileInfo(project: Project): ActivityWrapper {
-        val state = project.service<CatActivitySettingProjectState>().state
+    private fun ActivityWrapper.applyFileInfo(ideIcon: IDEIcon, theme: Theme): ActivityWrapper {
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.fileName, it.extension)
-            smallImageKey = getIDEIconUrl(state)
+            smallImageKey = getIDEIconUrl(ideIcon, theme)
             smallImageText = largeImageText // swap
-            largeImageKey = getLangIconUrl(state, type.icon)
+            largeImageKey = getLangIconUrl(type.icon, theme)
             largeImageText = type.typeName
         }
         return this

@@ -12,9 +12,16 @@
 
         <projectConfigurable
                 id="cat.wavy.catactivity.setting.CatConfigurableProject"
-                instance="cat.wavy.catactivity.setting.CatConfigurable"
+                instance="cat.wavy.catactivity.setting.ProjectConfigurable"
                 parentId="tools"
                 key="projectTitle"
+                bundle="messages.ConfigBundle"/>
+
+        <applicationConfigurable
+                id="cat.wavy.catactivity.setting.CatConfigurableDefaults"
+                instance="cat.wavy.catactivity.setting.DefaultsConfigurable"
+                parentId="cat.wavy.catactivity.setting.CatConfigurableProject"
+                key="defaultsSettingsTitle"
                 bundle="messages.ConfigBundle"/>
     </extensions>
 

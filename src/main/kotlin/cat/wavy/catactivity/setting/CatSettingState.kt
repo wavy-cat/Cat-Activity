@@ -10,14 +10,30 @@ import com.intellij.util.xmlb.XmlSerializerUtil
     name = "CatActivitySettingProjectState", storages = [Storage("cat-activity.xml")]
 )
 @Service(Service.Level.PROJECT)
-class CatActivitySettingProjectState : PersistentStateComponent<SettingState> {
-    private val state = SettingState()
+class CatActivitySettingProjectState : PersistentStateComponent<ProjectState> {
+    private val state = ProjectState()
 
-    override fun getState(): SettingState {
+    override fun getState(): ProjectState {
         return state
     }
 
-    override fun loadState(state: SettingState) {
+    override fun loadState(state: ProjectState) {
+        XmlSerializerUtil.copyBean(state, this.state)
+    }
+}
+
+@State(
+    name = "CatActivitySettingAppState", storages = [Storage("cat-activity-defaults.xml")]
+)
+@Service(Service.Level.APP)
+class CatActivitySettingAppState : PersistentStateComponent<DefaultsState> {
+    private val state = DefaultsState()
+
+    override fun getState(): DefaultsState {
+        return state
+    }
+
+    override fun loadState(state: DefaultsState) {
         XmlSerializerUtil.copyBean(state, this.state)
     }
 }
