@@ -4,7 +4,10 @@
 
 ## [Unreleased]
 
+### Changed
+
 - Updated settings menu. Now you can override default values (#65).
+- Asset storage domain changed.
 
 ### Security
 
