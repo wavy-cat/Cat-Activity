@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- The Theme setting in new projects has been changed from Macchiato to the default.
+
 ## [2.5.0] - 2025-12-20
 
 ### Changed
