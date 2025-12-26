@@ -6,7 +6,7 @@ import cat.wavy.catactivity.types.currentIDEType
 data class ProjectState(
     var isEnabled: Boolean = false,
     var details: Details = Details.IDE,
-    var theme: ThemeDefaultable = ThemeDefaultable.Macchiato,
+    var theme: ThemeDefaultable = ThemeDefaultable.Default,
     var ideIcon: IDEIconDefaultable = IDEIconDefaultable.Default,
     var showRepositoryButton: Boolean = false,
 
