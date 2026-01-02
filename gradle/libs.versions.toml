@@ -8,12 +8,14 @@ discordGameSdk4j = "v1.0.0"
 changelog = "2.5.0"
 intelliJPlatform = "2.10.5"
 kotlin = "2.3.0"
+kotlinxCoroutines = "1.10.2"
 kover = "0.9.4"
 qodana = "2025.3.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 opentest4j = { group = "org.opentest4j", name = "opentest4j", version.ref = "opentest4j" }
+kotlinxCoroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 discordGameSdk4j = { group = "com.github.JnCrMx", name = "discord-game-sdk4j", version.ref = "discordGameSdk4j" }
 
 [plugins]
