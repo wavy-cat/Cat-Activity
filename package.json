@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/wavy-cat/Cat-Activity#readme",
   "devDependencies": {
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.0.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "commander": "^14.0.2",
     "sharp": "^0.34.5",
-    "winston": "^3.18.3",
-    "zod": "^4.1.13"
+    "winston": "^3.19.0",
+    "zod": "^4.3.4"
   }
 }
