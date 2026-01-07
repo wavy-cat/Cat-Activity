@@ -8,6 +8,7 @@ import cat.wavy.catactivity.setting.Details
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
@@ -19,6 +20,10 @@ private class ShowAction(
     private val details: Details?,
     title: String
 ) : AnAction(title) {
+    override fun getActionUpdateThread(): ActionUpdateThread {
+        return ActionUpdateThread.BGT
+    }
+
     override fun actionPerformed(e: AnActionEvent) {
         val configState = e.project?.service<CatActivitySettingProjectState>()?.state
         if (configState != null && details != null) {
