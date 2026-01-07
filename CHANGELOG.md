@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- The issue was fixed where the IDE would crash during background restart of the Discord client.
+
+### Changed
+
+- The activity rendering code has been optimized. All notifications and actions in the Tools menu have been switched to background execution mode.
+- The kotlinx coroutines library was added directly into the plugin for full Kotlin 2 support, so **the size of the plugin has increased significantly**.
+
 ## [2.5.1] - 2025-12-26
 
 ### Fixed
