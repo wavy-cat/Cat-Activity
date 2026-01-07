@@ -15,9 +15,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
 import cat.wavy.catactivity.ICONS_URL
+import cat.wavy.catactivity.action.alert.reloadAlert
 import cat.wavy.catactivity.action.alert.welcomeAlert
 import cat.wavy.catactivity.render.ActivityWrapper
 import cat.wavy.catactivity.render.ActivityRender
+import cat.wavy.catactivity.setting.ActivityNotificationService
 import cat.wavy.catactivity.setting.CatActivitySettingAppState
 import cat.wavy.catactivity.setting.CatActivitySettingProjectState
 import cat.wavy.catactivity.setting.Details
@@ -66,8 +68,7 @@ class TimeService : Disposable {
     fun onProjectClosed(project: Project) {
         timeTracker.invalidate("project:${project.name}")
         editingProject = null
-        val activityRender = service<ActivityRender>()
-        activityRender.clearActivity()
+        project.service<ActivityRender>().dispose()
     }
 
     fun onFileOpened(project: Project, file: VirtualFile) {
@@ -99,21 +100,23 @@ class TimeService : Disposable {
                     project.service<CatActivitySettingProjectState>().state,
                     service<CatActivitySettingAppState>().state
                 )
-//                val configState = project.service<CatActivitySettingProjectState>().state
+
+                val activityRender = project.service<ActivityRender>()
+                val activityWrapper: ActivityWrapper
+
+                if (activityRender.onError == null) activityRender.onError = ::reloadAlert
+
+                if (!configState.isEnabled) {
+                    activityRender.clearActivity()
+                    return@runAsync
+                }
+
                 val problemsCollector = ProblemsCollector.getInstance(project)
                 val repo = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)
                 }
                 val gitRemotes = editingFile?.file?.get()?.let {
                     GitUtil.getRepositoryManager(project).getRepositoryForFile(it)?.remotes?.toList()
-                }
-
-                val activityRender = service<ActivityRender>()
-                val activityWrapper: ActivityWrapper
-
-                if (!configState.isEnabled) {
-                    activityRender.clearActivity()
-                    return@runAsync
                 }
 
                 editingFile?.let {
@@ -196,6 +199,7 @@ class TimeService : Disposable {
 
                 if (activityRender.clientID != configState.ideIcon.app.applicationId) activityRender.apply {
                     clientID = configState.ideIcon.app.applicationId
+                    project.service<ActivityNotificationService>().ignoreReloadAlert.set(false)
                     reinit(false)
                 }
 
@@ -228,6 +232,7 @@ class TimeService : Disposable {
     private fun convertGitRepositoryUrl(url: String): String? {
         return try {
             when {
+                @Suppress("HttpUrlsUsage")
                 url.startsWith("http://") || url.startsWith("https://") -> url
                 url.startsWith("ssh://") -> url.replace("ssh://", "https://")
                 else -> {

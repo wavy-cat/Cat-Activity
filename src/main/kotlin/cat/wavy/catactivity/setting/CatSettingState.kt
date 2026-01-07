@@ -5,6 +5,7 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
+import java.util.concurrent.atomic.AtomicBoolean
 
 @State(
     name = "CatActivitySettingProjectState", storages = [Storage("cat-activity.xml")]
@@ -36,4 +37,9 @@ class CatActivitySettingAppState : PersistentStateComponent<DefaultsState> {
     override fun loadState(state: DefaultsState) {
         XmlSerializerUtil.copyBean(state, this.state)
     }
+}
+
+@Service(Service.Level.PROJECT)
+class ActivityNotificationService {
+    val ignoreReloadAlert = AtomicBoolean(false)
 }

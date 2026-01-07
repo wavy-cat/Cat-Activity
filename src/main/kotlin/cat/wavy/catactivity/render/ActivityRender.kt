@@ -2,42 +2,74 @@ package cat.wavy.catactivity.render
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.diagnostic.thisLogger
 import de.jcm.discordgamesdk.ActivityManager
 import de.jcm.discordgamesdk.Core
 import de.jcm.discordgamesdk.CreateParams
 import de.jcm.discordgamesdk.activity.Activity
-import kotlinx.coroutines.*
-import cat.wavy.catactivity.action.alert.reloadAlert
-import cat.wavy.catactivity.types.currentIDEType
-import com.intellij.openapi.diagnostic.thisLogger
-import com.intellij.openapi.project.ProjectManager
 import de.jcm.discordgamesdk.activity.ActivityButton
 import de.jcm.discordgamesdk.activity.ActivityButtonsMode
+import cat.wavy.catactivity.types.currentIDEType
+import com.intellij.openapi.project.Project
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import java.util.*
+import java.util.concurrent.Executors
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
-@Service
-class ActivityRender : Disposable {
+@Service(Service.Level.PROJECT)
+class ActivityRender(private val project: Project) : Disposable {
+    private lateinit var core: Core
     private lateinit var activityManager: ActivityManager
-    private var scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+    private var discordExecutor = Executors.newSingleThreadExecutor { r ->
+        Thread(r, "CatActivity-DiscordSDK").apply { isDaemon = true }
+    }
+    private var discordDispatcher = discordExecutor.asCoroutineDispatcher()
+
+    private var scope = CoroutineScope(SupervisorJob() + discordDispatcher)
+
     private lateinit var lastActivity: ActivityWrapper
     var clientID = currentIDEType.applicationId
-    var ignoreFlag = false
+
+    var onError: ((Project, String?) -> Unit)? = null
+
+    private var updates = Channel<Activity>(capacity = Channel.CONFLATED)
 
     private fun init() = kotlin.runCatching {
-        val core = Core(
+        core = Core(
             CreateParams().apply {
                 clientID = this@ActivityRender.clientID
                 flags = CreateParams.getDefaultFlags()
-            })
-        scope.launch(Dispatchers.IO) {
-            delay(1000L)
-            runCatching {
-                core.runCallbacks()
-            }.onFailure {
-                it.printStackTrace()
+            }
+        )
+        activityManager = core.activityManager()
+
+        scope.launch {
+            delay(1.seconds)
+            while (isActive) {
+                runCatching {
+                    core.runCallbacks()
+                }.onFailure {
+                    thisLogger().warn("Discord runCallbacks failed: ${it.message}")
+                }
+                delay(100.milliseconds)
             }
         }
-        activityManager = core.activityManager()
+
+        scope.launch {
+            for (activityNative in updates) {
+                runCatching {
+                    withTimeout(2.seconds) {
+                        activityManager.updateActivity(activityNative)
+                    }
+                }.onFailure { t ->
+                    thisLogger().warn("Failed to update activity: ${t.message}")
+                    onError?.invoke(project, t.message)
+                }
+            }
+        }
     }.also {
         thisLogger().info("ActivityRender init result: ${it.isSuccess}")
     }
@@ -47,56 +79,62 @@ class ActivityRender : Disposable {
     }
 
     fun updateActivity(activity: ActivityWrapper) = kotlin.runCatching {
-        val activityNative = Activity()
-        activityNative.state = activity.state
-        activityNative.details = activity.details
-        activity.startTimestamp?.let {
-            activityNative.timestamps().start = Date(it).toInstant()
-        }
-        activity.endTimestamp?.let {
-            activityNative.timestamps().end = Date(it).toInstant()
-        }
-        activityNative.assets().largeImage = activity.largeImageKey
-        activityNative.assets().largeText = activity.largeImageText
-        activityNative.assets().smallImage = activity.smallImageKey
-        activityNative.assets().smallText = activity.smallImageText
+        val activityNative = Activity().apply {
+            state = activity.state
+            details = activity.details
+            activity.startTimestamp?.let { timestamps().start = Date(it).toInstant() }
+            activity.endTimestamp?.let { timestamps().end = Date(it).toInstant() }
 
-        if (activity.buttonLabel != null && activity.buttonLink != null) {
-            activityNative.activityButtonsMode = ActivityButtonsMode.BUTTONS
-            activityNative.addButton(ActivityButton(activity.buttonLabel, activity.buttonLink))
+            assets().largeImage = activity.largeImageKey
+            assets().largeText = activity.largeImageText
+            assets().smallImage = activity.smallImageKey
+            assets().smallText = activity.smallImageText
+
+            if (activity.buttonLabel != null && activity.buttonLink != null) {
+                activityButtonsMode = ActivityButtonsMode.BUTTONS
+                addButton(ActivityButton(activity.buttonLabel, activity.buttonLink))
+            }
         }
 
         lastActivity = activity
-        scope.launch(Dispatchers.IO) {
-            kotlin.runCatching {
-                activityManager.updateActivity(activityNative)
-            }.onFailure {
-                thisLogger().warn("Failed to update activity: " + it.message)
-                val project = ProjectManager.getInstance().openProjects.firstOrNull()
-                if (project != null && !ignoreFlag) {
-                    reloadAlert(project, it.message)
-                    ignoreFlag = true
+
+        updates.trySend(activityNative)
+    }
+
+    fun clearActivity() = kotlin.runCatching {
+        scope.launch {
+            runCatching {
+                withTimeout(2.seconds) {
+                    activityManager.clearActivity()
                 }
+            }.onFailure {
+                thisLogger().warn("Failed to clear activity: ${it.message}")
             }
         }
     }
 
-    fun clearActivity() = kotlin.runCatching {
-        activityManager.clearActivity()
-    }
-
     fun reinit(update: Boolean = true) {
         dispose()
-        scope = CoroutineScope(Dispatchers.Default + SupervisorJob())
-        init()
-        ignoreFlag = false
-        if (this::lastActivity.isInitialized && update) {
-            updateActivity(lastActivity)
+
+        runCatching { discordExecutor.awaitTermination(3, java.util.concurrent.TimeUnit.SECONDS) }
+        discordExecutor = Executors.newSingleThreadExecutor { r ->
+            Thread(r, "CatActivity-DiscordSDK").apply { isDaemon = true }
         }
+        discordDispatcher = discordExecutor.asCoroutineDispatcher()
+
+        updates = Channel(Channel.CONFLATED)
+        scope = CoroutineScope(SupervisorJob() + discordDispatcher)
+
+        init()
+
+        if (this::lastActivity.isInitialized && update) updateActivity(lastActivity)
     }
 
     override fun dispose() {
-        clearActivity()
-        scope.cancel()
+        runCatching { clearActivity() }
+        runCatching { updates.close() }
+        runCatching { scope.cancel() }
+        runCatching { core.close() }
+        runCatching { discordExecutor.shutdown() }
     }
 }
