@@ -120,7 +120,7 @@ class TimeService : Disposable {
                 }
 
                 editingFile?.let {
-                    if (getIgnoreByName(it.type, it.fileName)) {
+                    if (isFileIgnored(it.type, it.fileName)) {
                         thisLogger().info("Ignoring a ${it.type} (${it.fileName}) file")
                         return@runAsync
                     }
@@ -212,10 +212,11 @@ class TimeService : Disposable {
     }
 
     /** Returns `true` if the file is to be ignored. */
-    private fun getIgnoreByName(fileType: String, fileName: String) = when (fileType) {
-        "Terminal Prompt" -> true
+    private fun isFileIgnored(fileType: String, fileName: String) = when (fileType) {
+        "ChatInput" -> true // JetBrains AI Chat
+        "Terminal Prompt" -> true // Terminal
         else -> when (fileName.lowercase()) {
-            "dummy.txt" -> true
+            "dummy.txt" -> true // Terminal
             else -> false
         }
     }
