@@ -16,8 +16,8 @@ import com.intellij.openapi.project.Project
 
 private class ShowAction(
     private val notification: Notification,
-    private val timeService: TimeService?,
-    private val details: Details?,
+    private val timeService: TimeService,
+    private val details: Details,
     title: String
 ) : AnAction(title) {
     override fun getActionUpdateThread(): ActionUpdateThread {
@@ -25,16 +25,32 @@ private class ShowAction(
     }
 
     override fun actionPerformed(e: AnActionEvent) {
-        val configState = e.project?.service<CatActivitySettingProjectState>()?.state
-        if (configState != null && details != null) {
-            configState.details = details
-            configState.isEnabled = true
-            notification.expire()
-            timeService?.render(e.project!!)
-        } else if (details == null) {
-            configState?.isEnabled = false
-            notification.expire()
+        val project = e.project ?: return
+        project.service<CatActivitySettingProjectState>().state.let {
+            it.details = details
+            it.isEnabled = true
+            it.firstInit = false
         }
+        timeService.render(project)
+        notification.expire()
+    }
+}
+
+private class ShowActionDisable(
+    private val notification: Notification,
+    title: String
+) : AnAction(title) {
+    override fun getActionUpdateThread(): ActionUpdateThread {
+        return ActionUpdateThread.BGT
+    }
+
+    override fun actionPerformed(e: AnActionEvent) {
+        val project = e.project ?: return
+        project.service<CatActivitySettingProjectState>().state.let {
+            it.isEnabled = false
+            it.firstInit = false
+        }
+        notification.expire()
     }
 }
 
@@ -53,11 +69,9 @@ fun welcomeAlert(project: Project, timeService: TimeService): Boolean {
         notification.addAction(ShowAction(notification, timeService, Details.IDE, ToolsBundle.message("welcomeAlert.action.onlyIDE")))
         notification.addAction(ShowAction(notification, timeService, Details.Project, ToolsBundle.message("welcomeAlert.action.project")))
         notification.addAction(ShowAction(notification, timeService, Details.File, ToolsBundle.message("welcomeAlert.action.projectAndFile")))
-        notification.addAction(ShowAction(notification, null, null, ToolsBundle.message("welcomeAlert.action.disable")))
+        notification.addAction(ShowActionDisable(notification, ToolsBundle.message("welcomeAlert.action.disable")))
 
         Notifications.Bus.notify(notification, project)
-
-        configState.firstInit = false
         return true
     }
     return false
