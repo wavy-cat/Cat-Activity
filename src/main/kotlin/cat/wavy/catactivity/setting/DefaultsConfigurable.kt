@@ -10,7 +10,7 @@ import com.intellij.ui.layout.enteredTextSatisfies
 import com.intellij.ui.SimpleListCellRenderer
 import javax.swing.JComponent
 
-class DefaultsConfigurable() : Configurable {
+class DefaultsConfigurable : Configurable {
     private val panel = panel {
         val state = service<CatActivitySettingAppState>().state
 
