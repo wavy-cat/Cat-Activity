@@ -59,7 +59,7 @@ class TimeService : Disposable {
     fun onProjectOpened(project: Project) {
         timeTracker.put("project:${project.name}", System.currentTimeMillis())
         editingProject = ProjectItem.from(project)
-        val firstInit = welcomeAlert(project, this)
+        val firstInit = welcomeAlert(project)
         if (!firstInit) {
             render(project)
         }

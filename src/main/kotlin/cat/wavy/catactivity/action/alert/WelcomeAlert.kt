@@ -16,7 +16,6 @@ import com.intellij.openapi.project.Project
 
 private class ShowAction(
     private val notification: Notification,
-    private val timeService: TimeService,
     private val details: Details,
     title: String
 ) : AnAction(title) {
@@ -31,7 +30,7 @@ private class ShowAction(
             it.isEnabled = true
             it.firstInit = false
         }
-        timeService.render(project)
+        project.service<TimeService>().render(project)
         notification.expire()
     }
 }
@@ -58,7 +57,7 @@ private class ShowActionDisable(
  * Displays a welcome notification and returns true if it is the first initialization.
  * Otherwise, it does nothing and returns false.
  */
-fun welcomeAlert(project: Project, timeService: TimeService): Boolean {
+fun welcomeAlert(project: Project): Boolean {
     val configState = project.service<CatActivitySettingProjectState>().state
 
     if (configState.firstInit) {
@@ -66,9 +65,9 @@ fun welcomeAlert(project: Project, timeService: TimeService): Boolean {
         val content = ToolsBundle.message("welcomeAlert.content")
         val notification = Notification(NOTIFICATION_GROUP_ID, title, content, NotificationType.INFORMATION)
 
-        notification.addAction(ShowAction(notification, timeService, Details.IDE, ToolsBundle.message("welcomeAlert.action.onlyIDE")))
-        notification.addAction(ShowAction(notification, timeService, Details.Project, ToolsBundle.message("welcomeAlert.action.project")))
-        notification.addAction(ShowAction(notification, timeService, Details.File, ToolsBundle.message("welcomeAlert.action.projectAndFile")))
+        notification.addAction(ShowAction(notification, Details.IDE, ToolsBundle.message("welcomeAlert.action.onlyIDE")))
+        notification.addAction(ShowAction(notification, Details.Project, ToolsBundle.message("welcomeAlert.action.project")))
+        notification.addAction(ShowAction(notification, Details.File, ToolsBundle.message("welcomeAlert.action.projectAndFile")))
         notification.addAction(ShowActionDisable(notification, ToolsBundle.message("welcomeAlert.action.disable")))
 
         Notifications.Bus.notify(notification, project)
