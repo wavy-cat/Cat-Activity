@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the welcome alert logic: it will now appear on project startup until a definitive response is provided.
+- Optimized the welcome alert code.
+- JetBrains AI chats are no longer displayed as activity.
+
 ## [2.5.2] - 2026-01-07
 
 ### Fixed
