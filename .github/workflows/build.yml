@@ -232,7 +232,7 @@ jobs:
     name: Release draft
     if: github.event_name != 'pull_request'
     needs: [ build, test, inspectCode, verify ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       contents: write
     steps:

@@ -104,7 +104,7 @@ jobs:
   deploy:
     name: Upload to S3
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: build-assets
 
     steps:
@@ -121,4 +121,4 @@ jobs:
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
         run: |
           aws configure set region auto
-          aws s3 sync --endpoint-url $AWS_ENDPOINT assets-dist/ s3://cat-activity --checksum-algorithm CRC32
+          aws s3 sync --endpoint-url $AWS_ENDPOINT assets-dist/ s3://cat-activity
