@@ -9,7 +9,7 @@ changelog = "2.5.0"
 intelliJPlatform = "2.11.0"
 kotlin = "2.3.10"
 kotlinxCoroutines = "1.10.2"
-kover = "0.9.6"
+kover = "0.9.7"
 qodana = "2025.3.1"
 
 [libraries]
