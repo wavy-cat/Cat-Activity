@@ -39,13 +39,12 @@ it would be better to send a [Pull request](https://github.com/wavy-cat/cat-acti
 
 ## Supported IDE
 
-All of them, including Android Studio. Some IDEs, such as MPS and AppCode, may not have an icon. In this case, a
-fallback icon will be used.
+All of them, including Android Studio. New IDEs or non-JetBrains IDEs do not have their own icon and will use the fallback icon.
+
 JetBrains Gateway, JetBrains Client, and Code With Me Guest are not supported.
 
-## How to request adding an icon?
+## How to request a new icon set?
 
-Create an Issue and write in it the name of the language, framework or technology you want to see specified in
-the [Catppuccin icons](https://github.com/catppuccin/vscode-icons).
+If you want to suggest an icon set that is not yet included in the plugin (currently only Catppuccin), create a feature request in the Issues section.
 
-Other icon sets will be rejected.
+Your icon set should preferably have a repository with pairs of the form “file extension (language, full file name) - icon,” for example, as a plugin for another code editor (see the example in the [Catppuccin repository](https://github.com/catppuccin/vscode-icons/blob/main/src/defaults/fileIcons.ts)).
