@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
     "skipLibCheck": true,
-    "target": "ES2024",
+    "target": "ESNEXT",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "noImplicitAny": false,
     "removeComments": true,
     "preserveConstEnums": true,
