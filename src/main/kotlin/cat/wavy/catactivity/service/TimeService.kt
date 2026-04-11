@@ -26,6 +26,8 @@ import cat.wavy.catactivity.setting.Details
 import cat.wavy.catactivity.setting.IDEIcon
 import cat.wavy.catactivity.setting.Theme
 import cat.wavy.catactivity.setting.UnitedState
+import cat.wavy.catactivity.utils.LazyVariables
+import cat.wavy.catactivity.utils.replaceVariables
 import cat.wavy.catactivity.types.*
 import com.intellij.openapi.application.runReadActionBlocking
 import com.intellij.openapi.diagnostic.thisLogger
@@ -288,8 +290,6 @@ sealed class TimedItem(
     val key: String
 )
 
-private fun String.replaceVariables(variables: LazyVariables): String = variables.replaceIn(this)
-
 private fun Long.formatBytes(): String {
     return when {
         this < 1024 -> "$this B"
@@ -339,38 +339,5 @@ class FileItem(
                 file.length
             )
         }
-    }
-}
-
-class LazyVariables {
-    private val providers = mutableMapOf<String, () -> String>()
-    private val cache = mutableMapOf<String, String>()
-
-    fun put(key: String, value: String) {
-        cache[key] = value
-    }
-
-    fun putLazy(key: String, provider: () -> String) {
-        providers[key] = provider
-    }
-
-    fun resolve(key: String): String? {
-        cache[key]?.let { return it }
-        providers[key]?.let {
-            val value = it()
-            cache[key] = value
-            return value
-        }
-        return null
-    }
-
-    fun replaceIn(template: String): String {
-        var result = template
-        for (key in providers.keys + cache.keys) {
-            if (key in result) {
-                resolve(key)?.let { result = result.replace(key, it) }
-            }
-        }
-        return result
     }
 }
