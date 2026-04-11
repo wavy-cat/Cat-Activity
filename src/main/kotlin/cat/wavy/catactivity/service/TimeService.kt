@@ -27,6 +27,7 @@ import cat.wavy.catactivity.setting.IDEIcon
 import cat.wavy.catactivity.setting.Theme
 import cat.wavy.catactivity.setting.UnitedState
 import cat.wavy.catactivity.types.*
+import com.intellij.openapi.application.runReadActionBlocking
 import com.intellij.openapi.diagnostic.thisLogger
 import git4idea.repo.GitRemote
 import org.jetbrains.concurrency.runAsync
@@ -333,7 +334,7 @@ class FileItem(
                 file.fileType.name,
                 file.extension ?: file.name,
                 file.path,
-                FileDocumentManager.getInstance().getDocument(file)?.lineCount,
+                runReadActionBlocking { FileDocumentManager.getInstance().getDocument(file)?.lineCount },
                 file.length
             )
         }
