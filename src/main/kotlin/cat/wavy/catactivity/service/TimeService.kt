@@ -167,8 +167,11 @@ class TimeService : Disposable {
                                 (editingFile?.file?.get()
                                     ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString()
                             }
-                            putLazy("%linesCount%") {
-                                editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default
+                            putLazy("%fileLineCount%") {
+                                editingFile?.lineCount?.toString() ?: DefaultVars.LINECOUNT.default
+                            }
+                            putLazy("%linesCount%") { // deprecated name
+                                editingFile?.lineCount?.toString() ?: DefaultVars.LINECOUNT.default
                             }
                         }
 
@@ -323,7 +326,7 @@ class FileItem(
     val type: String,
     val extension: String?,
     val filePath: String,
-    val linesCount: Int?,
+    val lineCount: Int?,
     val fileSize: Long
 ) : TimedItem(key) {
     companion object {

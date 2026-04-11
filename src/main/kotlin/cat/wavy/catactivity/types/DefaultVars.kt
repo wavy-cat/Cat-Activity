@@ -10,7 +10,7 @@ enum class DefaultVars(
     PROJECTPATH("¯\\_(ツ)_/¯"),
     FILENAME("Empty"),
     FILEPATH("¯\\_(ツ)_/¯"),
-    LINESCOUNT("¯\\_(ツ)_/¯"),
+    LINECOUNT("Binary data"),
     FILESIZE("¯\\_(ツ)_/¯"),
     FILEEXTENSION("¯\\_(ツ)_/¯")
 }
