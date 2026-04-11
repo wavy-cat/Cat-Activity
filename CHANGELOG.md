@@ -7,6 +7,7 @@
 ### Changed
 
 - Optimized rendering by introducing lazy variable substitution.
+- The placeholder `%linesCount%` has been renamed to `%fileLineCount%`.
 
 ### Fixed
 
