@@ -4,6 +4,23 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Optimized rendering by introducing lazy variable substitution.
+
+### Fixed
+
+- Refactored file line count retrieval to use `runReadActionBlocking` for fixed #127 in 2026.1.
+
+### Security
+
+- Updated dependencies.
+
+### Removed
+
+- Removed the dependency on `kotlinx-coroutines` (JetBrains IDEs 2026.1 uses Kotlin 2 out of the box), reducing the bundle size from 3.3 MB to 0.5 MB.
+- Dropped support for IDE versions below 2026.1.
+
 ## [2.5.3] - 2026-01-25
 
 ### Changed
