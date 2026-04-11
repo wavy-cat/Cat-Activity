@@ -27,6 +27,7 @@ import cat.wavy.catactivity.setting.IDEIcon
 import cat.wavy.catactivity.setting.Theme
 import cat.wavy.catactivity.setting.UnitedState
 import cat.wavy.catactivity.types.*
+import com.intellij.openapi.application.runReadActionBlocking
 import com.intellij.openapi.diagnostic.thisLogger
 import git4idea.repo.GitRemote
 import org.jetbrains.concurrency.runAsync
@@ -126,14 +127,17 @@ class TimeService : Disposable {
                     }
                 }
 
-                val variables = mutableMapOf(
-                    "%projectName%" to (editingProject?.projectName ?: DefaultVars.PROJECTNAME.default),
-                    "%projectPath%" to (editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default),
-                    "%projectProblems%" to problemsCollector.getProblemCount().toString(),
-                    "%branch%" to (repo?.currentBranch?.name ?: DefaultVars.BRANCH.default),
-                    "%repository%" to (repo?.project?.name ?: DefaultVars.REPO.default),
-                    "%dinnerbone%" to "\u202E",
-                )
+                val variables = LazyVariables().apply {
+                    put("%projectName%", editingProject?.projectName ?: DefaultVars.PROJECTNAME.default)
+                    put("%projectPath%", editingProject?.projectPath ?: DefaultVars.PROJECTPATH.default)
+                    put("%branch%", repo?.currentBranch?.name ?: DefaultVars.BRANCH.default)
+                    put("%repository%", repo?.project?.name ?: DefaultVars.REPO.default)
+                    put("%dinnerbone%", "\u202E")
+
+                    putLazy("%projectProblems%") {
+                        problemsCollector.getProblemCount().toString()
+                    }
+                }
 
                 when (configState.details) {
                     Details.File -> {
@@ -151,17 +155,20 @@ class TimeService : Disposable {
                             return@runAsync
                         }
 
-                        variables.putAll(
-                            mutableMapOf(
-                                "%fileName%" to (editingFile?.fileName ?: DefaultVars.FILENAME.default),
-                                "%filePath%" to (editingFile?.filePath ?: DefaultVars.FILEPATH.default),
-                                "%fileProblems%" to (editingFile?.file?.get()
-                                    ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString(),
-                                "%linesCount%" to (editingFile?.linesCount?.toString()
-                                    ?: DefaultVars.LINESCOUNT.default),
-                                "%fileSize%" to (editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default),
-                                "%fileExtension%" to (editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
-                            ))
+                        variables.apply {
+                            put("%fileName%", editingFile?.fileName ?: DefaultVars.FILENAME.default)
+                            put("%filePath%", editingFile?.filePath ?: DefaultVars.FILEPATH.default)
+                            put("%fileSize%", editingFile?.fileSize?.formatBytes() ?: DefaultVars.FILESIZE.default)
+                            put("%fileExtension%", editingFile?.extension ?: DefaultVars.FILEEXTENSION.default)
+
+                            putLazy("%fileProblems%") {
+                                (editingFile?.file?.get()
+                                    ?.let { problemsCollector.getFileProblemCount(it) } ?: 0).toString()
+                            }
+                            putLazy("%linesCount%") {
+                                editingFile?.linesCount?.toString() ?: DefaultVars.LINESCOUNT.default
+                            }
+                        }
 
                         activityWrapper = ActivityWrapper(
                             state = configState.fileStateFormat.replaceVariables(variables),
@@ -235,6 +242,7 @@ class TimeService : Disposable {
             when {
                 @Suppress("HttpUrlsUsage")
                 url.startsWith("http://") || url.startsWith("https://") -> url
+
                 url.startsWith("ssh://") -> url.replace("ssh://", "https://")
                 else -> {
                     val parts = url.substringAfter('@').split(':', limit = 2)
@@ -280,13 +288,7 @@ sealed class TimedItem(
     val key: String
 )
 
-private fun String.replaceVariables(variables: Map<String, String>): String {
-    var result = this
-    variables.forEach { (key, value) ->
-        result = result.replace(key, value)
-    }
-    return result
-}
+private fun String.replaceVariables(variables: LazyVariables): String = variables.replaceIn(this)
 
 private fun Long.formatBytes(): String {
     return when {
@@ -333,9 +335,42 @@ class FileItem(
                 file.fileType.name,
                 file.extension ?: file.name,
                 file.path,
-                FileDocumentManager.getInstance().getDocument(file)?.lineCount,
+                runReadActionBlocking { FileDocumentManager.getInstance().getDocument(file)?.lineCount },
                 file.length
             )
         }
+    }
+}
+
+class LazyVariables {
+    private val providers = mutableMapOf<String, () -> String>()
+    private val cache = mutableMapOf<String, String>()
+
+    fun put(key: String, value: String) {
+        cache[key] = value
+    }
+
+    fun putLazy(key: String, provider: () -> String) {
+        providers[key] = provider
+    }
+
+    fun resolve(key: String): String? {
+        cache[key]?.let { return it }
+        providers[key]?.let {
+            val value = it()
+            cache[key] = value
+            return value
+        }
+        return null
+    }
+
+    fun replaceIn(template: String): String {
+        var result = template
+        for (key in providers.keys + cache.keys) {
+            if (key in result) {
+                resolve(key)?.let { result = result.replace(key, it) }
+            }
+        }
+        return result
     }
 }
