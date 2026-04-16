@@ -50,7 +50,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install Dev Dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile  --allow-scripts
 
       - name: Build Project
         run: pnpm run build
@@ -90,7 +90,7 @@ jobs:
           path: dist/
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --prod
+        run: pnpm install --frozen-lockfile --prod  --allow-scripts
 
       - name: Start Builder
         run: pnpm run start
