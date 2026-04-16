@@ -27,6 +27,7 @@ on:
       - LICENSE
       - tsconfig.json
       - builder_config.json
+      - .github/workflows/icons.yml
   pull_request:
     paths-ignore:
       - CHANGELOG.md
@@ -38,6 +39,7 @@ on:
       - LICENSE
       - tsconfig.json
       - builder_config.json
+      - .github/workflows/icons.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
