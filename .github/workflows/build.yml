@@ -21,25 +21,23 @@ on:
     paths-ignore:
       - generate
       - package.json
-      - package-lock.json
-      - pnpm-lock.yaml
+      - bun.lock
       - README.md
       - LICENSE
       - tsconfig.json
       - builder_config.json
-      - .github/workflows/icons.yml
+      - build-assets.yml
   pull_request:
     paths-ignore:
       - CHANGELOG.md
       - generate
       - package.json
-      - package-lock.json
-      - pnpm-lock.yaml
+      - bun.lock
       - README.md
       - LICENSE
       - tsconfig.json
       - builder_config.json
-      - .github/workflows/icons.yml
+      - build-assets.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
