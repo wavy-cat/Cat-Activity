@@ -5,20 +5,20 @@ on:
     branches:
       - master
     paths:
-      - 'generate/**'
-      - '.github/workflows/build-assets.yml'
-      - 'builder_config.json'
-      - 'package.json'
-      - 'bun.lock'
-      - 'tsconfig.json'
+      - generate/**
+      - .github/workflows/build-assets.yml
+      - builder.json
+      - package.json
+      - bun.lock
+      - tsconfig.json
   pull_request:
     paths:
-      - 'generate/**'
-      - '.github/workflows/build-assets.yml'
-      - 'builder_config.json'
-      - 'package.json'
-      - 'bun.lock'
-      - 'tsconfig.json'
+      - generate/**
+      - .github/workflows/build-assets.yml
+      - builder.json
+      - package.json
+      - bun.lock
+      - tsconfig.json
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
