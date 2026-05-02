@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - 'generate/**'
-      - 'build-assets.yml'
+      - '.github/workflows/build-assets.yml'
       - 'builder_config.json'
       - 'package.json'
       - 'bun.lock'
@@ -14,7 +14,7 @@ on:
   pull_request:
     paths:
       - 'generate/**'
-      - 'build-assets.yml'
+      - '.github/workflows/build-assets.yml'
       - 'builder_config.json'
       - 'package.json'
       - 'bun.lock'
