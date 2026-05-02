@@ -25,7 +25,8 @@ on:
       - README.md
       - LICENSE
       - tsconfig.json
-      - builder_config.json
+      - builder.json
+      - builder.schema.json
       - .github/workflows/build-assets.yml
   pull_request:
     paths-ignore:
@@ -36,7 +37,8 @@ on:
       - README.md
       - LICENSE
       - tsconfig.json
-      - builder_config.json
+      - builder.json
+      - builder.schema.json
       - .github/workflows/build-assets.yml
 
 concurrency:

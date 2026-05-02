@@ -1,4 +1,5 @@
 {
+  "$schema": "builder.schema.json",
   "renderSettings": {
     "canvasSize": 768,
     "iconSize": 512

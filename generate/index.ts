@@ -1,83 +1,56 @@
-import {type Config, loadConfig} from "./config"
-import {createLogger, format, transports} from "winston"
-import {checker} from "./steps/checker";
-import {builder} from "./steps/builder";
-import {code_generation} from "./steps/code_generation";
+import {loadConfig} from "./config"
+import {config_validator} from "./config_validator";
+import {builder} from "./builder";
+import {code_generation} from "./code_generation";
 import {Command} from "commander";
-
-const logger = createLogger({
-    level: 'info',
-    format: format.combine(
-        format.cli()
-    ),
-    transports: [
-        new transports.Console(),
-    ],
-})
+import Listr from "listr";
+import {cpus} from "node:os";
 
 const program = new Command()
+const logicalCores = cpus().length
 
 program
-    .option('--without-build', 'Do not compile the assemblies', false)
-    .parse()
+  .option('--skip-validation', 'Skips the configuration validation step', false)
+  .option('--skip-build', 'Skip the asset compilation step', false)
+  .option('--skip-generate-code', 'Skips the code generation step', false)
+  .option('--concurrency <number>', 'Number of concurrent icon compilations', parseFloat, logicalCores < 1 ? 1 : logicalCores)
+  .parse()
 
 const options = program.opts()
 
-async function main() {
-    const start = performance.now()
-
-    logger.info("Loading the builder configuration...")
-
-    let config: Config
-    try {
-        config = await loadConfig('builder_config.json')
-    } catch (e) {
-        logger.error(`Error while loading the configuration: ${e}`)
-        process.exit(1)
+const tasks = new Listr([
+  {
+    title: "Validating configuration",
+    skip: () => {
+      if (options.skipValidation) {
+        return "Skipped due to the --skip-validation argument"
+      }
+    },
+    task: async (ctx) => {
+      ctx.config = await loadConfig('builder.json')
+      await config_validator(ctx.config)
     }
+  },
+  {
+    title: "Building assets",
+    skip: () => {
+      if (options.skipBuild) {
+        return "Skipped due to the --skip-build argument"
+      }
+    },
+    task: (ctx) => builder(ctx.config, options.concurrency),
+  },
+  {
+    title: "Generating code",
+    skip: () => {
+      if (options.skipGenerateCode) {
+        return "Skipped due to the --skip-generate-code argument"
+      }
+    },
+    task: async (ctx) => code_generation(ctx.config),
+  }
+])
 
-    logger.info("Configuration successfully loaded!")
-
-    logger.info("[Step 1/3] Configuration check")
-
-    try {
-        await checker(config, logger)
-    } catch (e) {
-        logger.error(`The inspection was unsuccessful: ${e}`)
-        process.exit(1)
-    }
-    logger.info("Checking successfully completed!")
-
-    logger.info("[Step 2/3] Assets Building")
-
-    if (!options.withoutBuild) {
-        let assetsCount: number
-        try {
-            assetsCount = await builder(config)
-        } catch (e) {
-            logger.error(`The building ended unsuccessfully: ${e}`)
-            process.exit(1)
-        }
-
-        logger.info(`Successfully built ${assetsCount} of assets!`)
-    } else {
-        logger.info('The build step was skipped because of the --without-build argument')
-    }
-
-    logger.info("[Step 3/3] Code Generation")
-
-    try {
-        await code_generation(config)
-    } catch (e) {
-        logger.error(`The generation ended unsuccessfully: ${e}`)
-        process.exit(1)
-    }
-
-    logger.info("Code successfully generated!")
-
-    const end = performance.now()
-    const seconds = ((end - start) / 1000).toFixed(2)
-    logger.info(`Builder finished in ${seconds} sec.`)
-}
-
-main().then()
+if (import.meta.main) tasks.run().catch(err => {
+  console.error(err);
+});
