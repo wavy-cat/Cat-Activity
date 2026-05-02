@@ -3,12 +3,10 @@
   "version": "2.0.0",
   "description": "A smart tool for building assets and code generation",
   "main": "generate/index.ts",
+  "private": true,
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "start-without-build": "node dist/index.js --without-build",
-    "dev": "tsx generate/index.ts",
-    "dev-without-build": "tsx generate/index.ts --without-build"
+    "start": "bun run generate/index.ts",
+    "start-without-build": "bun run generate/index.ts --without-build"
   },
   "repository": {
     "type": "git",
@@ -21,9 +19,10 @@
   },
   "homepage": "https://github.com/wavy-cat/Cat-Activity#readme",
   "devDependencies": {
-    "@types/node": "^25.6.0",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   },
   "dependencies": {
     "commander": "^14.0.3",

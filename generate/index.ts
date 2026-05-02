@@ -1,4 +1,4 @@
-import {Config, loadConfig} from "./config"
+import {type Config, loadConfig} from "./config"
 import {createLogger, format, transports} from "winston"
 import {checker} from "./steps/checker";
 import {builder} from "./steps/builder";
