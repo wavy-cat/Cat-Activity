@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "bun run generate/index.ts",
-    "start-without-build": "bun run generate/index.ts --without-build"
+    "start-skip-build": "bun run generate/index.ts --skip-build"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,10 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/listr": "^0.14.10",
     "commander": "^14.0.3",
+    "listr": "^0.14.3",
     "sharp": "^0.34.5",
-    "winston": "^3.19.0",
     "zod": "^4.4.2"
   }
 }
