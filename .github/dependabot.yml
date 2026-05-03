@@ -13,8 +13,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-  # Maintain dependencies for Node.js dependencies
-  - package-ecosystem: "npm"
+  # Maintain dependencies for Bun dependencies
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "monthly"
