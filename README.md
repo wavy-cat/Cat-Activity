@@ -6,9 +6,7 @@
 
 ![Header](.github/assets/header.png)
 
-<!-- Plugin description -->
-Plugin for JetBrains IDE to show your activity in your Discord profile using Catppuccin Icons.
-<!-- Plugin description end -->
+Plugin for JetBrains IDE to show your coding activity in your Discord profile using Catppuccin Icons.
 
 ## Installation
 

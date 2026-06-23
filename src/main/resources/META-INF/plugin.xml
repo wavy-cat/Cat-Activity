@@ -2,7 +2,8 @@
 <idea-plugin url="https://github.com/wavy-cat/cat-activity">
     <id>cat.wavy.catactivity</id>
     <name>Cat Activity</name>
-    <vendor email="me@wavycat.ru" url="https://wavycat.ru">WavyCat</vendor>
+    <vendor email="wavycatter@proton.me" url="https://wavycat.me">WavyCat</vendor>
+    <description>Show your coding activity in your Discord profile with Catppuccin Icons.</description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
