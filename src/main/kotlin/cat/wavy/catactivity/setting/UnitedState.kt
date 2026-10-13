@@ -5,6 +5,7 @@ data class UnitedState(
     var details: Details,
     var theme: Theme,
     var ideIcon: IDEIcon,
+    var iconsUrl: String,
     var showRepositoryButton: Boolean,
 
     var projectStateFormat: String,
@@ -23,6 +24,7 @@ data class UnitedState(
         details = projectState.details,
         theme = resolveTheme(projectState.theme, defaultsState.theme),
         ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon),
+        iconsUrl = defaultsState.iconsUrl,
         showRepositoryButton = projectState.showRepositoryButton,
         projectStateFormat = projectState.projectStateFormat.ifBlank { defaultsState.projectStateFormat },
         projectDetailFormat = projectState.projectDetailFormat.ifBlank { defaultsState.projectDetailFormat },

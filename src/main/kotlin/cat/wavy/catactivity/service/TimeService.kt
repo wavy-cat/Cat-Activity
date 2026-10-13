@@ -14,7 +14,6 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.GitUtil
-import cat.wavy.catactivity.ICONS_URL
 import cat.wavy.catactivity.action.alert.reloadAlert
 import cat.wavy.catactivity.action.alert.welcomeAlert
 import cat.wavy.catactivity.render.ActivityWrapper
@@ -149,8 +148,8 @@ class TimeService : Disposable {
                                 state = configState.idleStateFormat.replaceVariables(variables),
                                 details = configState.idleDetailFormat.ifBlank { null }?.replaceVariables(variables),
                                 startTimestamp = startIdleTimestamp
-                            ).applyIDEInfo(configState.ideIcon, configState.theme)
-                                .applyFileInfo(configState.ideIcon, configState.theme)
+                            ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
+                                .applyFileInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
 
                             activityWrapper.let {
                                 activityRender.updateActivity(it)
@@ -180,8 +179,8 @@ class TimeService : Disposable {
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo(configState.ideIcon, configState.theme)
-                            .applyFileInfo(configState.ideIcon, configState.theme)
+                        ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
+                            .applyFileInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
 
                         if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
                             activityWrapper.applyRepoButton(gitRemotes[0])
@@ -193,7 +192,7 @@ class TimeService : Disposable {
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo(configState.ideIcon, configState.theme)
+                        ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
 
                         if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
                             activityWrapper.applyRepoButton(gitRemotes[0])
@@ -204,7 +203,7 @@ class TimeService : Disposable {
                         activityWrapper = ActivityWrapper(
                             state = ApplicationInfoEx.getInstanceEx().fullApplicationName,
                             startTimestamp = startTime,
-                        ).applyIDEInfo(configState.ideIcon, configState.theme)
+                        ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
                     }
                 }
 
@@ -234,14 +233,6 @@ class TimeService : Disposable {
         }
     }
 
-    private fun getLangIconUrl(icon: String, theme: Theme): String = "$ICONS_URL/${theme.name}/$icon.webp"
-
-    private fun getIDEIconUrl(ideIcon: IDEIcon, theme: Theme): String = when (ideIcon) {
-        IDEIcon.New -> "$ICONS_URL/IDE/new/${theme.name}/${currentIDEType.icon}.webp"
-        IDEIcon.Old -> "$ICONS_URL/IDE/${theme.name}/${currentIDEType.icon}.webp"
-        IDEIcon.JetBrains -> "$ICONS_URL/IDE/${theme.name}/jetbrains.webp"
-        IDEIcon.CatActivity -> "$ICONS_URL/IDE/${theme.name}/cat_activity.webp"
-    }
 
     private fun convertGitRepositoryUrl(url: String): String? {
         return try {
@@ -270,24 +261,34 @@ class TimeService : Disposable {
         return this
     }
 
-    private fun ActivityWrapper.applyIDEInfo(ideIcon: IDEIcon, theme: Theme): ActivityWrapper {
-        largeImageKey = getIDEIconUrl(ideIcon, theme)
+    private fun ActivityWrapper.applyIDEInfo(ideIcon: IDEIcon, theme: Theme, iconsUrl: String): ActivityWrapper {
+        largeImageKey = buildIDEIconUrl(ideIcon, theme, iconsUrl)
         largeImageText = ideIcon.app.title
         return this
     }
 
-    private fun ActivityWrapper.applyFileInfo(ideIcon: IDEIcon, theme: Theme): ActivityWrapper {
+    private fun ActivityWrapper.applyFileInfo(ideIcon: IDEIcon, theme: Theme, iconsUrl: String): ActivityWrapper {
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.fileName, it.extension)
-            smallImageKey = getIDEIconUrl(ideIcon, theme)
+            smallImageKey = buildIDEIconUrl(ideIcon, theme, iconsUrl)
             smallImageText = largeImageText // swap
-            largeImageKey = getLangIconUrl(type.icon, theme)
+            largeImageKey = buildLangIconUrl(type.icon, theme, iconsUrl)
             largeImageText = type.typeName
         }
         return this
     }
 
     override fun dispose() {}
+}
+
+internal fun buildLangIconUrl(icon: String, theme: Theme, iconsUrl: String): String =
+    "$iconsUrl/${theme.name}/$icon.webp"
+
+internal fun buildIDEIconUrl(ideIcon: IDEIcon, theme: Theme, iconsUrl: String): String = when (ideIcon) {
+    IDEIcon.New -> "$iconsUrl/IDE/new/${theme.name}/${currentIDEType.icon}.webp"
+    IDEIcon.Old -> "$iconsUrl/IDE/${theme.name}/${currentIDEType.icon}.webp"
+    IDEIcon.JetBrains -> "$iconsUrl/IDE/${theme.name}/jetbrains.webp"
+    IDEIcon.CatActivity -> "$iconsUrl/IDE/${theme.name}/cat_activity.webp"
 }
 
 sealed class TimedItem(
@@ -345,3 +346,4 @@ class FileItem(
         }
     }
 }
+

@@ -1,18 +1,22 @@
 package cat.wavy.catactivity.setting
 
 import cat.wavy.catactivity.bundle.ConfigBundle
+import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.components.service
 import com.intellij.openapi.options.Configurable
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
+import com.intellij.ui.layout.selectedValueMatches
 import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
 import javax.swing.JComponent
 
 class DefaultsConfigurable : Configurable {
     private val panel = panel {
         val state = service<CatActivitySettingAppState>().state
+        var customServerSelector: ComboBox<Boolean>? = null
 
         group(ConfigBundle.message("display")) {
             row(ConfigBundle.message("theme")) {
@@ -26,6 +30,36 @@ class DefaultsConfigurable : Configurable {
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }
+
+            row(ConfigBundle.message("iconsServer")) {
+                comboBox(items = listOf(false, true))
+                    .applyToComponent {
+                        customServerSelector = this
+                        renderer = textListCellRenderer("") {
+                            ConfigBundle.message(if (it) "customServer" else "defaultServer")
+                        }
+                    }
+                    .bindItem(state::useCustomIconsServer.toNullableProperty())
+            }
+
+            row(ConfigBundle.message("customServerUrl")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customIconsUrl)
+                    .enabledIf(customServerSelector!!.selectedValueMatches { it == true })
+                    .validationOnApply {
+                        if (state.useCustomIconsServer && normalizeUrl(state.customIconsUrl) == null) {
+                            error(ConfigBundle.message("invalidIconsServerUrl"))
+                        } else null
+                    }
+
+                contextHelp(ConfigBundle.message("iconsServerHelp"))
+            }.visibleIf(customServerSelector!!.selectedValueMatches { it == true })
+
+            row {
+                link(ConfigBundle.message("selfHostingAssetsLink")) {
+                    BrowserUtil.browse("https://github.com/wavy-cat/cat-Activity#Self-hosting-assets")
+                }
+            }.visibleIf(customServerSelector.selectedValueMatches { it == true })
         }
 
         group(ConfigBundle.message("formatProject")) {

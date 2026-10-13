@@ -46,3 +46,13 @@ JetBrains Gateway, JetBrains Client, and Code With Me Guest are not supported.
 If you want to suggest an icon set that is not yet included in the plugin (currently only Catppuccin), create a feature request in the Issues section.
 
 Your icon set should preferably have a repository with pairs of the form “file extension (language, full file name) - icon,” for example, as a plugin for another code editor (see the example in the [Catppuccin repository](https://github.com/catppuccin/vscode-icons/blob/main/src/defaults/fileIcons.ts)).
+
+## Self-hosting assets
+
+The asset server stores static images of language and IDE icons.
+
+The plugin **will never send requests to the asset server**. Only Discord does this, through its bot (Discordbot), on demand: when a Discord user requests an image that isn’t in the cache. Therefore, self-hosting the asset server does not improve your privacy. The only reasonable use case is if the official server becomes unavailable for some reason.
+
+If you still want to self-host the assets, you’ll need to build them yourself using the asset builder (`bun run start`) and publish the built assets from the `assets-dist` directory to your HTTP(S) server. You’ll also need to keep them up to date whenever the repository’s `generate` directory or `builder.json` file changes.
+
+You can specify the URL of your custom asset server in the plugin settings under **Override defaults**.
