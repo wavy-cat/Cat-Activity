@@ -7,8 +7,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.ui.dsl.builder.*
 import cat.wavy.catactivity.service.TimeService
 import com.intellij.openapi.ui.ComboBox
-import com.intellij.ui.SimpleListCellRenderer
 import com.intellij.ui.components.JBCheckBox
+import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
 import com.intellij.ui.layout.selected
 import com.intellij.ui.layout.selectedValueIs
 import com.intellij.ui.layout.selectedValueMatches
@@ -53,7 +53,7 @@ class ProjectConfigurable(
             row(ConfigBundle.message("ideIcons")) {
                 comboBox(items = IDEIconDefaultable.entries)
                     .applyToComponent {
-                        renderer = SimpleListCellRenderer.create { label, icon, _ -> label.text = icon.displayName }
+                        renderer = textListCellRenderer("") { it.displayName }
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }

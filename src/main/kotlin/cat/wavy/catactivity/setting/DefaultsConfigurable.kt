@@ -7,7 +7,7 @@ import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
 import com.intellij.ui.layout.enteredTextSatisfies
-import com.intellij.ui.SimpleListCellRenderer
+import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
 import javax.swing.JComponent
 
 class DefaultsConfigurable : Configurable {
@@ -22,7 +22,7 @@ class DefaultsConfigurable : Configurable {
             row(ConfigBundle.message("ideIcons")) {
                 comboBox(items = IDEIcon.entries)
                     .applyToComponent {
-                        renderer = SimpleListCellRenderer.create { label, icon, _ -> label.text = icon.displayName }
+                        renderer = textListCellRenderer("") { it.displayName }
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }

@@ -34,12 +34,13 @@ import com.intellij.openapi.diagnostic.thisLogger
 import git4idea.repo.GitRemote
 import org.jetbrains.concurrency.runAsync
 import java.lang.ref.WeakReference
+import java.time.Duration
 
 @Service(Service.Level.PROJECT)
 class TimeService : Disposable {
     private val startTime = System.currentTimeMillis()
     private var timeTracker = CacheBuilder.newBuilder()
-        .expireAfterAccess(24, java.util.concurrent.TimeUnit.HOURS)
+        .expireAfterAccess(Duration.ofHours(24))
         .maximumSize(128)
         .build<String, Long>()
     private var startIdleTimestamp = System.currentTimeMillis()
