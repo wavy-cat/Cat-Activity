@@ -12,7 +12,11 @@
 
 ### Changed
 
-- Replaced deprecated IDEA's APIs with modern ones.
+- Replaced deprecated IDEA's APIs with modern ones in 2026.2.
+
+### Removed
+
+- Dropped support for IDE versions below 2026.2.
 
 ### Security
 
