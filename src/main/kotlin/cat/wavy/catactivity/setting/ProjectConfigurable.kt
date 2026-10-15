@@ -1,6 +1,7 @@
 package cat.wavy.catactivity.setting
 
 import cat.wavy.catactivity.bundle.ConfigBundle
+import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.components.service
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
@@ -9,6 +10,7 @@ import cat.wavy.catactivity.service.TimeService
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
+import com.intellij.ui.layout.and
 import com.intellij.ui.layout.selected
 import com.intellij.ui.layout.selectedValueIs
 import com.intellij.ui.layout.selectedValueMatches
@@ -19,9 +21,12 @@ class ProjectConfigurable(
 ) : Configurable {
     private val panel = panel {
         val state = project.service<CatActivitySettingProjectState>().state
+        val defaults = service<CatActivitySettingAppState>().state
 
         var enableCheck: JBCheckBox? = null
         var displayCombo: ComboBox<Details>? = null
+        var ideIconSelector: ComboBox<IDEIconDefaultable>? = null
+        var iconVariantSelector: ComboBox<IDEIconDefaultable>? = null
 
         row {
             checkBox(ConfigBundle.message("enablePlugin")).bindSelected(state::isEnabled)
@@ -53,10 +58,71 @@ class ProjectConfigurable(
             row(ConfigBundle.message("ideIcons")) {
                 comboBox(items = IDEIconDefaultable.entries)
                     .applyToComponent {
+                        ideIconSelector = this
                         renderer = textListCellRenderer("") { it.displayName }
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }
+
+            val isCustomApplication = ideIconSelector!!.selectedValueMatches { it == IDEIconDefaultable.Custom }
+
+            row(ConfigBundle.message("customApplicationId")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customApplicationId)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
+                    .validationOnApply {
+                        val effectiveId = state.customApplicationId.ifBlank { defaults.customApplicationId }
+                        if (state.ideIcon == IDEIconDefaultable.Custom && !isValidApplicationId(effectiveId)) {
+                            error(ConfigBundle.message("invalidApplicationId"))
+                        } else null
+                    }
+
+                contextHelp(ConfigBundle.message("customApplicationHelp"))
+            }.visibleIf(isCustomApplication)
+
+            row {
+                link(ConfigBundle.message("createApplicationLink")) {
+                    BrowserUtil.browse("https://discord.com/developers/applications")
+                }
+            }.visibleIf(isCustomApplication)
+
+            row(ConfigBundle.message("customApplicationTitle")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customApplicationTitle)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
+                    .validationOnApply {
+                        val effectiveTitle = state.customApplicationTitle.ifBlank { defaults.customApplicationTitle }
+                        if (state.ideIcon == IDEIconDefaultable.Custom && effectiveTitle.isBlank()) {
+                            error(ConfigBundle.message("emptyApplicationTitle"))
+                        } else null
+                    }
+
+                contextHelp(ConfigBundle.message("customApplicationTitleHelp"))
+            }.visibleIf(isCustomApplication)
+
+            row(ConfigBundle.message("customIconVariant")) {
+                comboBox(items = IDEIconDefaultable.entries)
+                    .applyToComponent {
+                        iconVariantSelector = this
+                        renderer = textListCellRenderer("") { it.displayName }
+                    }
+                    .bindItem(state::customIconVariant.toNullableProperty())
+            }.visibleIf(isCustomApplication)
+
+            row(ConfigBundle.message("customIconUrl")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customIconUrl)
+                    .applyToComponent { emptyText.text = ConfigBundle.message("leaveBlankDefaultValue") }
+                    .validationOnApply {
+                        val effectiveVariant = UnitedState.resolveIconVariant(state.customIconVariant, defaults.customIconVariant)
+                        val effectiveUrl = state.customIconUrl.ifBlank { defaults.customIconUrl }
+                        if (state.ideIcon == IDEIconDefaultable.Custom && effectiveVariant == IDEIcon.Custom &&
+                            normalizeIconUrl(effectiveUrl) == null
+                        ) {
+                            error(ConfigBundle.message("invalidCustomIconUrl"))
+                        } else null
+                    }
+            }.visibleIf(isCustomApplication and iconVariantSelector!!.selectedValueMatches { it == IDEIconDefaultable.Custom })
         }.enabledIf(enableCheck.selected)
 
         group(ConfigBundle.message("formatProject")) {

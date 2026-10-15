@@ -8,6 +8,10 @@ data class ProjectState(
     var details: Details = Details.IDE,
     var theme: ThemeDefaultable = ThemeDefaultable.Default,
     var ideIcon: IDEIconDefaultable = IDEIconDefaultable.Default,
+    var customApplicationId: String = "",
+    var customApplicationTitle: String = "",
+    var customIconVariant: IDEIconDefaultable = IDEIconDefaultable.Default,
+    var customIconUrl: String = "",
     var showRepositoryButton: Boolean = false,
 
     var projectStateFormat: String = "",
@@ -42,4 +46,5 @@ enum class IDEIconDefaultable(val displayName: String, val app: IDEType?) {
     Old("${currentIDEType.title} (Old)", currentIDEType),
     JetBrains("JetBrains", IDEType.JETBRAINS),
     CatActivity("Cat Activity", IDEType.CATACTIVITY),
+    Custom("Custom", null),
 }

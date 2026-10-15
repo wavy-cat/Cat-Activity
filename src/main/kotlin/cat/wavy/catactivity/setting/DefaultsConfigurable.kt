@@ -1,13 +1,16 @@
 package cat.wavy.catactivity.setting
 
 import cat.wavy.catactivity.bundle.ConfigBundle
+import cat.wavy.catactivity.service.TimeService
 import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.components.service
 import com.intellij.openapi.options.Configurable
+import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.dsl.builder.*
+import com.intellij.ui.layout.and
 import com.intellij.ui.layout.enteredTextSatisfies
 import com.intellij.ui.layout.selectedValueMatches
 import com.intellij.ui.dsl.listCellRenderer.textListCellRenderer
@@ -17,6 +20,8 @@ class DefaultsConfigurable : Configurable {
     private val panel = panel {
         val state = service<CatActivitySettingAppState>().state
         var customServerSelector: ComboBox<Boolean>? = null
+        var ideIconSelector: ComboBox<IDEIcon>? = null
+        var iconVariantSelector: ComboBox<IDEIcon>? = null
 
         group(ConfigBundle.message("display")) {
             row(ConfigBundle.message("theme")) {
@@ -26,10 +31,64 @@ class DefaultsConfigurable : Configurable {
             row(ConfigBundle.message("ideIcons")) {
                 comboBox(items = IDEIcon.entries)
                     .applyToComponent {
+                        ideIconSelector = this
                         renderer = textListCellRenderer("") { it.displayName }
                     }
                     .bindItem(state::ideIcon.toNullableProperty())
             }
+
+            val isCustomApplication = ideIconSelector!!.selectedValueMatches { it == IDEIcon.Custom }
+
+            row(ConfigBundle.message("customApplicationId")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customApplicationId)
+                    .validationOnApply {
+                        if (state.ideIcon == IDEIcon.Custom && !isValidApplicationId(state.customApplicationId)) {
+                            error(ConfigBundle.message("invalidApplicationId"))
+                        } else null
+                    }
+
+                contextHelp(ConfigBundle.message("customApplicationHelp"))
+            }.visibleIf(isCustomApplication)
+
+            row {
+                link(ConfigBundle.message("createApplicationLink")) {
+                    BrowserUtil.browse("https://discord.com/developers/applications")
+                }
+            }.visibleIf(isCustomApplication)
+
+            row(ConfigBundle.message("customApplicationTitle")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customApplicationTitle)
+                    .validationOnApply {
+                        if (state.ideIcon == IDEIcon.Custom && state.customApplicationTitle.isBlank()) {
+                            error(ConfigBundle.message("emptyApplicationTitle"))
+                        } else null
+                    }
+
+                contextHelp(ConfigBundle.message("customApplicationTitleHelp"))
+            }.visibleIf(isCustomApplication)
+
+            row(ConfigBundle.message("customIconVariant")) {
+                comboBox(items = IDEIcon.entries)
+                    .applyToComponent {
+                        iconVariantSelector = this
+                        renderer = textListCellRenderer("") { it.displayName }
+                    }
+                    .bindItem(state::customIconVariant.toNullableProperty())
+            }.visibleIf(isCustomApplication)
+
+            row(ConfigBundle.message("customIconUrl")) {
+                textField().columns(COLUMNS_LARGE)
+                    .bindText(state::customIconUrl)
+                    .validationOnApply {
+                        if (state.ideIcon == IDEIcon.Custom && state.customIconVariant == IDEIcon.Custom &&
+                            normalizeIconUrl(state.customIconUrl) == null
+                        ) {
+                            error(ConfigBundle.message("invalidCustomIconUrl"))
+                        } else null
+                    }
+            }.visibleIf(isCustomApplication and iconVariantSelector!!.selectedValueMatches { it == IDEIcon.Custom })
 
             row(ConfigBundle.message("iconsServer")) {
                 comboBox(items = listOf(false, true))
@@ -151,7 +210,11 @@ class DefaultsConfigurable : Configurable {
 
     override fun isModified(): Boolean = panel.isModified()
 
-    override fun apply() = panel.apply()
+    override fun apply() = panel.apply().also {
+        ProjectManager.getInstance().openProjects
+            .filter { !it.isDefault }
+            .forEach { project -> project.service<TimeService>().render(project) }
+    }
 
     override fun reset() = panel.reset()
 

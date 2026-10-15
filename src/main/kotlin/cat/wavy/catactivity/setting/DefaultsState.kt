@@ -8,6 +8,10 @@ import java.net.URI
 data class DefaultsState(
     var theme: Theme = Theme.Macchiato,
     var ideIcon: IDEIcon = IDEIcon.New,
+    var customApplicationId: String = "",
+    var customApplicationTitle: String = "",
+    var customIconVariant: IDEIcon = IDEIcon.New,
+    var customIconUrl: String = "",
     var useCustomIconsServer: Boolean = false,
     var customIconsUrl: String = "",
 
@@ -38,6 +42,28 @@ internal fun normalizeUrl(value: String): String? {
     }.getOrNull()
 }
 
+internal fun parseApplicationId(value: String): Long? {
+    val trimmed = value.trim()
+    if (!trimmed.matches(Regex("^\\d{17,20}$"))) return null
+    return trimmed.toLongOrNull()
+}
+
+internal fun isValidApplicationId(value: String): Boolean = parseApplicationId(value) != null
+
+internal fun normalizeIconUrl(value: String): String? {
+    val trimmed = value.trim()
+    if (trimmed.isEmpty()) return null
+
+    return runCatching {
+        val uri = URI(trimmed)
+        if (!uri.isAbsolute || uri.host.isNullOrBlank() || uri.rawUserInfo != null ||
+            uri.rawFragment != null ||
+            !uri.scheme.equals("http", ignoreCase = true) && !uri.scheme.equals("https", ignoreCase = true)
+        ) return null
+        uri.toASCIIString()
+    }.getOrNull()
+}
+
 enum class Theme {
     Frappe,
     Latte,
@@ -45,10 +71,10 @@ enum class Theme {
     Mocha,
 }
 
-enum class IDEIcon(val displayName: String, val app: IDEType) {
+enum class IDEIcon(val displayName: String, val app: IDEType?) {
     New("${currentIDEType.title} (New)", currentIDEType),
     Old("${currentIDEType.title} (Old)", currentIDEType),
     JetBrains("JetBrains", IDEType.JETBRAINS),
     CatActivity("Cat Activity", IDEType.CATACTIVITY),
+    Custom("Custom", null),
 }
-
