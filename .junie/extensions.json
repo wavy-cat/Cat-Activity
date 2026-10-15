@@ -1,0 +1,13 @@
+{
+    "github-JetBrains-junie-extensions": {
+        "url": "https://github.com/JetBrains/junie-extensions",
+        "extensions": [
+            "context7",
+            "kotlin-engineer"
+        ],
+        "source": {
+            "type": "git",
+            "url": "https://github.com/JetBrains/junie-extensions"
+        }
+    }
+}
