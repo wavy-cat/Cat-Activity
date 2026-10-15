@@ -1,10 +1,15 @@
 package cat.wavy.catactivity.setting
 
+import cat.wavy.catactivity.types.currentIDEType
+
 data class UnitedState(
     var isEnabled: Boolean,
     var details: Details,
     var theme: Theme,
-    var ideIcon: IDEIcon,
+    var applicationId: Long,
+    var applicationTitle: String,
+    var iconVariant: IDEIcon,
+    var customIconUrl: String?,
     var iconsUrl: String,
     var showRepositoryButton: Boolean,
 
@@ -23,7 +28,10 @@ data class UnitedState(
         isEnabled = projectState.isEnabled,
         details = projectState.details,
         theme = resolveTheme(projectState.theme, defaultsState.theme),
-        ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon),
+        applicationId = resolveApplicationId(projectState, defaultsState),
+        applicationTitle = resolveApplicationTitle(projectState, defaultsState),
+        iconVariant = resolveIconVariant(projectState, defaultsState),
+        customIconUrl = resolveCustomIconUrl(projectState, defaultsState),
         iconsUrl = defaultsState.iconsUrl,
         showRepositoryButton = projectState.showRepositoryButton,
         projectStateFormat = projectState.projectStateFormat.ifBlank { defaultsState.projectStateFormat },
@@ -46,14 +54,66 @@ data class UnitedState(
             }
         }
 
-        private fun resolveIDEIcon(settingIcon: IDEIconDefaultable, defaultIcon: IDEIcon): IDEIcon {
+        internal fun resolveIDEIcon(settingIcon: IDEIconDefaultable, defaultIcon: IDEIcon): IDEIcon {
             return when (settingIcon) {
                 IDEIconDefaultable.Default -> defaultIcon
                 IDEIconDefaultable.New -> IDEIcon.New
                 IDEIconDefaultable.Old -> IDEIcon.Old
                 IDEIconDefaultable.JetBrains -> IDEIcon.JetBrains
                 IDEIconDefaultable.CatActivity -> IDEIcon.CatActivity
+                IDEIconDefaultable.Custom -> IDEIcon.Custom
             }
+        }
+
+        internal fun resolveIconVariant(settingVariant: IDEIconDefaultable, defaultVariant: IDEIcon): IDEIcon {
+            return when (settingVariant) {
+                IDEIconDefaultable.Default -> defaultVariant
+                IDEIconDefaultable.New -> IDEIcon.New
+                IDEIconDefaultable.Old -> IDEIcon.Old
+                IDEIconDefaultable.JetBrains -> IDEIcon.JetBrains
+                IDEIconDefaultable.CatActivity -> IDEIcon.CatActivity
+                IDEIconDefaultable.Custom -> IDEIcon.Custom
+            }
+        }
+
+        internal fun resolveApplicationId(projectState: ProjectState, defaultsState: DefaultsState): Long {
+            val ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon)
+            if (ideIcon != IDEIcon.Custom) {
+                return ideIcon.app?.applicationId ?: currentIDEType.applicationId
+            }
+            val raw = projectState.customApplicationId.ifBlank { defaultsState.customApplicationId }
+            return parseApplicationId(raw) ?: currentIDEType.applicationId
+        }
+
+        internal fun resolveApplicationTitle(projectState: ProjectState, defaultsState: DefaultsState): String {
+            val ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon)
+            if (ideIcon != IDEIcon.Custom) {
+                return ideIcon.app?.title ?: currentIDEType.title
+            }
+            return projectState.customApplicationTitle.ifBlank { defaultsState.customApplicationTitle }
+                .ifBlank { currentIDEType.title }
+        }
+
+        internal fun resolveIconVariant(projectState: ProjectState, defaultsState: DefaultsState): IDEIcon {
+            val ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon)
+            if (ideIcon != IDEIcon.Custom) return ideIcon
+
+            val variant = resolveIconVariant(projectState.customIconVariant, defaultsState.customIconVariant)
+            if (variant == IDEIcon.Custom && resolveCustomIconUrl(projectState, defaultsState) == null) {
+                return IDEIcon.New
+            }
+            return variant
+        }
+
+        internal fun resolveCustomIconUrl(projectState: ProjectState, defaultsState: DefaultsState): String? {
+            val ideIcon = resolveIDEIcon(projectState.ideIcon, defaultsState.ideIcon)
+            if (ideIcon != IDEIcon.Custom) return null
+
+            val variant = resolveIconVariant(projectState.customIconVariant, defaultsState.customIconVariant)
+            if (variant != IDEIcon.Custom) return null
+
+            val raw = projectState.customIconUrl.ifBlank { defaultsState.customIconUrl }
+            return normalizeIconUrl(raw)
         }
     }
 }

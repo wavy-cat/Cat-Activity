@@ -148,8 +148,8 @@ class TimeService : Disposable {
                                 state = configState.idleStateFormat.replaceVariables(variables),
                                 details = configState.idleDetailFormat.ifBlank { null }?.replaceVariables(variables),
                                 startTimestamp = startIdleTimestamp
-                            ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
-                                .applyFileInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
+                            ).applyIDEInfo(configState)
+                                .applyFileInfo(configState)
 
                             activityWrapper.let {
                                 activityRender.updateActivity(it)
@@ -179,8 +179,8 @@ class TimeService : Disposable {
                             state = configState.fileStateFormat.replaceVariables(variables),
                             details = configState.fileDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingFile?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
-                            .applyFileInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
+                        ).applyIDEInfo(configState)
+                            .applyFileInfo(configState)
 
                         if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
                             activityWrapper.applyRepoButton(gitRemotes[0])
@@ -192,7 +192,7 @@ class TimeService : Disposable {
                             state = configState.projectStateFormat.replaceVariables(variables),
                             details = configState.projectDetailFormat.ifBlank { null }?.replaceVariables(variables),
                             startTimestamp = editingProject?.key?.let { timeTracker.getIfPresent(it) },
-                        ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
+                        ).applyIDEInfo(configState)
 
                         if (configState.showRepositoryButton && !gitRemotes.isNullOrEmpty()) {
                             activityWrapper.applyRepoButton(gitRemotes[0])
@@ -203,14 +203,14 @@ class TimeService : Disposable {
                         activityWrapper = ActivityWrapper(
                             state = ApplicationInfoEx.getInstanceEx().fullApplicationName,
                             startTimestamp = startTime,
-                        ).applyIDEInfo(configState.ideIcon, configState.theme, configState.iconsUrl)
+                        ).applyIDEInfo(configState)
                     }
                 }
 
                 thisLogger().info("Rendering file: ${activityWrapper.details}")
 
-                if (activityRender.clientID != configState.ideIcon.app.applicationId) activityRender.apply {
-                    clientID = configState.ideIcon.app.applicationId
+                if (activityRender.clientID != configState.applicationId) activityRender.apply {
+                    clientID = configState.applicationId
                     project.service<ActivityNotificationService>().ignoreReloadAlert.set(false)
                     reinit(false)
                 }
@@ -261,18 +261,18 @@ class TimeService : Disposable {
         return this
     }
 
-    private fun ActivityWrapper.applyIDEInfo(ideIcon: IDEIcon, theme: Theme, iconsUrl: String): ActivityWrapper {
-        largeImageKey = buildIDEIconUrl(ideIcon, theme, iconsUrl)
-        largeImageText = ideIcon.app.title
+    private fun ActivityWrapper.applyIDEInfo(configState: UnitedState): ActivityWrapper {
+        largeImageKey = buildIDEIconUrl(configState.iconVariant, configState.customIconUrl, configState.theme, configState.iconsUrl)
+        largeImageText = configState.applicationTitle
         return this
     }
 
-    private fun ActivityWrapper.applyFileInfo(ideIcon: IDEIcon, theme: Theme, iconsUrl: String): ActivityWrapper {
+    private fun ActivityWrapper.applyFileInfo(configState: UnitedState): ActivityWrapper {
         editingFile?.let {
             val type = getFileTypeByName(it.type, it.fileName, it.extension)
-            smallImageKey = buildIDEIconUrl(ideIcon, theme, iconsUrl)
+            smallImageKey = buildIDEIconUrl(configState.iconVariant, configState.customIconUrl, configState.theme, configState.iconsUrl)
             smallImageText = largeImageText // swap
-            largeImageKey = buildLangIconUrl(type.icon, theme, iconsUrl)
+            largeImageKey = buildLangIconUrl(type.icon, configState.theme, configState.iconsUrl)
             largeImageText = type.typeName
         }
         return this
@@ -284,11 +284,12 @@ class TimeService : Disposable {
 internal fun buildLangIconUrl(icon: String, theme: Theme, iconsUrl: String): String =
     "$iconsUrl/${theme.name}/$icon.webp"
 
-internal fun buildIDEIconUrl(ideIcon: IDEIcon, theme: Theme, iconsUrl: String): String = when (ideIcon) {
+internal fun buildIDEIconUrl(iconVariant: IDEIcon, customIconUrl: String?, theme: Theme, iconsUrl: String): String = when (iconVariant) {
     IDEIcon.New -> "$iconsUrl/IDE/new/${theme.name}/${currentIDEType.icon}.webp"
     IDEIcon.Old -> "$iconsUrl/IDE/${theme.name}/${currentIDEType.icon}.webp"
     IDEIcon.JetBrains -> "$iconsUrl/IDE/${theme.name}/jetbrains.webp"
     IDEIcon.CatActivity -> "$iconsUrl/IDE/${theme.name}/cat_activity.webp"
+    IDEIcon.Custom -> customIconUrl ?: "$iconsUrl/IDE/${theme.name}/cat_activity.webp"
 }
 
 sealed class TimedItem(
