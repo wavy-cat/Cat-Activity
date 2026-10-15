@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added the ability to specify a custom asset server.
+- Added the ability to specify a custom Application ID (#165).
+- Added the ability to specify a custom App icon.
+
+### Changed
+
+- Replaced deprecated IDEA's APIs with modern ones.
+
+### Security
+
+- Updated dependencies.
+
 ## [2.6.0] - 2026-04-11
 
 ### Changed
