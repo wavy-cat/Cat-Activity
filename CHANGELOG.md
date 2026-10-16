@@ -7,7 +7,7 @@
 ### Added
 
 - Added the ability to specify a custom asset server.
-- Added the ability to specify a custom Application ID (#165).
+- Added the ability to specify a custom Application ID (#161).
 - Added the ability to specify a custom App icon.
 
 ### Changed
