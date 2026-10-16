@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [2.7.0] - 2026-10-16
+
 ### Added
 
 - Added the ability to specify a custom asset server.
@@ -150,15 +152,16 @@
 
 - Dropped support for IDE versions below 2024.2
 
-[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/2.6.0...HEAD
-[2.6.0]: https://github.com/wavy-cat/Cat-Activity/compare/2.5.3...2.6.0
-[2.5.3]: https://github.com/wavy-cat/Cat-Activity/compare/2.5.2...2.5.3
-[2.5.2]: https://github.com/wavy-cat/Cat-Activity/compare/2.5.1...2.5.2
-[2.5.1]: https://github.com/wavy-cat/Cat-Activity/compare/2.5.0...2.5.1
-[2.5.0]: https://github.com/wavy-cat/Cat-Activity/compare/2.4.0...2.5.0
-[2.4.0]: https://github.com/wavy-cat/Cat-Activity/compare/2.3.0...2.4.0
-[2.3.0]: https://github.com/wavy-cat/Cat-Activity/compare/2.2.1...2.3.0
-[2.2.1]: https://github.com/wavy-cat/Cat-Activity/compare/2.2.0...2.2.1
-[2.2.0]: https://github.com/wavy-cat/Cat-Activity/compare/2.1.0...2.2.0
-[2.1.0]: https://github.com/wavy-cat/Cat-Activity/compare/2.0.0...2.1.0
-[2.0.0]: https://github.com/wavy-cat/Cat-Activity/commits/2.0.0
+[Unreleased]: https://github.com/wavy-cat/Cat-Activity/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.6.0...v2.7.0
+[2.6.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.5.3...v2.6.0
+[2.5.3]: https://github.com/wavy-cat/Cat-Activity/compare/v2.5.2...v2.5.3
+[2.5.2]: https://github.com/wavy-cat/Cat-Activity/compare/v2.5.1...v2.5.2
+[2.5.1]: https://github.com/wavy-cat/Cat-Activity/compare/v2.5.0...v2.5.1
+[2.5.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.4.0...v2.5.0
+[2.4.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.3.0...v2.4.0
+[2.3.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.2.1...v2.3.0
+[2.2.1]: https://github.com/wavy-cat/Cat-Activity/compare/v2.2.0...v2.2.1
+[2.2.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/wavy-cat/Cat-Activity/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/wavy-cat/Cat-Activity/commits/v2.0.0
